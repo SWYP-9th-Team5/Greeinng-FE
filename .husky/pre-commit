@@ -1,0 +1,14 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+pnpm run lint
+echo '🔥Check lint🔥'
+
+echo '🌈 Run formatter...'
+pnpm format
+
+echo '🌀 Re-staging formatted files...'
+git add .
+
+pnpm lint-staged
+echo '🔥Check lint-staged🔥'
