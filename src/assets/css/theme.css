@@ -1,0 +1,95 @@
+@layer theme, base, components, utilities;
+@import 'tailwindcss/theme.css' layer(theme);
+@import 'tailwindcss/preflight.css' layer(base);
+@import 'tailwindcss/utilities.css' layer(utilities);
+
+@import './font.css';
+
+@theme {
+  /* 폰트 */
+  --font-SuperMagicB: 'SuperMagic-Bold', sans-serif;
+  --font-PretendardM: 'Pretendard-Medium', sans-serif;
+  --font-NanumSquareRoundB: 'NanumSquareRound-Bold', sans-serif;
+  --font-HappinessB: 'Happiness-Bold', sans-serif;
+  --font-HappinessR: 'Happiness-Regular', sans-serif;
+
+  /* 색상 */
+  --color-*: initial;
+  --color-primary: #2c6e49;
+  --color-secondary: #4c956c;
+  --color-tertiary: #97d3b1;
+  --color-background: #fefee3;
+  --color-point: #d68c45;
+  --color-text: #fff;
+
+  /* [Custom] title, subtitle, text 관련 */
+}
+
+@layer components {
+  .title1 {
+    font-family: var(--font-SuperMagicB);
+    font-size: 2rem;
+  }
+
+  @media (max-width: 640px) {
+    .title1 {
+      font-size: 1.5rem;
+    }
+  }
+
+  .title2 {
+    font-family: var(--font-NanumSquareRoundB);
+    font-size: 1.5rem;
+  }
+
+  @media (max-width: 640px) {
+    .title2 {
+      font-size: 1.25rem;
+    }
+  }
+
+  .subTitle {
+    font-family: var(--font-NanumSquareRoundB);
+    font-size: 1.125rem;
+  }
+
+  @media (max-width: 640px) {
+    .subTitle {
+      font-size: 1rem;
+    }
+  }
+
+  .body1 {
+    font-family: var(--font-HappinessR);
+    font-size: 1rem;
+    letter-spacing: -2%;
+  }
+
+  @media (max-width: 640px) {
+    .body1 {
+      font-size: 0.875rem;
+    }
+  }
+
+  .body2 {
+    font-family: var(--font-HappinessR);
+    font-size: 0.875rem;
+  }
+
+  @media (max-width: 640px) {
+    .body2 {
+      font-size: 0.75rem;
+    }
+  }
+
+  .caption {
+    font-family: sans-serif;
+    font-size: 0.75rem;
+  }
+
+  @media (max-width: 640px) {
+    .caption {
+      font-size: 11px;
+    }
+  }
+}
