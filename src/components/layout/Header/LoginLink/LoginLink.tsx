@@ -1,5 +1,4 @@
 import ProfileIcon from '@assets/icons/person.svg';
-import Image from 'next/image';
 import Link from 'next/link';
 
 interface LoginButtonProps {
