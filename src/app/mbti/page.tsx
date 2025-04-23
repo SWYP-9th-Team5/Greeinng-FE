@@ -1,8 +1,14 @@
 import React from 'react';
 
 import MbtiIndexImage from '@assets/images/Q0-0@2x.png';
+import { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
+
+export const metadata: Metadata = {
+  title: '나는 어떤 식물일까?',
+  description: '간단한 유형 검사를 통해 나는 무슨 식물일지 알아보세요🪴',
+};
 
 const introText = `
 물은 얼마나 줘야하지? 방치해도 될까?
