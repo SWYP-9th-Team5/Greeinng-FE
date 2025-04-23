@@ -1,14 +1,9 @@
 'use client';
 
-import { useMediaQuery } from 'react-responsive';
-
 import BackIcon from '@assets/icons/arrow_left.svg';
 import MenuIcon from '@assets/icons/menu.svg';
 import MainLogo from '@assets/images/logo@2x.png';
-import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-
-import { MEDIA_QUERY_MOBILE } from '@constants/mediaQuery';
 
 import HeaderTab from './HeaderTab';
 import LoginLink from './LoginLink';
@@ -46,22 +41,25 @@ const MobileHeader = () => {
   return (
     <header className="flex h-[64px] justify-between px-[20px] py-[16px]">
       <button onClick={handleBack}>
-        <Image src={BackIcon} alt="뒤로가기" width={24} height={24} />
+        <BackIcon />
       </button>
       <LogoLink href={indexLink} width={140} height={32} src={MainLogo} />
       <button onClick={() => {}}>
-        <Image src={MenuIcon} alt="메뉴" width={24} height={24} />
+        <MenuIcon />
       </button>
     </header>
   );
 };
 
 export default function Header() {
-  const isMobile = useMediaQuery({ query: MEDIA_QUERY_MOBILE });
   return (
     <>
-      {!isMobile && <PcHeader />}
-      {isMobile && <MobileHeader />}
+      <div className="block md:hidden">
+        <MobileHeader />
+      </div>
+      <div className="hidden md:block">
+        <PcHeader />
+      </div>
     </>
   );
 }
