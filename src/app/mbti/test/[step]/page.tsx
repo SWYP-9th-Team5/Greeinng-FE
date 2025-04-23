@@ -7,9 +7,14 @@ export function generateStaticParams() {
 export default async function page({
   params,
 }: {
-  params: Promise<{ id: string }>;
+  params: Promise<{ step: string }>;
 }) {
-  const { id } = await params;
+  const { step } = await params;
 
-  return <div>mbti {id}</div>;
+  return (
+    <>
+      <p>question1</p>
+      mbti {step}
+    </>
+  );
 }
