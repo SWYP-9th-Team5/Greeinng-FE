@@ -27,7 +27,7 @@
     font-size: 2rem;
   }
 
-  @media (max-width: 640px) {
+  @media (max-width: 768px) {
     .title1 {
       font-size: 1.5rem;
     }
@@ -38,7 +38,7 @@
     font-size: 1.5rem;
   }
 
-  @media (max-width: 640px) {
+  @media (max-width: 768px) {
     .title2 {
       font-size: 1.25rem;
     }
@@ -49,7 +49,7 @@
     font-size: 1.125rem;
   }
 
-  @media (max-width: 640px) {
+  @media (max-width: 768px) {
     .subTitle {
       font-size: 1rem;
     }
@@ -61,7 +61,7 @@
     letter-spacing: -2%;
   }
 
-  @media (max-width: 640px) {
+  @media (max-width: 768px) {
     .body1 {
       font-size: 0.875rem;
     }
