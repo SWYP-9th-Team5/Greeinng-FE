@@ -8,7 +8,5 @@ echo '🌈 Run formatter...'
 pnpm format
 
 echo '🌀 Re-staging formatted files...'
-git add .
-
 pnpm lint-staged
 echo '🔥Check lint-staged🔥'
