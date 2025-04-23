@@ -15,12 +15,12 @@ const tabList = [
 ];
 
 const PcHeader = () => {
-  const indexLink = '/community';
+  const indexLink = '/';
   const loginLink = '/login';
   const loginText = '로그인';
 
   return (
-    <header className="nowrap flex h-[80px] items-center justify-between px-[120px] py-[22px]">
+    <header className="nowrap fixed top-0 flex h-[80px] w-full items-center justify-between px-[120px] py-[22px]">
       <div className="flex items-center gap-[47.09px]">
         <LogoLink href={indexLink} width={158} height={36} src={MainLogo} />
         <HeaderTab tabList={tabList} />
@@ -39,7 +39,7 @@ const MobileHeader = () => {
   };
 
   return (
-    <header className="flex h-[64px] justify-between px-[20px] py-[16px]">
+    <header className="bg-background fixed top-0 z-100 flex h-[64px] w-full justify-between px-[20px] py-[16px]">
       <button onClick={handleBack}>
         <BackIcon />
       </button>
