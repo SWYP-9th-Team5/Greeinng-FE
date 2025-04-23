@@ -19,6 +19,9 @@
   --color-text: #fff;
 
   /* [Custom] title, subtitle, text 관련 */
+
+  --breakpoint-xxs: 360px;
+  --breakpoint-xs: 480px;
 }
 
 @layer components {
