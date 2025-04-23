@@ -25,9 +25,9 @@ const PcHeader = () => {
   const loginText = '로그인';
 
   return (
-    <header className="nowrap flex items-center justify-between px-[120px] py-[22px]">
+    <header className="nowrap flex h-[80px] items-center justify-between px-[120px] py-[22px]">
       <div className="flex items-center gap-[47.09px]">
-        <LogoLink href={indexLink} width={157.91} height={36} src={MainLogo} />
+        <LogoLink href={indexLink} width={158} height={36} src={MainLogo} />
         <HeaderTab tabList={tabList} />
       </div>
       <LoginLink href={loginLink} text={loginText} />
@@ -44,7 +44,7 @@ const MobileHeader = () => {
   };
 
   return (
-    <header className="flex justify-between px-[20px] py-[16px]">
+    <header className="flex h-[64px] justify-between px-[20px] py-[16px]">
       <button onClick={handleBack}>
         <Image src={BackIcon} alt="뒤로가기" width={24} height={24} />
       </button>
