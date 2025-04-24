@@ -1,8 +1,8 @@
 @font-face {
   font-family: 'SuperMagic-Bold';
   src:
-    url('/public/fonts/SuperMagic-Bold.woff2') format('woff2'),
-    url('/public/fonts/SuperMagic-Bold.woff') format('woff');
+    url('/fonts/SuperMagic-Bold.woff2') format('woff2'),
+    url('/fonts/SuperMagic-Bold.woff') format('woff');
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -11,8 +11,8 @@
 @font-face {
   font-family: 'Pretendard-Medium';
   src:
-    url('/public/fonts/Pretendard-Medium.woff2') format('woff2'),
-    url('/public/fonts/Pretendard-Medium.woff') format('woff');
+    url('/fonts/Pretendard-Medium.woff2') format('woff2'),
+    url('/fonts/Pretendard-Medium.woff') format('woff');
   font-weight: 500;
   font-style: normal;
   font-display: swap;
@@ -21,8 +21,8 @@
 @font-face {
   font-family: 'NanumSquareRound-Bold';
   src:
-    url('/public/fonts/NanumSquareRoundB.woff2') format('woff2'),
-    url('/public/fonts/NanumSquareRoundB.woff') format('woff');
+    url('/fonts/NanumSquareRoundB.woff2') format('woff2'),
+    url('/fonts/NanumSquareRoundB.woff') format('woff');
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -31,8 +31,8 @@
 @font-face {
   font-family: 'Happiness-Bold';
   src:
-    url('/public/fonts/Happiness-Sans-Bold.woff2') format('woff2'),
-    url('/public/fonts/Happiness-Sans-Bold.woff') format('woff');
+    url('/fonts/Happiness-Sans-Bold.woff2') format('woff2'),
+    url('/fonts/Happiness-Sans-Bold.woff') format('woff');
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -41,8 +41,8 @@
 @font-face {
   font-family: 'Happiness-Regular';
   src:
-    url('/public/fonts/Happiness-Sans-Regular.woff2') format('woff2'),
-    url('/public/fonts/Happiness-Sans-Regular.woff') format('woff');
+    url('/fonts/Happiness-Sans-Regular.woff2') format('woff2'),
+    url('/fonts/Happiness-Sans-Regular.woff') format('woff');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
