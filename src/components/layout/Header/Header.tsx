@@ -18,7 +18,7 @@ const PcHeader = () => {
   const loginText = '로그인';
 
   return (
-    <header className="nowrap fixed top-0 flex h-[80px] w-full items-center justify-between px-[120px] py-[22px]">
+    <header className="nowrap fixed top-0 z-100 flex h-[80px] w-full items-center justify-between px-[120px] py-[22px]">
       <div className="flex items-center gap-[47.09px]">
         <LogoLink
           href={indexLink}
