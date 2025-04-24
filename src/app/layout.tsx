@@ -12,8 +12,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <Header />
         <Coreprovider>
+          <Header />
           <main className="pt-16 md:pt-20">{children}</main>
         </Coreprovider>
       </body>
