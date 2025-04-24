@@ -16,7 +16,7 @@ const introText = `
 `.trim();
 
 export default function MbtiPage() {
-  const href = '/mbti/test/1';
+  const href = '/mbti/question/1';
   const title = '나는 어떤 식물일까?';
   const testBtnText = '테스트 시작하기';
 
