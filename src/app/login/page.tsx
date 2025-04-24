@@ -1,5 +1,7 @@
 import React from 'react';
 
+import Image from 'next/image';
+
 import GoogleIcon from '../../assets/icons/google.svg';
 import KakaoIcon from '../../assets/icons/kakao.svg';
 
@@ -15,11 +17,23 @@ const PCLoginPage = () => {
       </p>
       <div className="bg-primary flex aspect-[59/29] w-full max-w-[590px] flex-col items-center justify-center rounded-[1.25rem]">
         <button className="body1 relative mb-4 flex aspect-[50/5.2] w-full max-w-[500px] items-center justify-center rounded-[0.375rem] bg-[#fee500] text-[1.125rem]">
-          <KakaoIcon className="absolute left-4 h-[1.125rem] w-[1.125rem]" />
+          <Image
+            className="absolute left-4 h-[1.125rem] w-[1.125rem]"
+            src="/icons/kakao.svg"
+            alt="카카오 버튼"
+            width={24}
+            height={24}
+          />
           카카오 로그인
         </button>
         <button className="body1 relative mb-6 flex aspect-[50/5.2] w-full max-w-[500px] items-center justify-center rounded-[0.375rem] bg-[#fff] text-[1.125rem]">
-          <GoogleIcon className="absolute left-4 h-[1.125rem] w-[1.125rem]" />
+          <Image
+            className="absolute left-4 h-[1.125rem] w-[1.125rem]"
+            src="/icons/google.svg"
+            alt="구글 버튼"
+            width={24}
+            height={24}
+          />
           구글로 로그인
         </button>
         <span className="mb-6 h-0 w-full max-w-[501px] border-t border-[#fff]"></span>
@@ -44,11 +58,23 @@ const MBLoginPage = () => {
       </p>
       <div className="bg-primary flex aspect-[35/25.6] w-full max-w-[350px] flex-col items-center justify-center rounded-[1.25rem]">
         <button className="body1 relative mb-2 flex aspect-[30/4.5] w-full max-w-[300px] items-center justify-center rounded-[0.375rem] bg-[#fee500]">
-          <KakaoIcon className="absolute left-4 h-[1.125rem] w-[1.125rem]" />
+          <Image
+            className="absolute left-4 h-[1.125rem] w-[1.125rem]"
+            src="/icons/kakao.svg"
+            alt="카카오 버튼"
+            width={24}
+            height={24}
+          />
           카카오 로그인
         </button>
         <button className="body1 relative mb-6 flex aspect-[30/4.5] w-full max-w-[300px] items-center justify-center rounded-[0.375rem] bg-[#fff]">
-          <GoogleIcon className="absolute left-4 h-[1.125rem] w-[1.125rem]" />
+          <Image
+            className="absolute left-4 h-[1.125rem] w-[1.125rem]"
+            src="/icons/google.svg"
+            alt="구글 버튼"
+            width={24}
+            height={24}
+          />
           구글로 로그인
         </button>
         <span className="mb-6 h-0 w-full max-w-[300px] border-t border-[#fff]"></span>

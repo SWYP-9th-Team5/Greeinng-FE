@@ -16,7 +16,7 @@ const LogoLink = ({ href, width, height, src }: LogoLink) => {
         height={height}
         src={src}
         alt="greening logo"
-        placeholder="blur"
+        priority
       />
     </Link>
   );
