@@ -16,7 +16,7 @@ const introText = `
 `.trim();
 
 export default function MbtiPage() {
-  const href = '/mbti/test/1';
+  const href = '/mbti/question/1';
   const title = '나는 어떤 식물일까?';
   const testBtnText = '테스트 시작하기';
 
@@ -24,14 +24,9 @@ export default function MbtiPage() {
     <>
       <h1 className="title1 text-primary mb-[24px] md:mb-[40px]">{title}</h1>
       <div className="mb-[24px] flex flex-col items-center justify-center md:mb-[0px]">
-        {introText.split('\n').map((text, index) => (
-          <p
-            key={index}
-            className="font-HappinessR body1 tracking-[-0.32px] text-[#333]"
-          >
-            {text}
-          </p>
-        ))}
+        <p className="font-HappinessR body1 text-center tracking-[-0.32px] whitespace-pre-line text-[#333]">
+          {introText}
+        </p>
       </div>
       <div className="max-xxs:w-full mb-[18px] w-[350px] md:mb-[7px] md:w-[400px]">
         <Image
