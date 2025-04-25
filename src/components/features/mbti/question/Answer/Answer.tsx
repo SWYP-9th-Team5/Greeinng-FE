@@ -4,37 +4,66 @@ import { cn } from '@/utils/cn';
 import Image from 'next/image';
 import Link from 'next/link';
 
-const AnswerCardList = ({ children }: { children: ReactNode }) => {
-  return (
-    <ul className={cn('flex flex-col gap-4 md:flex-row md:gap-5')}>
-      {children}
-    </ul>
-  );
-};
+import { AnswerList } from '../../utils/getMbtiQuestionData';
 
 const AnswerCardItem = ({
+  type,
   src,
-  alt,
+  questionText,
   href,
 }: {
+  type: string;
   src: string;
-  alt: string;
+  questionText: string;
   href: string;
 }) => {
   return (
-    <li>
-      <Link href={href}>
-        <span></span>
+    <li
+      className={cn(
+        'bg-text border-2',
+        'max-xxs:w-full relative flex w-[350px] rounded-[10px] border-[#eee] px-[28px] py-[23px]',
+        'md:w-auto md:rounded-[20px] md:pt-0 md:pr-[42px] md:pb-[23px] md:pl-[42px]',
+      )}
+    >
+      <Link href={href} className="w-full">
+        <span
+          className={cn(
+            'font-HappinessB text-sm font-black',
+            'absolute top-1/2 -translate-y-1/2',
+            'md:top-[181px] md:left-1/2 md:-translate-x-1/2',
+          )}
+        >
+          {type}
+        </span>
         <Image
-          className="hidden w-full md:block"
+          className={cn('hidden', 'md:mb-[5px] md:block')}
           src={src}
-          alt={alt}
-          width={350}
-          height={350}
+          alt={`${type} 이미지`}
+          width={197}
+          height={197}
+          loading="lazy"
         />
-        <p className="body1">{alt}</p>
+
+        <p
+          className={cn(
+            'body1 text-center tracking-[-0.28px] whitespace-pre-line',
+            'md:leading-[22px] md:tracking-[-0.32px]',
+          )}
+        >
+          {questionText}
+        </p>
       </Link>
     </li>
+  );
+};
+
+const AnswerCardList = ({ children }: { children: ReactNode }) => {
+  return (
+    <ul
+      className={cn('flex flex-col items-center gap-4', 'md:flex-row md:gap-5')}
+    >
+      {children}
+    </ul>
   );
 };
 
@@ -43,18 +72,19 @@ export default function Answer({
   answerList,
 }: {
   href: string;
-  answerList: { src: string; alt: string }[];
+  answerList: AnswerList;
 }) {
   return (
     <AnswerCardList>
       {answerList.map((answerItem) => {
-        const { src, alt } = answerItem;
+        const { type, src, questionText } = answerItem;
         return (
           <AnswerCardItem
-            key={alt}
+            key={src}
+            type={type}
             src={src}
-            alt={alt}
-            href={`${href}?answer=${alt}`}
+            questionText={questionText}
+            href={href}
           />
         );
       })}

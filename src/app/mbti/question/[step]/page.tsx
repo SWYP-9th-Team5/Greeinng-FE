@@ -4,8 +4,7 @@ import { cn } from '@/utils/cn';
 
 import Answer from '@components/features/mbti/\bquestion/Answer';
 import Question from '@components/features/mbti/\bquestion/Question';
-
-import { pcMbtiData } from '@constants/mbtiData';
+import { getMbtiStepData } from '@components/features/mbti/utils/getMbtiQuestionData';
 
 export function generateStaticParams() {
   return [{ step: '1' }, { step: '2' }, { step: '3' }];
@@ -17,26 +16,7 @@ export default async function page({
   params: Promise<{ step: string }>;
 }) {
   const { step } = await params;
-
-  const question = pcMbtiData[Number(step) - 1].question;
-
-  const imageASrc = pcMbtiData[Number(step) - 1].imageA;
-  const imageAAlt = pcMbtiData[Number(step) - 1].answerA;
-
-  const imageBSrc = pcMbtiData[Number(step) - 1].imageB;
-  const imageBAlt = pcMbtiData[Number(step) - 1].answerB;
-
-  const href = `/mbti/test/${Number(step) + 1}`;
-  const answerList = [
-    {
-      src: imageASrc,
-      alt: imageAAlt,
-    },
-    {
-      src: imageBSrc,
-      alt: imageBAlt,
-    },
-  ];
+  const { question, href, answerList } = getMbtiStepData(Number(step));
 
   return (
     <>
@@ -46,7 +26,7 @@ export default async function page({
         <Answer href={href} answerList={answerList} />
       </section>
       {/* PC */}
-      <section className="hidden flex-col gap-4 md:flex">
+      <section className="hidden flex-col gap-26 md:flex">
         <Question question={question} />
         <Answer href={href} answerList={answerList} />
       </section>
