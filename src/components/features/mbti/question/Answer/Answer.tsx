@@ -21,7 +21,7 @@ const AnswerCardItem = ({
     <li
       className={cn(
         'bg-text border-2',
-        'max-xxs:w-full relative flex w-[350px] rounded-[10px] border-[#eee] px-[28px] py-[23px]',
+        'max-xxs:w-full relative flex w-[350px] rounded-[10px] border-[#eee] px-[28px] py-[23px] hover:bg-[#eee]',
         'md:w-auto md:rounded-[20px] md:pt-0 md:pr-[42px] md:pb-[23px] md:pl-[42px]',
       )}
     >
