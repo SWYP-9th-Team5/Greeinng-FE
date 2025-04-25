@@ -2,8 +2,8 @@ import React from 'react';
 
 import { cn } from '@/utils/cn';
 
-import Answer from '@components/features/mbti/\bquestion/Answer';
-import Question from '@components/features/mbti/\bquestion/Question';
+import Answer from '@components/features/mbti/question/Answer';
+import Question from '@components/features/mbti/question/Question';
 import { getMbtiStepData } from '@components/features/mbti/utils/getMbtiQuestionData';
 
 export function generateStaticParams() {
