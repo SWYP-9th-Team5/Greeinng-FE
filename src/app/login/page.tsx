@@ -88,7 +88,7 @@ const MBLoginPage = () => {
   );
 };
 
-export default function Header() {
+export default function Login() {
   return (
     <>
       <div className="block md:hidden">
