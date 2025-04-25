@@ -13,7 +13,7 @@ type HeaderTabItemProps = {
 
 const HeaderTabItem = ({ href, name }: HeaderTabItemProps) => {
   const pathname = usePathname();
-  const isActivve = pathname === href;
+  const isActivve = pathname.includes(href);
 
   return (
     <li
