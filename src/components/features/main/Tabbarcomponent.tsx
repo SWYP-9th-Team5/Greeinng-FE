@@ -23,7 +23,7 @@ export function CommunityGrid({ data, label }: CommunityDataProps) {
       {data.map((item) => (
         <div
           key={item.id}
-          className="bg-tertiary aspect-[387/202] max-w-[387px] overflow-hidden rounded-[1.25rem] p-4"
+          className="bg-tertiary aspect-[387/202] max-w-[387px] rounded-[1.25rem] p-4"
         >
           <p className="body2 text-[#eee]">{label}</p>
           <p className="subTitle text-text mb-4 break-words">{item.title}</p>
