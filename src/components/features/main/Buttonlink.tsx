@@ -29,7 +29,7 @@ export function CommunityButton() {
     <Button
       size="sm"
       color="gray"
-      className="w-[5.625rem]"
+      className="w-[5.1875rem] xl:w-[5.625rem]"
       onClick={handleClick}
     >
       +더보기
@@ -44,7 +44,7 @@ export function MbtiButton() {
     <Button
       size="lg"
       color="secondary"
-      className="w-[24.125rem]"
+      className="w-[21.875rem] xl:w-[24.125rem]"
       onClick={handleClick}
     >
       테스트 시작하기

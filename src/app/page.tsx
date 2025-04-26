@@ -12,10 +12,10 @@ const PCHome = () => {
       className="flex flex-col items-center justify-start overflow-x-hidden"
       style={{ height: 'calc(100vh - 80px)' }}
     >
-      <div className="title1 text-text2 flex min-h-[600px] w-full flex-col items-start justify-center bg-[#e9e9e9]">
+      <div className="title1 text-text2 flex min-h-[600px] w-full flex-col items-start justify-center bg-[#e9e9e9] pl-4">
         식물을 키우는 모든 순간
         <br />
-        플랫폼에서
+        그리닝에서
       </div>
       <div className="text-text2 bg-background flex min-h-[800px] w-full flex-col items-center justify-center">
         <p className="text-text2 title1 mb-7">COMMUNITY</p>
@@ -29,7 +29,7 @@ const PCHome = () => {
           <p className="title2 mb-[3.75rem] text-left text-[#666]">
             내가 식물이라면? 나는 과연 어떤 유형의 식물일까
             <br />
-            Greening에서 알려드릴게요
+            그리닝에서 알려드릴게요
           </p>
           <MbtiButton />
         </div>
@@ -61,10 +61,48 @@ const PCHome = () => {
 const MBHome = () => {
   return (
     <div
-      className="flex flex-col items-center justify-center"
+      className="flex flex-col items-center justify-start"
       style={{ height: 'calc(100vh - 80px)' }}
     >
-      main
+      <div className="title1 text-text2 flex min-h-[500px] w-full flex-col items-start justify-center bg-[#e9e9e9] pl-4">
+        식물을 키우는 모든 순간
+        <br />
+        그리닝에서
+      </div>
+      <div className="text-text2 bg-background flex min-h-[800px] w-full flex-col items-center justify-center">
+        <p className="text-text2 title1 mb-7">COMMUNITY</p>
+        <TabComponent />
+        <CommunityButton />
+      </div>
+      <div className="flex min-h-[500px] w-full flex-col items-center bg-[#e9e9e9] text-center">
+        <p className="title1 text-text2 mt-6 mb-6">식물 MBTI</p>
+        <p className="title2 mb-64 text-[#666]">
+          내가 식물이라면?
+          <br />
+          나는 과연 어떤 유형의 식물일까요?
+          <br />
+          그리닝에서 알려드릴게요
+        </p>
+        <MbtiButton />
+      </div>
+      <div className="bg-background flex min-h-[100px] w-full" />
+      <footer className="bg-primary flex min-h-[164px] w-full flex-col pt-6 pl-6">
+        <Image
+          className="mb-3"
+          src="/images/logo_white.png"
+          alt="로고"
+          width={80}
+          height={19}
+        />
+        <p className="caption text-text mb-1">
+          식물을 사랑하는 사람들의 커뮤니티 그리닝
+        </p>
+        <p className="caption text-text mb-1">SWYP Team Project / Team 5</p>
+        <p className="caption text-text mb-1">Growing together with you</p>
+        <p className="caption text-text">
+          © 2025 Greening. All rights reserved.
+        </p>
+      </footer>
     </div>
   );
 };
