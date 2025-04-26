@@ -42,9 +42,18 @@ const PCHome = () => {
           width={168.8}
           height={40}
         />
-        <p className="caption text-text">
-          © 2025 그리닝. All rights reserved.
-        </p>
+        <div className="mb-2 flex max-w-[1200px] flex-row justify-between">
+          <p className="caption text-text">Growing together with you</p>
+          <p className="caption text-text">
+            식물을 사랑하는 사람들의 커뮤니티 그리닝
+          </p>
+        </div>
+        <div className="flex max-w-[1200px] flex-row justify-between">
+          <p className="caption text-text">
+            © 2025 Greening. All rights reserved.
+          </p>
+          <p className="caption text-text">SWYP Team Project / Team 5</p>
+        </div>
       </footer>
     </div>
   );
