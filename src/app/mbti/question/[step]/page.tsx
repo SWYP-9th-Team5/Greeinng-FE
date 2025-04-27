@@ -22,12 +22,12 @@ export default async function page({
     <>
       {/* 모바일 */}
       <section className={cn('flex flex-col gap-[52px] md:hidden')}>
-        <Question question={question} />
+        <Question>{question}</Question>
         <Answer href={href} answerList={answerList} />
       </section>
       {/* PC */}
       <section className="hidden flex-col gap-26 md:flex">
-        <Question question={question} />
+        <Question>{question}</Question>
         <Answer href={href} answerList={answerList} />
       </section>
     </>
