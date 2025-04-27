@@ -34,7 +34,7 @@ const PcHeader = () => {
 };
 
 const MobileHeader = () => {
-  const indexLink = '/community';
+  const indexLink = '/';
   const router = useRouter();
 
   const handleBack = () => {
