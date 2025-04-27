@@ -83,7 +83,7 @@ export default function Header() {
       <header
         className={cn(
           'hidden md:flex',
-          'nowrap fixed top-0 h-[80px] w-full items-center justify-between px-[120px] py-[22px]',
+          'bg-background nowrap fixed top-0 h-[80px] w-full items-center justify-between px-[120px] py-[22px]',
         )}
       >
         <PcHeader />

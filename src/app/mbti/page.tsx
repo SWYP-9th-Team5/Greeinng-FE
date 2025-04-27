@@ -21,7 +21,7 @@ export default function MbtiPage() {
   const testBtnText = '테스트 시작하기';
 
   return (
-    <>
+    <section className="flex h-[calc(100vh-64px)] w-full flex-col items-center justify-center px-5 md:h-[calc(100vh-80px)]">
       <h1 className="title1 text-primary mb-[24px] md:mb-[40px]">{title}</h1>
       <div className="mb-[24px] flex flex-col items-center justify-center md:mb-[0px]">
         <p className="font-HappinessR body1 text-center tracking-[-0.32px] whitespace-pre-line text-[#333]">
@@ -44,6 +44,6 @@ export default function MbtiPage() {
       >
         {testBtnText}
       </Link>
-    </>
+    </section>
   );
 }
