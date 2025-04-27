@@ -43,7 +43,6 @@ const AnswerCardItem = ({
           height={197}
           loading="lazy"
         />
-
         <p
           className={cn(
             'body1 text-center tracking-[-0.28px] whitespace-pre-line',

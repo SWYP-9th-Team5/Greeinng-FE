@@ -1,5 +1,8 @@
 'use client';
 
+import React from 'react';
+
+import { cn } from '@/utils/cn';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
@@ -18,7 +21,7 @@ const PcHeader = () => {
   const loginText = '로그인';
 
   return (
-    <header className="nowrap fixed top-0 z-100 flex h-[80px] w-full items-center justify-between px-[120px] py-[22px]">
+    <>
       <div className="flex items-center gap-[47.09px]">
         <LogoLink
           href={indexLink}
@@ -29,7 +32,7 @@ const PcHeader = () => {
         <HeaderTab tabList={tabList} />
       </div>
       <LoginLink href={loginLink} text={loginText} />
-    </header>
+    </>
   );
 };
 
@@ -42,7 +45,7 @@ const MobileHeader = () => {
   };
 
   return (
-    <header className="bg-background fixed top-0 z-100 flex h-[64px] w-full justify-between px-[20px] py-[16px]">
+    <>
       <button onClick={handleBack}>
         <Image
           src="/icons/arrow_left.svg"
@@ -60,19 +63,31 @@ const MobileHeader = () => {
       <button>
         <Image src="/icons/menu.svg" alt="메뉴 버튼" width={24} height={24} />
       </button>
-    </header>
+    </>
   );
 };
 
 export default function Header() {
   return (
     <>
-      <div className="block md:hidden">
+      {/* 모바일 */}
+      <header
+        className={cn(
+          'flex md:hidden',
+          'bg-background fixed top-0 z-100 flex h-[64px] w-full items-center justify-between px-[20px] py-[16px]',
+        )}
+      >
         <MobileHeader />
-      </div>
-      <div className="hidden md:block">
+      </header>
+      {/* PC */}
+      <header
+        className={cn(
+          'hidden md:flex',
+          'nowrap fixed top-0 h-[80px] w-full items-center justify-between px-[120px] py-[22px]',
+        )}
+      >
         <PcHeader />
-      </div>
+      </header>
     </>
   );
 }
