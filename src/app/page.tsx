@@ -9,7 +9,7 @@ import {
 const PCHome = () => {
   return (
     <div
-      className="flex flex-col items-center justify-start overflow-x-hidden"
+      className="flex flex-col items-center justify-start"
       style={{ height: 'calc(100vh - 80px)' }}
     >
       <div className="title1 text-text2 flex min-h-[600px] w-full flex-col items-start justify-center bg-[#e9e9e9] pl-4">
