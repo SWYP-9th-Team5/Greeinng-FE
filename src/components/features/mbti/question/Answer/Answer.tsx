@@ -3,8 +3,9 @@ import { ReactNode } from 'react';
 import { cn } from '@/utils/cn';
 import Image from 'next/image';
 import Link from 'next/link';
+import { UrlObject } from 'url';
 
-import { AnswerList } from '../../utils/getMbtiQuestionData';
+import { QueryParams, calHref, getMbtiStepData } from '../../utils/utils';
 
 const AnswerCardItem = ({
   type,
@@ -15,17 +16,18 @@ const AnswerCardItem = ({
   type: string;
   src: string;
   questionText: string;
-  href: string;
+  href: UrlObject;
 }) => {
   return (
-    <li
-      className={cn(
-        'bg-text border-2',
-        'max-xxs:w-full relative flex w-[350px] rounded-[10px] border-[#eee] px-[28px] py-[23px] hover:bg-[#eee]',
-        'md:w-auto md:rounded-[20px] md:pt-0 md:pr-[42px] md:pb-[23px] md:pl-[42px]',
-      )}
-    >
-      <Link href={href} className="w-full">
+    <li className={cn()}>
+      <Link
+        className={cn(
+          'bg-text border-2',
+          'max-xxs:w-full relative flex w-[350px] rounded-[10px] border-[#eee] px-[28px] py-[23px] hover:bg-[#eee]',
+          'md:w-auto md:flex-col md:rounded-[20px] md:pt-0 md:pr-[42px] md:pb-[23px] md:pl-[42px]',
+        )}
+        href={href}
+      >
         <span
           className={cn(
             'font-HappinessB text-sm font-black',
@@ -45,6 +47,7 @@ const AnswerCardItem = ({
         />
         <p
           className={cn(
+            'w-full',
             'body1 text-center tracking-[-0.28px] whitespace-pre-line',
             'md:leading-[22px] md:tracking-[-0.32px]',
           )}
@@ -67,16 +70,21 @@ const AnswerCardList = ({ children }: { children: ReactNode }) => {
 };
 
 export default function Answer({
-  href,
-  answerList,
+  paramsQuery,
+  numberStep,
 }: {
-  href: string;
-  answerList: AnswerList;
+  paramsQuery: QueryParams;
+  numberStep: number;
 }) {
+  const { answerList } = getMbtiStepData(numberStep);
+
   return (
     <AnswerCardList>
       {answerList.map((answerItem) => {
         const { type, src, questionText } = answerItem;
+
+        const href = calHref(numberStep, paramsQuery, type);
+
         return (
           <AnswerCardItem
             key={src}
