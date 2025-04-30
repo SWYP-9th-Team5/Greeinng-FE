@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 
 import { cn } from '@/utils/cn';
@@ -9,9 +10,10 @@ import { useRouter } from 'next/navigation';
 import Button from '@components/common/Button';
 
 const Share = () => {
-  const handleCopyUrl = async () => {
+  const [currentUrl, setCurrentUrl] = useState('');
+
+  const handleCopyUrl = async (currentUrl: string) => {
     try {
-      const currentUrl = window.location.href;
       await navigator.clipboard.writeText(currentUrl);
       toast.success('링크가 복사되었습니다.');
     } catch (error) {
@@ -19,6 +21,10 @@ const Share = () => {
       console.error('링크 복사가 실패되었습니다.', error);
     }
   };
+
+  useEffect(() => {
+    setCurrentUrl(window.location.href);
+  }, []);
 
   return (
     <div className={cn('gap-1" flex flex-col')}>
@@ -35,14 +41,11 @@ const Share = () => {
         className={cn(
           'flex items-center justify-between gap-2 rounded-[0.625rem] border border-[#eee] bg-[#fff]',
           'px-3 py-[0.4375rem]',
-          '',
         )}
       >
         <div className={cn('flex min-w-0 gap-2')}>
           <Image src="/icons/clip.svg" alt="copy icon" width={20} height={20} />
-          <p className={cn('body1 truncate text-[#666]')}>
-            http://greening/mbtiasdasdasdasdasd
-          </p>
+          <p className={cn('body1 truncate text-[#666]')}>{currentUrl}</p>
         </div>
         <Button
           className={cn(
@@ -50,7 +53,7 @@ const Share = () => {
             'md:h-[38px] md:w-[89px] md:rounded-[10px]',
           )}
           color="gray"
-          onClick={handleCopyUrl}
+          onClick={() => handleCopyUrl(currentUrl)}
         >
           복사하기
         </Button>

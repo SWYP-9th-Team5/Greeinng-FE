@@ -3,7 +3,20 @@ import { cn } from '@/utils/cn';
 import ResultButton from '@components/features/mbti/result/ResultButton';
 import ResultInfo from '@components/features/mbti/result/ResultInfo';
 
-export default async function MbtiResultPage() {
+import { MBTI_RESULT_LIST } from '@constants/mbtiData';
+
+export function generateStaticParams() {
+  return [{ mbti: '1' }, { mbti: '2' }, { mbti: '3' }];
+}
+
+export default async function MbtiResultPage({
+  params,
+}: {
+  params: Promise<{ mbti: string }>;
+}) {
+  const { mbti } = await params;
+  const resultInfoData = MBTI_RESULT_LIST.find((item) => item.mbtiId === mbti);
+
   return (
     <article
       className={cn(
@@ -17,7 +30,7 @@ export default async function MbtiResultPage() {
       )}
     >
       <h1 className="sr-only">MBTI 결과</h1>
-      <ResultInfo />
+      <ResultInfo {...resultInfoData} />
       <ResultButton />
     </article>
   );
