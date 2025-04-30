@@ -2,6 +2,7 @@
 
 import React from 'react';
 
+import useOutsideClick from '@/stores/useOutsideClick';
 import { useSidebarStore } from '@/stores/useSidebarStore';
 import { cn } from '@/utils/cn';
 
@@ -9,10 +10,12 @@ import SidebarHeader from './SidebarHeader';
 import SidebarNav from './SidebarNav';
 
 export default function Sidebar() {
-  const { isSidebarOpen } = useSidebarStore();
+  const { isSidebarOpen, actionSidebarClose } = useSidebarStore();
+  const { ref } = useOutsideClick<HTMLDivElement>(actionSidebarClose);
 
   return (
     <section
+      ref={ref}
       className={cn(
         !isSidebarOpen && 'hidden',
         isSidebarOpen &&
