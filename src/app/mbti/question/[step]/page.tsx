@@ -17,36 +17,62 @@ export function generateStaticParams() {
   return [{ step: '1' }, { step: '2' }, { step: '3' }];
 }
 
+const handleStepRedirect = (numberStep: number, paramsQuery: QueryParams) => {
+  for (let i = 1; i < numberStep; i++) {
+    const key = `answer${i}` as keyof QueryParams;
+    if (!paramsQuery[key]) {
+      redirect('/mbti');
+      return;
+    }
+  }
+};
+
+const handleFinalStepRedirect = (paramsQuery: QueryParams) => {
+  const { answer1, answer2, answer3 } = paramsQuery;
+  const isAnswer = answer1 && answer2 && answer3;
+  if (isAnswer) {
+    const mbtiResult = calMbtiResult(paramsQuery);
+    redirect(`/mbti/result/${mbtiResult}`);
+  } else {
+    redirect('/mbti');
+  }
+};
+
+const handleCheckRedirect = (numberStep: number, paramsQuery: QueryParams) => {
+  handleStepRedirect(numberStep, paramsQuery);
+
+  if (numberStep > 3) {
+    handleFinalStepRedirect(paramsQuery);
+  }
+};
+
 export default async function page({ params, searchParams }: PageProps) {
   const { step } = await params;
 
   const paramsQuery = await searchParams;
   const numberStep = Number(step);
 
-  const { answer1, answer2, answer3 } = paramsQuery;
-
-  // 3step 이상
-  if (numberStep > 3) {
-    const isAnswer = answer1 && answer2 && answer3;
-    // 모든 정답이 있을 경우 아니라면 테스트 시작하기 페이지로 이동
-    if (isAnswer) {
-      const mbtiResult = calMbtiResult(paramsQuery);
-      redirect(`/mbti/result/${mbtiResult}`);
-    }
-    redirect('/mbti');
-  }
-
+  // [리다이렉트] 답이 없을 경우, url로 인한 접근
+  handleCheckRedirect(numberStep, paramsQuery);
   return (
     <>
       {/* 모바일 */}
-      <section className={cn('flex flex-col gap-[52px] md:hidden')}>
+      <section className={cn('flex w-full flex-col gap-[52px] md:hidden')}>
         <Question numberStep={numberStep} />
-        <Answer numberStep={numberStep} paramsQuery={paramsQuery} />
+        <Answer
+          isMobile={true}
+          numberStep={numberStep}
+          paramsQuery={paramsQuery}
+        />
       </section>
       {/* PC */}
-      <section className="hidden flex-col gap-26 md:flex">
+      <section className="hidden w-full flex-col gap-26 md:flex">
         <Question numberStep={numberStep} />
-        <Answer numberStep={numberStep} paramsQuery={paramsQuery} />
+        <Answer
+          isMobile={false}
+          numberStep={numberStep}
+          paramsQuery={paramsQuery}
+        />
       </section>
     </>
   );

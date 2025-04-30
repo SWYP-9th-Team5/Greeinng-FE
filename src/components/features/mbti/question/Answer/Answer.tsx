@@ -7,38 +7,43 @@ import { UrlObject } from 'url';
 
 import { QueryParams, calHref, getMbtiStepData } from '../../utils/utils';
 
-const AnswerCardItem = ({
-  type,
-  src,
-  questionText,
-  href,
-}: {
+interface AnswerCardItemProps {
+  isMobile: boolean;
   type: string;
   src: string;
   questionText: string;
   href: UrlObject;
-}) => {
+}
+
+const AnswerCardItem = ({
+  isMobile,
+  type,
+  src,
+  questionText,
+  href,
+}: AnswerCardItemProps) => {
   return (
-    <li className={cn()}>
+    <li className={cn(isMobile && 'max-xxs:w-[100%]')}>
       <Link
         className={cn(
-          'bg-text border-2',
-          'max-xxs:w-full relative flex w-[350px] rounded-[10px] border-[#eee] px-[28px] py-[23px] hover:bg-[#eee]',
-          'md:w-auto md:flex-col md:rounded-[20px] md:pt-0 md:pr-[42px] md:pb-[23px] md:pl-[42px]',
+          'bg-text relative flex border-2 border-[#eee] hover:bg-[#eee]',
+          isMobile &&
+            'max-xxs:w-[100%] w-[350px] rounded-[10px] px-[28px] py-[23px]',
+          !isMobile && 'flex-col rounded-[20px] pr-[42px] pb-[23px] pl-[42px]',
         )}
         href={href}
       >
         <span
           className={cn(
-            'font-HappinessB text-sm font-black',
-            'absolute top-1/2 -translate-y-1/2',
-            'md:top-[181px] md:left-1/2 md:-translate-x-1/2',
+            'font-HappinessB absolute text-sm font-black',
+            isMobile && 'top-1/2 -translate-y-1/2',
+            !isMobile && 'top-[181px] left-1/2 -translate-x-1/2',
           )}
         >
           {type}
         </span>
         <Image
-          className={cn('hidden', 'md:mb-[5px] md:block')}
+          className={cn(isMobile && 'hidden', !isMobile && 'mb-[5px] block')}
           src={src}
           alt={`${type} 이미지`}
           width={197}
@@ -47,9 +52,9 @@ const AnswerCardItem = ({
         />
         <p
           className={cn(
-            'w-full',
-            'body1 text-center tracking-[-0.28px] whitespace-pre-line',
-            'md:leading-[22px] md:tracking-[-0.32px]',
+            'body1 w-full text-center whitespace-pre-line',
+            isMobile && 'tracking-[-0.28px]',
+            !isMobile && 'leading-[22px] md:tracking-[-0.32px]',
           )}
         >
           {questionText}
@@ -59,10 +64,19 @@ const AnswerCardItem = ({
   );
 };
 
-const AnswerCardList = ({ children }: { children: ReactNode }) => {
+const AnswerCardList = ({
+  isMobile,
+  children,
+}: {
+  isMobile: boolean;
+  children: ReactNode;
+}) => {
   return (
     <ul
-      className={cn('flex flex-col items-center gap-4', 'md:flex-row md:gap-5')}
+      className={cn(
+        isMobile && 'max-xxs:w-full flex flex-col items-center gap-4',
+        !isMobile && 'flex flex-row justify-center md:gap-5',
+      )}
     >
       {children}
     </ul>
@@ -70,16 +84,18 @@ const AnswerCardList = ({ children }: { children: ReactNode }) => {
 };
 
 export default function Answer({
+  isMobile,
   paramsQuery,
   numberStep,
 }: {
+  isMobile: boolean;
   paramsQuery: QueryParams;
   numberStep: number;
 }) {
   const { answerList } = getMbtiStepData(numberStep);
 
   return (
-    <AnswerCardList>
+    <AnswerCardList isMobile={isMobile}>
       {answerList.map((answerItem) => {
         const { type, src, questionText } = answerItem;
 
@@ -87,6 +103,7 @@ export default function Answer({
 
         return (
           <AnswerCardItem
+            isMobile={isMobile}
             key={src}
             type={type}
             src={src}
