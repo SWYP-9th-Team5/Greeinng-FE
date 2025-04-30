@@ -1,7 +1,5 @@
 'use client';
 
-import React from 'react';
-
 import useOutsideClick from '@/stores/useOutsideClick';
 import { useSidebarStore } from '@/stores/useSidebarStore';
 import { cn } from '@/utils/cn';
@@ -17,11 +15,12 @@ export default function Sidebar() {
     <section
       ref={ref}
       className={cn(
-        !isSidebarOpen && 'hidden',
-        isSidebarOpen &&
-          'fixed right-0 z-200 h-[100vh] w-[71%] bg-[#FEFEFE] px-[1rem] py-[1.1875rem] md:hidden',
+        'fixed right-0 z-200 h-[100vh] w-[71%] bg-[#FEFEFE] px-[1rem] py-[1.1875rem] transition-transform duration-300 ease-in-out md:hidden',
+        isSidebarOpen ? 'translate-x-0' : 'translate-x-full',
       )}
       role="aside"
+      aria-hidden={!isSidebarOpen}
+      inert={!isSidebarOpen}
     >
       <h2 className="sr-only">사이드바</h2>
       <SidebarHeader />
