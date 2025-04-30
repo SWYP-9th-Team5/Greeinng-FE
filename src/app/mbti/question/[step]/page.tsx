@@ -8,13 +8,17 @@ import {
   calMbtiResult,
 } from '@components/features/mbti/utils/utils';
 
+import { MOBILE_MBTI_QUESTION_LIST } from '@constants/mbtiData';
+
 interface PageProps {
   params: Promise<{ step: string }>;
   searchParams: Promise<QueryParams>;
 }
 
 export function generateStaticParams() {
-  return [{ step: '1' }, { step: '2' }, { step: '3' }];
+  return MOBILE_MBTI_QUESTION_LIST.map((_, idx) => ({
+    step: `${idx + 1}`,
+  }));
 }
 
 const handleStepRedirect = (numberStep: number, paramsQuery: QueryParams) => {
