@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { useSidebarStore } from '@/stores/useSidebarStore';
 import Link from 'next/link';
 
 import { SIDEBAR_LIST } from '@constants/sidebar';
@@ -14,12 +15,22 @@ interface SidebarItemProps {
   id: string;
   path: string;
   name: string;
+  actionSidebarClose: () => void;
 }
 
-const SidebarItem: React.FC<SidebarItemProps> = ({ id, path, name }) => {
+const SidebarItem: React.FC<SidebarItemProps> = ({
+  id,
+  path,
+  name,
+  actionSidebarClose,
+}) => {
   return (
     <li key={id} role="menuitem">
-      <Link className="body1 text-[#666]" href={path}>
+      <Link
+        className="body1 text-[#666]"
+        href={path}
+        onClick={actionSidebarClose}
+      >
         {name}
       </Link>
     </li>
@@ -31,11 +42,13 @@ const SidebarGroup: React.FC<SidebarGroupProps> = ({
   path,
   submenu,
 }) => {
+  const { actionSidebarClose } = useSidebarStore();
   return (
     <li role="menuitem" key={title}>
       <Link
         href={path}
         className="font-NanumSquareRoundB mb-[1rem] block tracking-[-0.02rem]"
+        onClick={actionSidebarClose}
       >
         {title}
       </Link>
@@ -43,7 +56,15 @@ const SidebarGroup: React.FC<SidebarGroupProps> = ({
         <ul role="menu" className="mb-[1.5rem] flex flex-col gap-4 pl-[1rem]">
           {submenu.map((linkItem) => {
             const { id, name, path } = linkItem;
-            return <SidebarItem key={id} id={id} name={name} path={path} />;
+            return (
+              <SidebarItem
+                key={id}
+                id={id}
+                name={name}
+                path={path}
+                actionSidebarClose={actionSidebarClose}
+              />
+            );
           })}
         </ul>
       )}

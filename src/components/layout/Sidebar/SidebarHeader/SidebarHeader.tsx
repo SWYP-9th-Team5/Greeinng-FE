@@ -12,8 +12,9 @@ export default function SidebarHeader() {
     <div className={cn('mb-[2rem] flex items-center justify-between')}>
       <Link
         className="font-NanumSquareRoundB flex items-center tracking-[-0.02rem] text-[#666]"
-        href="login"
+        href="/login"
         aria-label="로그인 링크"
+        onClick={actionSidebarClose}
       >
         <Image src="/icons/person.svg" alt="" width={18} height={18} />
         로그인
