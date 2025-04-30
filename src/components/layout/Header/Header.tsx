@@ -2,6 +2,7 @@
 
 import React from 'react';
 
+import { useSidebarStore } from '@/stores/useSidebarStore';
 import { cn } from '@/utils/cn';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
@@ -40,6 +41,8 @@ const MobileHeader = () => {
   const indexLink = '/';
   const router = useRouter();
 
+  const { actionSidebarOpen } = useSidebarStore();
+
   const handleBack = () => {
     router.back();
   };
@@ -60,7 +63,7 @@ const MobileHeader = () => {
         height={32}
         src={'/images/logo@2x.png'}
       />
-      <button>
+      <button onClick={actionSidebarOpen}>
         <Image src="/icons/menu.svg" alt="메뉴 버튼" width={24} height={24} />
       </button>
     </>
