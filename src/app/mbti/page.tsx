@@ -35,7 +35,7 @@ export default function MbtiPage() {
           alt={title}
           width={400}
           height={400}
-          loading="lazy"
+          priority
         />
       </div>
       <Link

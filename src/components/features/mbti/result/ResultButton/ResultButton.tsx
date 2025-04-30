@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 
 import { cn } from '@/utils/cn';
@@ -9,9 +10,10 @@ import { useRouter } from 'next/navigation';
 import Button from '@components/common/Button';
 
 const Share = () => {
-  const handleCopyUrl = async () => {
+  const [currentUrl, setCurrentUrl] = useState('');
+
+  const handleCopyUrl = async (currentUrl: string) => {
     try {
-      const currentUrl = window.location.href;
       await navigator.clipboard.writeText(currentUrl);
       toast.success('링크가 복사되었습니다.');
     } catch (error) {
@@ -20,8 +22,12 @@ const Share = () => {
     }
   };
 
+  useEffect(() => {
+    setCurrentUrl(window.location.href);
+  }, []);
+
   return (
-    <div className={cn('gap-1" flex flex-col')}>
+    <div className={cn('flex flex-col gap-1')}>
       <strong
         className={cn(
           'font-HappinessB text-[#666]',
@@ -35,22 +41,26 @@ const Share = () => {
         className={cn(
           'flex items-center justify-between gap-2 rounded-[0.625rem] border border-[#eee] bg-[#fff]',
           'px-3 py-[0.4375rem]',
-          '',
         )}
       >
         <div className={cn('flex min-w-0 gap-2')}>
-          <Image src="/icons/clip.svg" alt="copy icon" width={20} height={20} />
-          <p className={cn('body1 truncate text-[#666]')}>
-            http://greening/mbtiasdasdasdasdasd
-          </p>
+          <Image
+            src="/icons/clip.svg"
+            alt="copy icon"
+            width={20}
+            height={20}
+            loading="lazy"
+          />
+          <p className={cn('body1 truncate text-[#666]')}>{currentUrl}</p>
         </div>
         <Button
+          aria-label="결과 페이지 링크 복사"
           className={cn(
             'h-[34px] w-[76px] rounded-[5px] px-[12.5px]',
             'md:h-[38px] md:w-[89px] md:rounded-[10px]',
           )}
           color="gray"
-          onClick={handleCopyUrl}
+          onClick={() => handleCopyUrl(currentUrl)}
         >
           복사하기
         </Button>
