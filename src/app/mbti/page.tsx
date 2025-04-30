@@ -31,7 +31,7 @@ export default function MbtiPage() {
       <div className="max-xxs:w-full mb-[18px] w-[350px] md:mb-[7px] md:w-[400px]">
         <Image
           className="w-full"
-          src={'/images/Q0-0@2x.png'}
+          src={'/images/mbti/Q0-0@2x.png'}
           alt={title}
           width={400}
           height={400}
