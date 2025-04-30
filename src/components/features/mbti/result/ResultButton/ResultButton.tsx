@@ -27,7 +27,7 @@ const Share = () => {
   }, []);
 
   return (
-    <div className={cn('gap-1" flex flex-col')}>
+    <div className={cn('flex flex-col gap-1')}>
       <strong
         className={cn(
           'font-HappinessB text-[#666]',
@@ -44,10 +44,17 @@ const Share = () => {
         )}
       >
         <div className={cn('flex min-w-0 gap-2')}>
-          <Image src="/icons/clip.svg" alt="copy icon" width={20} height={20} />
+          <Image
+            src="/icons/clip.svg"
+            alt="copy icon"
+            width={20}
+            height={20}
+            loading="lazy"
+          />
           <p className={cn('body1 truncate text-[#666]')}>{currentUrl}</p>
         </div>
         <Button
+          aria-label="결과 페이지 링크 복사"
           className={cn(
             'h-[34px] w-[76px] rounded-[5px] px-[12.5px]',
             'md:h-[38px] md:w-[89px] md:rounded-[10px]',

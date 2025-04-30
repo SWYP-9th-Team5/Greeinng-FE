@@ -48,7 +48,7 @@ const AnswerCardItem = ({
           alt={`${type} 이미지`}
           width={197}
           height={197}
-          loading="lazy"
+          priority
         />
         <p
           className={cn(

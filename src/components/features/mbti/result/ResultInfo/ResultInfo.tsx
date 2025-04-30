@@ -12,8 +12,8 @@ const RecommendCard = ({ label, text }: { label: string; text: string }) => {
     >
       <strong
         className={cn(
-          'font-HappinessB leading-[1.375rem]] text-[0.875rem] tracking-[-0.0175rem]',
-          'md:font-[1rem]',
+          'font-HappinessB text-[0.875rem] leading-[1.375rem] tracking-[-0.0175rem]',
+          'md:text-[1rem]',
         )}
       >
         {label}
@@ -57,6 +57,7 @@ export default async function ResultInfo({ ...resultInfoData }) {
         alt={plantName}
         width={350}
         height={350}
+        priority
       />
       <p className={cn('body1 mb-4 whitespace-pre-line')}>{plantPersonality}</p>
       <em className={cn('dy1 text-secondary mb-8 inline-block')}>
