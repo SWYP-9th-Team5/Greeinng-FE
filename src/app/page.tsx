@@ -10,7 +10,7 @@ import Imageslider from '@components/features/main/Imageslider';
 const PCHome = () => {
   return (
     <div
-      className="flex flex-col items-center justify-start overflow-x-hidden"
+      className="hide-scrollbar flex flex-col items-center justify-start overflow-x-scroll overflow-y-scroll"
       style={{ height: 'calc(100vh - 80px)' }}
     >
       <div className="relative min-h-[600px] w-full">
@@ -33,7 +33,7 @@ const PCHome = () => {
           <MbtiButton />
         </div>
       </div>
-      <footer className="bg-primary flex min-h-[291px] w-full flex-col pt-10 pl-24">
+      <footer className="bg-primary flex min-h-[291px] w-full flex-col px-24 pt-10">
         <Image
           className="mb-7"
           src="/images/logo_white.png"
