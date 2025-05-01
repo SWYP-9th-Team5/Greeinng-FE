@@ -46,7 +46,9 @@ function PCCommunityGrid({ data, label }: CommunityDataProps) {
           <p className="subTitle text-text mb-4 overflow-hidden break-words text-ellipsis whitespace-nowrap">
             {item.title}
           </p>
-          <p className="body1 text-text mb-4 break-words">{item.detail}</p>
+          <p className="body1 text-text mb-4 line-clamp-3 break-words">
+            {item.detail}
+          </p>
           <div className="flex flex-row items-center">
             <Image
               src="/icons/heart.svg"
@@ -122,7 +124,7 @@ const TabComponent = () => {
       id: 1,
       title: '갑자기 잎이 다 떨어졌어요... 어떡하죠...',
       detail:
-        '동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라 만세 무궁화 삼천리 화려강산 대한 사람 대한으로 길이 보전하세',
+        '동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라 만세 무궁화 삼천리 화려강산 대한 사람lllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllll 대한으로 길이 보전하세',
       likecount: 26,
       commentcount: 21,
     },

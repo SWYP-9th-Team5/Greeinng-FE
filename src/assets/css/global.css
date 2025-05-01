@@ -6,12 +6,13 @@
 }
 
 body {
-  width: 100vw;
+  width: 100%;
   height: 100vh;
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
 
 //스크롤바 숨기기
 .hide-scrollbar {
@@ -20,4 +21,10 @@ body {
 }
 .hide-scrollbar::-webkit-scrollbar {
   display: none;
+}
+.Toastify__toast-icon {
+  width: 20px;
+  height: 20px;
+  margin-inline-end: 8px !important;
+  fill: #fefee3 !important;
 }
