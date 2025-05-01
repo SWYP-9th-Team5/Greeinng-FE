@@ -5,6 +5,7 @@ import {
   CommunityButton,
   MbtiButton,
 } from '@components/features/main/Buttonlink';
+import Imageslider from '@components/features/main/Imageslider';
 
 const PCHome = () => {
   return (
@@ -12,10 +13,8 @@ const PCHome = () => {
       className="flex flex-col items-center justify-start overflow-x-hidden"
       style={{ height: 'calc(100vh - 80px)' }}
     >
-      <div className="title1 text-text2 flex min-h-[600px] w-full flex-col items-start justify-center bg-[#e9e9e9] pl-4">
-        식물을 키우는 모든 순간
-        <br />
-        그리닝에서
+      <div className="relative min-h-[600px] w-full">
+        <Imageslider />
       </div>
       <div className="text-text2 bg-background flex min-h-[800px] w-full flex-col items-center justify-center">
         <p className="text-text2 title1 mb-7">COMMUNITY</p>
@@ -23,7 +22,7 @@ const PCHome = () => {
         <CommunityButton />
       </div>
       <div className="flex w-full flex-row items-start justify-center">
-        <div className="flex min-h-[600px] w-1/2 bg-[#e9e9e9]"></div>
+        <div className="flex min-h-[600px] w-1/2 bg-[#F5FFD0] bg-[url('/images/main_mbti_pc.png')] bg-contain bg-center bg-no-repeat" />
         <div className="bg-background flex min-h-[700px] w-1/2 flex-col items-start justify-center pl-[6.5rem]">
           <p className="title1 text-text2 mb-6 text-left">식물 MBTI</p>
           <p className="title2 mb-[3.75rem] text-left text-[#666]">
@@ -58,25 +57,24 @@ const PCHome = () => {
     </div>
   );
 };
+
 const MBHome = () => {
   return (
     <div
       className="flex flex-col items-center justify-start"
       style={{ height: 'calc(100vh - 80px)' }}
     >
-      <div className="title1 text-text2 flex min-h-[500px] w-full flex-col items-start justify-center bg-[#e9e9e9] pl-4">
-        식물을 키우는 모든 순간
-        <br />
-        그리닝에서
+      <div className="relative min-h-[500px] w-full">
+        <Imageslider />
       </div>
       <div className="text-text2 bg-background flex min-h-[800px] w-full flex-col items-center justify-center">
         <p className="text-text2 title1 mb-7">COMMUNITY</p>
         <TabComponent />
         <CommunityButton />
       </div>
-      <div className="flex min-h-[500px] w-full flex-col items-center bg-[#e9e9e9] text-center">
+      <div className="flex min-h-[500px] w-full flex-col items-center bg-[#F5FFD0] bg-[url('/images/main_mbti_mb.png')] bg-contain bg-center bg-no-repeat pb-6 text-center">
         <p className="title1 text-text2 mt-6 mb-6">식물 MBTI</p>
-        <p className="title2 mb-64 text-[#666]">
+        <p className="title2 mb-auto text-[#666]">
           내가 식물이라면?
           <br />
           나는 과연 어떤 유형의 식물일까요?
