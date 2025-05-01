@@ -1,15 +1,18 @@
 'use client';
 
-import useOutsideClick from '@/stores/useOutsideClick';
 import { useSidebarStore } from '@/stores/useSidebarStore';
 import { cn } from '@/utils/cn';
+
+import FocusTrap from '@components/common/FocusTrap';
+
+import useOutsideClick from '@hooks/useOutsideClick';
 
 import SidebarHeader from './SidebarHeader';
 import SidebarNav from './SidebarNav';
 
 export default function Sidebar() {
   const { isSidebarOpen, actionSidebarClose } = useSidebarStore();
-  const { ref } = useOutsideClick<HTMLDivElement>(actionSidebarClose);
+  const { ref } = useOutsideClick(actionSidebarClose);
 
   return (
     <section
@@ -22,9 +25,15 @@ export default function Sidebar() {
       aria-hidden={!isSidebarOpen}
       inert={!isSidebarOpen}
     >
-      <h2 className="sr-only">사이드바</h2>
-      <SidebarHeader />
-      <SidebarNav />
+      <FocusTrap
+        isActive={isSidebarOpen}
+        isAutoFocus={false}
+        isRestoreFocus={true}
+      >
+        <h2 className="sr-only">사이드바</h2>
+        <SidebarHeader />
+        <SidebarNav />
+      </FocusTrap>
     </section>
   );
 }
