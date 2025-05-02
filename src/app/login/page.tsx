@@ -2,9 +2,6 @@ import React from 'react';
 
 import Image from 'next/image';
 
-import GoogleIcon from '../../assets/icons/google.svg';
-import KakaoIcon from '../../assets/icons/kakao.svg';
-
 const PCLoginPage = () => {
   return (
     <div
@@ -37,8 +34,10 @@ const PCLoginPage = () => {
           구글로 로그인
         </button>
         <span className="mb-6 h-0 w-full max-w-[501px] border-t border-[#fff]"></span>
-        <p className="text-text body1 max-w-[330px] text-center text-[1.125rem]">
-          커뮤니티 댓글 및 글 작성은 로그인 후 이용가능합니다
+
+        <p className="text-text body1 text-center text-[1.125rem]">
+          식물 성장 일기와 커뮤니티 댓글 및 글 작성은 로그인 후 이용가능합니다
+
         </p>
       </div>
     </div>

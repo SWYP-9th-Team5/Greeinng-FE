@@ -13,6 +13,15 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+
+//스크롤바 숨기기
+.hide-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
 .Toastify__toast-icon {
   width: 20px;
   height: 20px;
