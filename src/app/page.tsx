@@ -5,14 +5,12 @@ import {
   CommunityButton,
   MbtiButton,
 } from '@components/features/main/Buttonlink';
-import Imageslider from '@components/features/main/Imageslider';
+import Imageslider from '@components/features/main/Imageslider/Imageslider';
 
 const PCHome = () => {
   return (
     <div
-
       className="hide-scrollbar flex flex-col items-center justify-start overflow-x-scroll overflow-y-scroll"
-
       style={{ height: 'calc(100vh - 80px)' }}
     >
       <div className="relative min-h-[600px] w-full">
