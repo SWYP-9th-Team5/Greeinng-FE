@@ -22,7 +22,7 @@ const PCHome = () => {
         <CommunityButton />
       </div>
       <div className="flex w-full flex-row items-start justify-center">
-        <div className="flex min-h-[600px] w-1/2 bg-[#F5FFD0] bg-[url('/images/main_mbti_pc.png')] bg-contain bg-center bg-no-repeat" />
+        <div className="flex min-h-[600px] w-1/2 bg-[#F5FFD0] bg-[url('/images/main/main_mbti_pc.png')] bg-contain bg-center bg-no-repeat" />
         <div className="bg-background flex min-h-[700px] w-1/2 flex-col items-start justify-center pl-[6.5rem]">
           <p className="title1 text-text2 mb-6 text-left">식물 MBTI</p>
           <p className="title2 mb-[3.75rem] text-left text-[#666]">
@@ -72,7 +72,7 @@ const MBHome = () => {
         <TabComponent />
         <CommunityButton />
       </div>
-      <div className="flex min-h-[500px] w-full flex-col items-center bg-[#F5FFD0] bg-[url('/images/main_mbti_mb.png')] bg-contain bg-center bg-no-repeat pb-6 text-center">
+      <div className="flex min-h-[500px] w-full flex-col items-center bg-[#F5FFD0] bg-[url('/images/main/main_mbti_mb.png')] bg-contain bg-center bg-no-repeat pb-6 text-center">
         <p className="title1 text-text2 mt-6 mb-6">식물 MBTI</p>
         <p className="title2 mb-auto text-[#666]">
           내가 식물이라면?

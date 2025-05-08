@@ -26,7 +26,7 @@ export interface ErrorResponse {
 }
 
 const AxiosConfig = (
-  baseURL: string = '',
+  baseURL: string = 'http://223.130.155.195:8080',
   transactionTime = 3000,
   transactionAlwaysFail = false,
   errorRate = 0,

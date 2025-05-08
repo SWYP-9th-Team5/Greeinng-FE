@@ -2,6 +2,7 @@
 
 import React from 'react';
 
+import { useAuthStore } from '@/stores/useAuthStore';
 import { useSidebarStore } from '@/stores/useSidebarStore';
 import { cn } from '@/utils/cn';
 import Image from 'next/image';
@@ -21,6 +22,14 @@ const PcHeader = () => {
   const loginLink = '/login';
   const loginText = '로그인';
 
+  const { isLoggedIn, logout } = useAuthStore();
+
+  const handleLogout = () => {
+    logout();
+    localStorage.removeItem('token'); // ✅ 토큰 삭제
+    window.location.href = '/'; // 또는 router.push('/')
+  };
+
   return (
     <>
       <div className="flex items-center gap-[47.09px]">
@@ -32,7 +41,16 @@ const PcHeader = () => {
         />
         <HeaderTab tabList={tabList} />
       </div>
-      <LoginLink href={loginLink} text={loginText} />
+      {isLoggedIn ? (
+        <button
+          onClick={handleLogout}
+          className="text-sm font-bold text-[#444]"
+        >
+          로그아웃
+        </button>
+      ) : (
+        <LoginLink href={loginLink} text={loginText} />
+      )}{' '}
     </>
   );
 };
