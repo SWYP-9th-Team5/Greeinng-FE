@@ -26,8 +26,8 @@ const PcHeader = () => {
 
   const handleLogout = () => {
     logout();
-    localStorage.removeItem('token'); // ✅ 토큰 삭제
-    window.location.href = '/'; // 또는 router.push('/')
+    localStorage.removeItem('token');
+    window.location.href = '/';
   };
 
   return (
@@ -44,7 +44,7 @@ const PcHeader = () => {
       {isLoggedIn ? (
         <button
           onClick={handleLogout}
-          className="text-sm font-bold text-[#444]"
+          className="font-NanumSquareRoundB text-[1.125rem] text-[#666]"
         >
           로그아웃
         </button>
