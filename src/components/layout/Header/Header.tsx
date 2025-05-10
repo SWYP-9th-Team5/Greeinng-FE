@@ -21,6 +21,7 @@ const PcHeader = () => {
   const indexLink = '/';
   const loginLink = '/login';
   const loginText = '로그인';
+  const logoutText = '로그아웃';
 
   const { isLoggedIn, logout } = useAuthStore();
 
@@ -41,16 +42,11 @@ const PcHeader = () => {
         />
         <HeaderTab tabList={tabList} />
       </div>
-      {isLoggedIn ? (
-        <button
-          onClick={handleLogout}
-          className="font-NanumSquareRoundB text-[1.125rem] text-[#666]"
-        >
-          로그아웃
-        </button>
-      ) : (
-        <LoginLink href={loginLink} text={loginText} />
-      )}{' '}
+      <LoginLink
+        href={loginLink}
+        logintext={loginText}
+        logouttext={logoutText}
+      />
     </>
   );
 };
