@@ -2,13 +2,27 @@
 
 import { useState } from 'react';
 
+import LoginModal from '@/components/modal/LoginModal';
+import { useAuthStore } from '@/stores/useAuthStore';
+import { useRouter } from 'next/navigation';
+
 import Button from '@components/common/Button';
 
 import { CommunityList } from './List';
 
 const TabComponent = () => {
+  const router = useRouter();
   const [activeTab, setActiveTab] = useState<string>('QnA');
+  const { isLoggedIn } = useAuthStore();
+  const [showModal, setShowModal] = useState(false);
 
+  const handleWrite = () => {
+    if (isLoggedIn) {
+      router.push('/story');
+    } else {
+      setShowModal(true);
+    }
+  };
   const tabs = ['QnA', '자유게시판', '나눔'];
 
   const QnA = [
@@ -541,9 +555,12 @@ const TabComponent = () => {
           size="sm"
           color="secondary"
           className="block w-14 border border-red-500 md:hidden"
+          onClick={handleWrite}
         >
           글쓰기
         </Button>
+        {/* 로그인 모달 */}
+        {showModal && <LoginModal onClose={() => setShowModal(false)} />}
       </div>
       <div className="w-full py-4">{renderContent()}</div>
     </div>

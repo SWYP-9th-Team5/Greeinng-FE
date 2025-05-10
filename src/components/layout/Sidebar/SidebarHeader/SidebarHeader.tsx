@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 
 import { useAuthStore } from '@/stores/useAuthStore';
@@ -5,17 +7,18 @@ import { useSidebarStore } from '@/stores/useSidebarStore';
 import { cn } from '@/utils/cn';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 export default function SidebarHeader() {
   const { actionSidebarClose } = useSidebarStore();
-
   const { isLoggedIn, logout } = useAuthStore();
+  const router = useRouter();
 
   const handleLogout = () => {
     logout();
     localStorage.removeItem('token');
     actionSidebarClose();
-    window.location.href = '/';
+    router.push('/');
   };
 
   return isLoggedIn ? (

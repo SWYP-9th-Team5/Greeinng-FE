@@ -2,7 +2,6 @@
 
 import React from 'react';
 
-import { useAuthStore } from '@/stores/useAuthStore';
 import { useSidebarStore } from '@/stores/useSidebarStore';
 import { cn } from '@/utils/cn';
 import Image from 'next/image';
@@ -22,14 +21,6 @@ const PcHeader = () => {
   const loginLink = '/login';
   const loginText = '로그인';
   const logoutText = '로그아웃';
-
-  const { isLoggedIn, logout } = useAuthStore();
-
-  const handleLogout = () => {
-    logout();
-    localStorage.removeItem('token');
-    window.location.href = '/';
-  };
 
   return (
     <>

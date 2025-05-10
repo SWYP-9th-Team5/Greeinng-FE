@@ -3,6 +3,7 @@
 import { useAuthStore } from '@/stores/useAuthStore';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 interface LoginButtonProps {
   href: string;
@@ -16,11 +17,12 @@ export default function LoginLink({
   logouttext,
 }: LoginButtonProps) {
   const { isLoggedIn, logout } = useAuthStore();
+  const router = useRouter();
 
   const handleLogout = () => {
     logout();
     localStorage.removeItem('token');
-    window.location.href = '/';
+    router.push('/');
   };
 
   return isLoggedIn ? (
