@@ -2,12 +2,12 @@
 
 import { useState } from 'react';
 
-import LoginModal from '@/components/modal/LoginModal';
 import { useAuthStore } from '@/stores/useAuthStore';
 import { useRouter } from 'next/navigation';
 
 import Button from '@components/common/Button';
 import TabComponent from '@components/features/community/Tabbarcomponent';
+import BaseModal from '@components/modal/BaseModal';
 
 export default function CommunityPage() {
   const router = useRouter();
@@ -35,7 +35,16 @@ export default function CommunityPage() {
           글쓰기
         </Button>
         {/* 로그인 모달 */}
-        {showModal && <LoginModal onClose={() => setShowModal(false)} />}
+        {showModal && (
+          <BaseModal
+            title="로그인이 필요한 서비스입니다"
+            description="로그인 후 그리닝의 서비스를 이용해 보세요"
+            confirmText="로그인하기"
+            cancelText="닫기"
+            onConfirm={() => router.push('/login')}
+            onCancel={() => setShowModal(false)}
+          />
+        )}
       </div>
       <TabComponent />
     </div>
