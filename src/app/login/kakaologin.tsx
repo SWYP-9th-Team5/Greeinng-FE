@@ -23,7 +23,7 @@ export const kakaoLogin = async () => {
       data: { accessToken: string; newJoin: boolean };
     }>('/api/login/kakao', { code });
 
-    const { accessToken, newJoin } = res.data;
+    const { accessToken } = res.data;
 
     localStorage.setItem('token', accessToken);
     useAuthStore.getState().login(accessToken);

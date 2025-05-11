@@ -2,14 +2,15 @@ import '@assets/css/global.css';
 
 import AuthInit from '@components/common/AuthInit';
 import Header from '@components/layout/Header';
-import Sidebar from '@components/layout/Sidebar';
 
 import Coreprovider from '@providers/Coreprovider';
 
 export default function RootLayout({
   children,
+  sidebar,
 }: Readonly<{
   children: React.ReactNode;
+  sidebar: React.ReactNode;
 }>) {
   return (
     <html lang="en">
@@ -17,7 +18,7 @@ export default function RootLayout({
         <Coreprovider>
           <AuthInit />
           <Header />
-          <Sidebar />
+          {sidebar}
           <main className="pt-16 md:pt-20">{children}</main>
         </Coreprovider>
       </body>
