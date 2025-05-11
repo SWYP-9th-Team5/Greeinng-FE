@@ -16,6 +16,7 @@ export function useLikeToggle(initialData: {
   return { like, likeCount, toggleLike };
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function getUpdatedLike(items: any[], targetId: number) {
   return items.map((item) =>
     item.id === targetId
