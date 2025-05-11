@@ -32,7 +32,7 @@ export default function Button({
 
   const sizeStyles = {
     sm: 'h-[23px] rounded-[30px] text-xs font-HappinessR md:h-[30px] md:text-[1rem]',
-    md: 'h-[40px] rounded-[30px] text-sm  md:text-[1rem] md:h-[44px]',
+    md: 'h-[40px] rounded-[30px] text-sm md:text-[1rem] md:h-[44px]',
     lg: 'h-[38px] rounded-[50px] text-sm md:text-[1rem] md:h-[54px]',
   };
 

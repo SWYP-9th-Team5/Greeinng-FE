@@ -20,6 +20,7 @@ const PcHeader = () => {
   const indexLink = '/';
   const loginLink = '/login';
   const loginText = '로그인';
+  const logoutText = '로그아웃';
 
   return (
     <>
@@ -32,7 +33,11 @@ const PcHeader = () => {
         />
         <HeaderTab tabList={tabList} />
       </div>
-      <LoginLink href={loginLink} text={loginText} />
+      <LoginLink
+        href={loginLink}
+        logintext={loginText}
+        logouttext={logoutText}
+      />
     </>
   );
 };

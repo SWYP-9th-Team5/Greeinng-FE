@@ -2,13 +2,27 @@
 
 import { useState } from 'react';
 
+import { useAuthStore } from '@/stores/useAuthStore';
+import { useRouter } from 'next/navigation';
+
 import Button from '@components/common/Button';
+import BaseModal from '@components/modal/BaseModal';
 
 import { CommunityList } from './List';
 
 const TabComponent = () => {
+  const router = useRouter();
   const [activeTab, setActiveTab] = useState<string>('QnA');
+  const { isLoggedIn } = useAuthStore();
+  const [showModal, setShowModal] = useState(false);
 
+  const handleWrite = () => {
+    if (isLoggedIn) {
+      router.push('/story');
+    } else {
+      setShowModal(true);
+    }
+  };
   const tabs = ['QnA', '자유게시판', '나눔'];
 
   const QnA = [
@@ -541,9 +555,21 @@ const TabComponent = () => {
           size="sm"
           color="secondary"
           className="block w-14 border border-red-500 md:hidden"
+          onClick={handleWrite}
         >
           글쓰기
         </Button>
+        {/* 로그인 모달 */}
+        {showModal && (
+          <BaseModal
+            title="로그인이 필요한 서비스입니다"
+            description="로그인 후 그리닝의 서비스를 이용해 보세요"
+            confirmText="로그인하기"
+            cancelText="닫기"
+            onConfirm={() => router.push('/login')}
+            onCancel={() => setShowModal(false)}
+          />
+        )}{' '}
       </div>
       <div className="w-full py-4">{renderContent()}</div>
     </div>

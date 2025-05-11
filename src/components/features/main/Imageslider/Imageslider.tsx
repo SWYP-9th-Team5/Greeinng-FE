@@ -12,7 +12,7 @@ export default function ImageSlider() {
     <PCMainSection
       key={1}
       bgColor="bg-[#F9FFEE]"
-      bgImageUrl="/images/main_1_pc.png"
+      bgImageUrl="/images/main/main_1_pc.png"
       bgPosition="bg-bottom"
     >
       <p>
@@ -24,7 +24,7 @@ export default function ImageSlider() {
     <PCMainSection
       key={2}
       bgColor="bg-[#FDFCEF]"
-      bgImageUrl="/images/main_2_pc.png"
+      bgImageUrl="/images/main/main_2_pc.png"
       bgPosition="bg-center"
     >
       <p>
@@ -43,7 +43,7 @@ export default function ImageSlider() {
     <MBMainSection
       key={1}
       bgColor="bg-[#F9FFEE]"
-      bgImageUrl="/images/main_1_mb.png"
+      bgImageUrl="/images/main/main_1_mb.png"
       bgPosition="bg-bottom"
     >
       <p>
@@ -55,7 +55,7 @@ export default function ImageSlider() {
     <MBMainSection
       key={2}
       bgColor="bg-[#FDFCEF]"
-      bgImageUrl="/images/main_2_mb.png"
+      bgImageUrl="/images/main/main_2_mb.png"
       bgPosition="bg-center"
     >
       <p>
