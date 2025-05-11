@@ -1,10 +1,6 @@
-'use client';
-
-import { useEffect } from 'react';
-
-import { useAuthStore } from '@/stores/useAuthStore';
 import '@assets/css/global.css';
 
+import AuthInit from '@components/common/AuthInit';
 import Header from '@components/layout/Header';
 import Sidebar from '@components/layout/Sidebar';
 
@@ -15,17 +11,11 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const login = useAuthStore((state) => state.login);
-
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (token) login(token);
-  }, [login]);
-
   return (
     <html lang="en">
       <body>
         <Coreprovider>
+          <AuthInit />
           <Header />
           <Sidebar />
           <main className="pt-16 md:pt-20">{children}</main>
