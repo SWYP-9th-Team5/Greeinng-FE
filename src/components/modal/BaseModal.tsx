@@ -9,7 +9,7 @@ import ModalPortal from './MadalPortal';
 
 interface BaseModalProps {
   title: string;
-  description?: string[];
+  description?: string;
   confirmText?: string;
   cancelText?: string;
   onConfirm: () => void;
@@ -47,11 +47,12 @@ export default function BaseModal({
           )}
         >
           <p className="title2 text-text2 mb-4">{title}</p>
-          {description?.map((sentence, i) => (
-            <p key={i} className="subTitle indent-4 text-[#666]">
-              {sentence}
+          {description && (
+            <p className="subTitle indent-4 whitespace-pre-line text-[#666]">
+              {description}
             </p>
-          ))}
+          )}
+
           <div className="mt-12 flex justify-center gap-2">
             <Button
               size="md"

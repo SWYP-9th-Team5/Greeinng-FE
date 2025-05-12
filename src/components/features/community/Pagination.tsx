@@ -20,7 +20,7 @@ export default function Pagination({
           Math.abs(page - currentPage) <= 1 //현재 페이지 +-1 표시
         );
       })
-      .reduce<(number | string)[]>((acc, page, i, arr) => {
+      .reduce<(number | string)[]>((acc, page) => {
         const prev = acc[acc.length - 1];
         if (typeof prev === 'number' && page - prev > 1) {
           //prev와 연속되지 않으면

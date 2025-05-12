@@ -10,6 +10,7 @@ const reducer = <T extends Record<string, string>>(
   action: TAction | null,
 ) => {
   if (!action) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const initialState: any = {};
     Object.keys(state).forEach((key) => {
       initialState[key] = '';
@@ -23,6 +24,7 @@ const reducer = <T extends Record<string, string>>(
   };
 };
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const useInputs = <T extends Record<string, any>>(defaultValues: T) => {
   const memoValues = useMemo(() => defaultValues, [defaultValues]);
   const [inputs, dispatch] = useReducer(reducer, memoValues);
