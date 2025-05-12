@@ -16,7 +16,7 @@ export default function Page() {
   const { ref } = useOutsideClick(actionSidebarClose);
 
   return (
-    <section
+    <aside
       ref={ref}
       className={cn(
         'fixed right-0 z-300 h-[100vh] w-[71%] bg-[#FEFEFE] px-[1rem] py-[1.1875rem] transition-transform duration-300 ease-in-out md:hidden',
@@ -35,6 +35,6 @@ export default function Page() {
         <SidebarHeader />
         <SidebarNav />
       </FocusTrap>
-    </section>
+    </aside>
   );
 }
