@@ -6,8 +6,8 @@
   --font-SuperMagicB: 'SuperMagic-Bold', sans-serif;
   --font-PretendardM: 'Pretendard-Medium', sans-serif;
   --font-NanumSquareRoundB: 'NanumSquareRound-Bold', sans-serif;
-  --font-HappinessB: 'Happiness-Sans-Bold', sans-serif;
-  --font-HappinessR: 'Happiness-Sans-Regular', sans-serif;
+  --font-HappinessB: 'Happiness-Bold', sans-serif;
+  --font-HappinessR: 'Happiness-Regular', sans-serif;
 
   /* 색상 */
   --color-*: initial;
