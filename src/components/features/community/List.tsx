@@ -3,6 +3,7 @@
 import { useState } from 'react';
 
 import Image from 'next/image';
+import Link from 'next/link';
 
 import { getUpdatedLike } from '@hooks/useLikeToggle';
 import { usePagination } from '@hooks/usePagination';
@@ -28,7 +29,11 @@ export function CommunityList({ data, label }: CommunityDataProps) {
   const { currentPage, currentItems, totalPages, handlePageClick } =
     usePagination(items, 5); //페이지네이션 5개씩
 
-  const handleToggleLike = (id: number) => {
+  const handleToggleLike = (
+    e: React.MouseEvent<HTMLButtonElement>,
+    id: number,
+  ) => {
+    e.preventDefault();
     //좋아요 버튼 조작
     setItems((prev) => getUpdatedLike(prev, id));
   };
@@ -36,7 +41,8 @@ export function CommunityList({ data, label }: CommunityDataProps) {
   return (
     <div className="flex w-full flex-col">
       {currentItems.map((item) => (
-        <div
+        <Link
+          href={'/community/1'}
           key={item.id}
           className="relative flex h-16 w-full flex-col justify-center border-b-1 border-[#ddd] md:h-20 md:flex-row md:items-center md:justify-start md:px-6"
         >
@@ -47,7 +53,7 @@ export function CommunityList({ data, label }: CommunityDataProps) {
             </p>
             <div className="ml-2 flex flex-shrink-0 flex-row md:absolute md:right-6">
               <button
-                onClick={() => handleToggleLike(item.id)}
+                onClick={(e) => handleToggleLike(e, item.id)}
                 className="mr-1"
               >
                 <Image
@@ -70,7 +76,7 @@ export function CommunityList({ data, label }: CommunityDataProps) {
               <p className="body1 text-[#666]">{item.commentcount}</p>
             </div>
           </div>
-        </div>
+        </Link>
       ))}
       <Pagination
         currentPage={currentPage}
