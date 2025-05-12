@@ -7,7 +7,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
-import BaseModal from '@components/modal/BaseModal';
+import BaseModal from '@components/popup/BasePopup';
 
 interface LoginButtonProps {
   href: string;

@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation';
 
 import Button from '@components/common/Button';
 import TabComponent from '@components/features/community/Tabbarcomponent';
-import BaseModal from '@components/modal/BaseModal';
+import BaseModal from '@components/popup/BasePopup';
 
 export default function CommunityPage() {
   const router = useRouter();

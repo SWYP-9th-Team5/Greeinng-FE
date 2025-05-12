@@ -6,7 +6,7 @@ import { useAuthStore } from '@/stores/useAuthStore';
 import { useRouter } from 'next/navigation';
 
 import Button from '@components/common/Button';
-import BaseModal from '@components/modal/BaseModal';
+import BaseModal from '@components/popup/BasePopup';
 
 import { CommunityList } from './List';
 
