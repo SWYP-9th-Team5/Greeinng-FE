@@ -1,24 +1,30 @@
 'use client';
 
-import { useState } from 'react';
-
 import { useAuthStore } from '@/stores/useAuthStore';
+import { usePopupStore } from '@/stores/usePopupStore';
 import { useRouter } from 'next/navigation';
 
 import Button from '@components/common/Button';
 import TabComponent from '@components/features/community/Tabbarcomponent';
-import BaseModal from '@components/popup/BasePopup';
 
 export default function CommunityPage() {
   const router = useRouter();
   const { isLoggedIn } = useAuthStore();
-  const [showModal, setShowModal] = useState(false);
+  const { openPopup } = usePopupStore();
 
   const handleWrite = () => {
     if (isLoggedIn) {
       router.push('/story');
     } else {
-      setShowModal(true);
+      openPopup({
+        title: '로그인이 필요한 서비스입니다',
+        description: '로그인 후 그리닝의 서비스를 이용해 보세요.',
+        confirmText: '로그인하기',
+        cancelText: '닫기',
+        mode: 'double',
+        onConfirm: () => router.push('/login'),
+        onCancel: () => {},
+      });
     }
   };
 
@@ -34,17 +40,6 @@ export default function CommunityPage() {
         >
           글쓰기
         </Button>
-        {/* 로그인 모달 */}
-        {showModal && (
-          <BaseModal
-            title="로그인이 필요한 서비스입니다"
-            description={'로그인 후 그리닝의 서비스를 이용해 보세요'}
-            confirmText="로그인하기"
-            cancelText="닫기"
-            onConfirm={() => router.push('/login')}
-            onCancel={() => setShowModal(false)}
-          />
-        )}
       </div>
       <TabComponent />
     </div>

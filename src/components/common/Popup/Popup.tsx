@@ -12,6 +12,7 @@ export default function Popup() {
     confirmText,
     cancelText,
     mode,
+    className,
     onConfirm,
     onCancel,
     closePopup,
@@ -26,6 +27,7 @@ export default function Popup() {
       confirmText={confirmText}
       cancelText={cancelText}
       mode={mode}
+      className={className}
       onConfirm={() => {
         onConfirm();
         closePopup();

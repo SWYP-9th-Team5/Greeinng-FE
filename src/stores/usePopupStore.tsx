@@ -7,6 +7,7 @@ interface PopupState {
   confirmText?: string;
   cancelText?: string;
   mode?: 'single' | 'double';
+  className?: string;
   onConfirm: () => void;
   onCancel?: () => void;
   openPopup: (
@@ -18,6 +19,12 @@ interface PopupState {
 export const usePopupStore = create<PopupState>((set) => ({
   isOpen: false,
   title: '',
+  description: '',
+  confirmText: '',
+  cancelText: '',
+  mode: 'double',
+  className: '',
+  onCancel: undefined,
   onConfirm: () => {},
   openPopup: (props) =>
     set({
@@ -32,6 +39,7 @@ export const usePopupStore = create<PopupState>((set) => ({
       confirmText: '',
       cancelText: '',
       mode: 'double',
+      className: '',
       onConfirm: () => {},
       onCancel: undefined,
     }),

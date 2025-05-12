@@ -1,5 +1,3 @@
-'use client';
-
 import { cn } from '@/utils/cn';
 
 import Button from '@components/common/Button';
@@ -39,13 +37,13 @@ export default function BasePopup({
         isAutoFocus={false}
         isRestoreFocus={true}
         className={cn(
-          'aspect-[320/173] w-[320px] max-w-[320px] rounded-[1.25rem] bg-[#FFF] p-[1.125rem] text-center md:aspect-[400/209] md:w-[400px] md:max-w-[400px] md:p-6',
+          'aspect-[320/173] w-[320px] max-w-[320px] rounded-[1.25rem] bg-[#FFF] p-4 text-center md:aspect-[400/209] md:w-[400px] md:max-w-[400px] md:p-6',
           className,
         )}
       >
         <p className="title2 text-text2 mb-4">{title}</p>
         {description && (
-          <p className="subTitle indent-4 whitespace-pre-line text-[#666]">
+          <p className="subTitle whitespace-pre-line text-[#666]">
             {description}
           </p>
         )}
