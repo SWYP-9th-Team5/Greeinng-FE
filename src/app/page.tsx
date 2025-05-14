@@ -1,10 +1,10 @@
-import TabComponent from '@/components/features/main/Tabbarcomponent';
 import Image from 'next/image';
 
 import {
   CommunityButton,
   MbtiButton,
 } from '@components/features/main/Buttonlink';
+import TabComponent from '@components/features/main/Community/MainTabbar';
 import Imageslider from '@components/features/main/Imageslider/Imageslider';
 
 const PCHome = () => {
