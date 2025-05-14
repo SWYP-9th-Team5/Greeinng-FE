@@ -1,9 +1,31 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+
+import api from '@apis/api-config';
+
+interface PostItem {
+  postId: number;
+  categoryId: number;
+  userId: number;
+  userName: string;
+  title: string;
+  content: string;
+  likeCount: number;
+  commentCount: number;
+  createdAt: string;
+  lastModifiedAt: string;
+  isLike: boolean;
+}
+
+const categoryMap: Record<string, number> = {
+  QnA: 1,
+  자유게시판: 2,
+  나눔: 3,
+};
 
 interface CommunityData {
   id: number;
@@ -116,174 +138,29 @@ function MBCommunityGrid({ data, label }: CommunityDataProps) {
 
 const TabComponent = () => {
   const [activeTab, setActiveTab] = useState<string>('QnA');
-
+  const [allData, setAllData] = useState<PostItem[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const tabs = ['QnA', '자유게시판', '나눔'];
 
-  const QnA = [
-    {
-      id: 1,
-      title: '갑자기 잎이 다 떨어졌어요... 어떡하죠...',
-      detail:
-        '동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라 만세 무궁화 삼천리 화려강산 대한 사람lllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllll 대한으로 길이 보전하세',
-      likecount: 26,
-      commentcount: 21,
-    },
-    {
-      id: 2,
-      title: '흙 위에 하얀 곰팡이처럼 뭐가 생겼어요ㅜㅜ',
-      detail:
-        '동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라 만세 무궁화 삼천리 화려강산 대한 사람 대한으로 길이 보전하세',
-      likecount: 24,
-      commentcount: 21,
-    },
-    {
-      id: 3,
-      title: '직광이 잘 드는 곳, 어떤 식물이 좋을까요?',
-      detail:
-        '동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라 만세 무궁화 삼천리 화려강산 대한 사람 대한으로 길이 보전하세',
-      likecount: 20,
-      commentcount: 21,
-    },
-    {
-      id: 4,
-      title: '새싹이 안 자라요ㅜ',
-      detail:
-        '동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라 만세 무궁화 삼천리 화려강산 대한 사람 대한으로 길이 보전하세',
-      likecount: 18,
-      commentcount: 21,
-    },
-    {
-      id: 5,
-      title: '분갈이 언제 해줘야 하나요?',
-      detail:
-        '동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라 만세 무궁화 삼천리 화려강산 대한 사람 대한으로 길이 보전하세',
-      likecount: 15,
-      commentcount: 21,
-    },
-    {
-      id: 6,
-      title: '동해물과 백두산이 마르고',
-      detail:
-        '동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라 만세 무궁화 삼천리 화려강산 대한 사람 대한으로 길이 보전하세',
-      likecount: 10,
-      commentcount: 21,
-    },
-  ];
-
-  const Free = [
-    {
-      id: 1,
-      title: '동해물과 백두산이 마르고2',
-      detail:
-        '동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라 만세 무궁화 삼천리 화려강산 대한 사람 대한으로 길이 보전하세',
-      likecount: 26,
-      commentcount: 21,
-    },
-    {
-      id: 2,
-      title: '동해물과 백두산이 마르고2',
-      detail:
-        '동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라 만세 무궁화 삼천리 화려강산 대한 사람 대한으로 길이 보전하세',
-      likecount: 24,
-      commentcount: 21,
-    },
-    {
-      id: 3,
-      title: '동해물과 백두산이 마르고2',
-      detail:
-        '동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라 만세 무궁화 삼천리 화려강산 대한 사람 대한으로 길이 보전하세',
-      likecount: 20,
-      commentcount: 21,
-    },
-    {
-      id: 4,
-      title: '동해물과 백두산이 마르고2',
-      detail:
-        '동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라 만세 무궁화 삼천리 화려강산 대한 사람 대한으로 길이 보전하세',
-      likecount: 18,
-      commentcount: 21,
-    },
-    {
-      id: 5,
-      title: '동해물과 백두산이 마르고2',
-      detail:
-        '동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라 만세 무궁화 삼천리 화려강산 대한 사람 대한으로 길이 보전하세',
-      likecount: 15,
-      commentcount: 21,
-    },
-    {
-      id: 6,
-      title: '동해물과 백두산이 마르고2',
-      detail:
-        '동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라 만세 무궁화 삼천리 화려강산 대한 사람 대한으로 길이 보전하세',
-      likecount: 10,
-      commentcount: 21,
-    },
-  ];
-
-  const Gift = [
-    {
-      id: 1,
-      title: '동해물과 백두산이 마르고3',
-      detail:
-        '동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라 만세 무궁화 삼천리 화려강산 대한 사람 대한으로 길이 보전하세',
-      likecount: 26,
-      commentcount: 21,
-    },
-    {
-      id: 2,
-      title: '동해물과 백두산이 마르고3',
-      detail:
-        '동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라 만세 무궁화 삼천리 화려강산 대한 사람 대한으로 길이 보전하세',
-      likecount: 24,
-      commentcount: 21,
-    },
-    {
-      id: 3,
-      title: '동해물과 백두산이 마르고3',
-      detail:
-        '동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라 만세 무궁화 삼천리 화려강산 대한 사람 대한으로 길이 보전하세',
-      likecount: 20,
-      commentcount: 21,
-    },
-    {
-      id: 4,
-      title: '동해물과 백두산이 마르고3',
-      detail:
-        '동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라 만세 무궁화 삼천리 화려강산 대한 사람 대한으로 길이 보전하세',
-      likecount: 18,
-      commentcount: 21,
-    },
-    {
-      id: 5,
-      title: '동해물과 백두산이 마르고3',
-      detail:
-        '동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라 만세 무궁화 삼천리 화려강산 대한 사람 대한으로 길이 보전하세',
-      likecount: 15,
-      commentcount: 21,
-    },
-    {
-      id: 6,
-      title: '동해물과 백두산이 마르고3',
-      detail:
-        '동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라 만세 무궁화 삼천리 화려강산 대한 사람 대한으로 길이 보전하세',
-      likecount: 10,
-      commentcount: 21,
-    },
-  ];
-
-  const renderContent = () => {
-    switch (activeTab) {
-      case 'QnA':
-        return <CommunityGrid data={QnA} label="QnA" />;
-      case '자유게시판':
-        return <CommunityGrid data={Free} label="자유게시판" />;
-      case '나눔':
-        return <CommunityGrid data={Gift} label="나눔" />;
-      default:
-        return null;
+  const fetchData = async () => {
+    try {
+      setIsLoading(true);
+      const res = await api.get<{ data: PostItem[] }>('/api/posts/home');
+      setAllData(res.data);
+    } catch (error) {
+      console.error('데이터 불러오기 실패:', error);
+    } finally {
+      setIsLoading(false);
     }
   };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const filteredData = allData.filter(
+    (item) => item.categoryId === categoryMap[activeTab],
+  );
 
   return (
     <div className="flex w-full flex-col items-center">
@@ -300,7 +177,22 @@ const TabComponent = () => {
           </button>
         ))}
       </div>
-      <div className="py-4">{renderContent()}</div>
+      <div className="py-4">
+        {isLoading ? (
+          <p>로딩 중...</p>
+        ) : (
+          <CommunityGrid
+            data={filteredData.map((item) => ({
+              id: item.postId,
+              title: item.title,
+              detail: item.content,
+              likecount: item.likeCount,
+              commentcount: item.commentCount,
+            }))}
+            label={activeTab}
+          />
+        )}
+      </div>{' '}
     </div>
   );
 };
