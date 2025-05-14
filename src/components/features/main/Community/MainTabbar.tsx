@@ -55,7 +55,7 @@ const TabComponent = () => {
 
   return (
     <div className="flex w-full flex-col items-center">
-      <div className="flex items-center justify-center gap-9">
+      <div className="mb-2 flex items-center justify-center gap-9">
         {tabs.map((tab) => (
           <button
             key={tab}
@@ -68,7 +68,6 @@ const TabComponent = () => {
           </button>
         ))}
       </div>
-
       <div className="py-4">
         {isLoading ? (
           <p>로딩 중...</p>
