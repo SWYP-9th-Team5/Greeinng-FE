@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import Image from 'next/image';
 import Link from 'next/link';
@@ -8,7 +8,7 @@ import Link from 'next/link';
 import { getUpdatedLike } from '@hooks/useLikeToggle';
 import { usePagination } from '@hooks/usePagination';
 
-import Pagination from './Pagination';
+import Pagination from '../All/Pagination';
 
 interface CommunityData {
   id: number;
@@ -26,6 +26,9 @@ interface CommunityDataProps {
 
 export function CommunityList({ data, label }: CommunityDataProps) {
   const [items, setItems] = useState(data);
+  useEffect(() => {
+    setItems(data);
+  }, [data]);
   const { currentPage, currentItems, totalPages, handlePageClick } =
     usePagination(items, 5); //페이지네이션 5개씩
 
@@ -44,7 +47,7 @@ export function CommunityList({ data, label }: CommunityDataProps) {
         <Link
           href={'/community/1'}
           key={item.id}
-          className="relative flex h-16 w-full flex-col justify-center border-b-1 border-[#ddd] md:h-20 md:flex-row md:items-center md:justify-start md:px-6"
+          className="relative flex h-20 w-full flex-col justify-center border-b-1 border-[#ddd] md:h-20 md:flex-row md:items-center md:justify-start md:px-6"
         >
           <p className="body2 text-tertiary md:pr-2">{label}</p>
           <div className="flex flex-row items-center justify-between">
