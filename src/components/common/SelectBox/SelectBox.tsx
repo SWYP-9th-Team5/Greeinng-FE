@@ -45,9 +45,10 @@ export default function SelectBox({
     >
       <SelectTrigger
         className={cn(
-          'body1 text-[#333]',
+          'font-HappinessR text-[0.875rem] text-[#333]',
           'w-full focus-visible:ring-[#2c6e49]',
           'h-[2.75rem] rounded-[0.625rem] border-[#ddd] bg-[#fff]',
+          'md:h-[3rem] md:px-[1rem] md:text-[1rem]',
         )}
       >
         <SelectValue placeholder={placeholder} />
