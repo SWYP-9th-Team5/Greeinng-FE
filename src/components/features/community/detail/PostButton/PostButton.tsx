@@ -6,7 +6,22 @@ import CommentCount from '../../common/CommentCount';
 import LikeButton from '../../common/LikeButton';
 
 // ! 포맷 구조 나오면 수정 예정
-export default function PostButton() {
+interface PostButtonProps {
+  postId: number;
+  userId: number;
+  isLike: boolean;
+  likeCount: number;
+  commentCount: number;
+  handleToggleLike: (id: number) => void;
+}
+
+export default function PostButton({
+  postId,
+  isLike,
+  likeCount,
+  commentCount,
+  handleToggleLike,
+}: PostButtonProps) {
   return (
     <div
       className={cn(
@@ -14,8 +29,13 @@ export default function PostButton() {
         'md:mb-7 md:gap-3 md:pb-2',
       )}
     >
-      <LikeButton id={1} isLike={true} count={2} handleToggleLike={() => {}} />
-      <CommentCount count={3} />
+      <LikeButton
+        id={postId}
+        isLike={isLike}
+        count={likeCount}
+        handleToggleLike={handleToggleLike}
+      />
+      <CommentCount count={commentCount} />
     </div>
   );
 }

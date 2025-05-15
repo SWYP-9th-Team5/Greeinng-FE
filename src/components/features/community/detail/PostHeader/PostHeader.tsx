@@ -9,14 +9,16 @@ export interface PostHeaderProps {
   title: string;
   userName: string;
   createdAt: string;
+  isAuthor: boolean;
 }
 
-export default function PostHeader({
+const PostHeader = ({
   category,
   title,
   userName,
   createdAt,
-}: PostHeaderProps) {
+  isAuthor,
+}: PostHeaderProps) => {
   return (
     <header
       className={cn(
@@ -29,7 +31,9 @@ export default function PostHeader({
         <span className="md:text-tertiary font-NanumSquareRoundB hidden text-[1.125rem] leading-[1.222] md:block">
           {category}
         </span>
-        <h1 className={cn('title2 mb-2', 'md:mb-6')}>{title}</h1>
+        <h1 className={cn('title2 mb-2 w-full break-all', 'md:mb-6')}>
+          {title}
+        </h1>
         <p className={cn('body1 mb-1 text-[#666]')}>{userName}</p>
         {/* ! data time 관련해서 포맷 수정 필요 */}
         <time
@@ -39,12 +43,16 @@ export default function PostHeader({
           {createdAt}
         </time>
       </div>
-      <button
-        className={cn('h-fit w-fit text-gray-500 hover:text-gray-700')}
-        aria-label="게시물 설정 메뉴"
-      >
-        <Image src="/icons/row_menu.svg" alt="" width={24} height={24} />
-      </button>
+      {isAuthor && (
+        <button
+          className={cn('h-fit w-fit text-gray-500 hover:text-gray-700')}
+          aria-label="게시물 설정 메뉴"
+        >
+          <Image src="/icons/row_menu.svg" alt="" width={24} height={24} />
+        </button>
+      )}
     </header>
   );
-}
+};
+
+export default PostHeader;
