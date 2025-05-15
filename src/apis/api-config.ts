@@ -21,8 +21,10 @@ interface CustomInstance extends AxiosInstance {
 }
 
 export interface ErrorResponse {
-  message: string;
-  trID?: string;
+  error: string;
+  path: string;
+  status: 400 | 401 | 403 | 404 | 500;
+  timestamp: Date;
 }
 
 const AxiosConfig = (
@@ -51,6 +53,15 @@ const AxiosConfig = (
           },
         });
       }
+
+      const token = localStorage.getItem('token');
+      if (token && config) {
+        if (config.headers) {
+          (config.headers as Record<string, string>)['Authorization'] =
+            `${token}`;
+        }
+      }
+
       return config;
     },
     (error) => {
