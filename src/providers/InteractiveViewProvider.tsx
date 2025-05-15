@@ -1,6 +1,8 @@
 import { Flip, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+import Popup from '@components/common/Popup/Popup';
+
 type TProps = {
   children: React.ReactNode;
 };
@@ -26,6 +28,7 @@ const InteractiveViewProvider = ({ children }: TProps) => {
         }}
         style={{ bottom: '20px', padding: '0 20px' }}
       />
+      <Popup />
     </>
   );
 };
