@@ -2,6 +2,11 @@ import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+
+  images: {
+    domains: ['kr.object.ncloudstorage.com'],
+  },
+
   webpack(config) {
     config.module.rules.push({
       test: /\.svg$/,
