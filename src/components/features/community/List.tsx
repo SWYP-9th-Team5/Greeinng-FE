@@ -6,31 +6,29 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import { getUpdatedLike } from '@hooks/useLikeToggle';
-import { usePagination } from '@hooks/usePagination';
 
 import Pagination from '../All/Pagination';
-
-interface CommunityData {
-  id: number;
-  title: string; //글 제목
-  detail: string; //글 내용
-  likecount: number; //좋아요 수
-  commentcount: number; //댓글 수
-  like: boolean; //좋아요 여부
-}
+import type { PostItem } from '../main/Community/MainTabbar';
 
 interface CommunityDataProps {
-  data: CommunityData[];
+  data: PostItem[];
   label: string; //카테고리(qna, 자유, 나눔)
+  currentPage: number;
+  totalPages: number;
+  onPageClick: (page: number) => void;
 }
 
-export function CommunityList({ data, label }: CommunityDataProps) {
+export function CommunityList({
+  data,
+  label,
+  currentPage,
+  totalPages,
+  onPageClick,
+}: CommunityDataProps) {
   const [items, setItems] = useState(data);
   useEffect(() => {
     setItems(data);
   }, [data]);
-  const { currentPage, currentItems, totalPages, handlePageClick } =
-    usePagination(items, 5); //페이지네이션 5개씩
 
   const handleToggleLike = (
     e: React.MouseEvent<HTMLButtonElement>,
@@ -43,10 +41,10 @@ export function CommunityList({ data, label }: CommunityDataProps) {
 
   return (
     <div className="flex w-full flex-col">
-      {currentItems.map((item) => (
+      {items.map((item) => (
         <Link
           href={'/community/1'}
-          key={item.id}
+          key={item.postId}
           className="relative flex h-20 w-full flex-col justify-center border-b-1 border-[#ddd] md:h-20 md:flex-row md:items-center md:justify-start md:px-6"
         >
           <p className="body2 text-tertiary md:pr-2">{label}</p>
@@ -56,19 +54,21 @@ export function CommunityList({ data, label }: CommunityDataProps) {
             </p>
             <div className="ml-2 flex flex-shrink-0 flex-row md:absolute md:right-6">
               <button
-                onClick={(e) => handleToggleLike(e, item.id)}
+                onClick={(e) => handleToggleLike(e, item.postId)}
                 className="mr-1"
               >
                 <Image
                   src={
-                    item.like ? '/icons/heart_fill_b.svg' : '/icons/heart_b.svg'
+                    item.isLike
+                      ? '/icons/heart_fill_b.svg'
+                      : '/icons/heart_b.svg'
                   }
                   alt="좋아요 버튼"
                   width={14}
                   height={14}
                 />
               </button>
-              <p className="body1 mr-3 text-[#666]">{item.likecount}</p>
+              <p className="body1 mr-3 text-[#666]">{item.likeCount}</p>
               <Image
                 src="/icons/message_b.svg"
                 alt="댓글 버튼"
@@ -76,7 +76,7 @@ export function CommunityList({ data, label }: CommunityDataProps) {
                 height={16}
                 className="mr-1"
               />
-              <p className="body1 text-[#666]">{item.commentcount}</p>
+              <p className="body1 text-[#666]">{item.commentCount}</p>
             </div>
           </div>
         </Link>
@@ -84,7 +84,7 @@ export function CommunityList({ data, label }: CommunityDataProps) {
       <Pagination
         currentPage={currentPage}
         totalPages={totalPages}
-        onPageClick={handlePageClick}
+        onPageClick={onPageClick}
       />
     </div>
   );
