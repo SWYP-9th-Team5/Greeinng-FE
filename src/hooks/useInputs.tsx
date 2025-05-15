@@ -30,7 +30,7 @@ const useInputs = <T extends Record<string, any>>(defaultValues: T) => {
   const [inputs, dispatch] = useReducer(reducer, memoValues);
 
   const onChangeValue = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
+    (e: { target: { name: string; value: string } }) => {
       dispatch({
         name: e.target.name,
         value: e.target.value,
