@@ -20,14 +20,30 @@ export default function PostInput({ userId, postId }: PostInputProps) {
   const queryClient = useQueryClient();
 
   const [comment, setComment] = useState('');
+  const isDisabledBtn = !comment;
 
   const onChange = (e: { target: { value: SetStateAction<string> } }) => {
     setComment(e.target.value);
   };
 
+  // 추후 Hook으로 변경
+  const onKeydown = (
+    e: React.KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      handleSubmit(e);
+    }
+  };
+
   const { postCommentsMutation } = useCommunityMutation();
   const handleSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
+    if (isDisabledBtn) {
+      toast.error('댓글을 입력하세요.');
+      return;
+    }
+
     postCommentsMutation.mutate(
       {
         userId,
@@ -72,6 +88,7 @@ export default function PostInput({ userId, postId }: PostInputProps) {
         placeholder="댓글을 입력하세요"
         value={comment}
         onChange={onChange}
+        onKeyDown={onKeydown}
       />
       {/* PC */}
       <textarea
@@ -83,6 +100,7 @@ export default function PostInput({ userId, postId }: PostInputProps) {
         placeholder="댓글을 입력하세요"
         value={comment}
         onChange={onChange}
+        onKeyDown={onKeydown}
       />
       <div className="flex md:h-full md:items-end">
         <Button
@@ -90,6 +108,7 @@ export default function PostInput({ userId, postId }: PostInputProps) {
           size="sm"
           className="px-4 md:px-7"
           aria-label="댓글 등록하기"
+          disalbed={isDisabledBtn}
         >
           등록
         </Button>
