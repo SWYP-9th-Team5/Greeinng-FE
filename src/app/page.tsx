@@ -1,10 +1,7 @@
-import TabComponent from '@/components/features/main/Tabbarcomponent';
 import Image from 'next/image';
 
-import {
-  CommunityButton,
-  MbtiButton,
-} from '@components/features/main/Buttonlink';
+import { MbtiButton } from '@components/features/main/Buttonlink';
+import TabComponent from '@components/features/main/Community/MainTabbar';
 import Imageslider from '@components/features/main/Imageslider/Imageslider';
 
 const PCHome = () => {
@@ -19,7 +16,6 @@ const PCHome = () => {
       <div className="text-text2 bg-background flex min-h-[800px] w-full flex-col items-center justify-center">
         <p className="text-text2 title1 mb-7">COMMUNITY</p>
         <TabComponent />
-        <CommunityButton />
       </div>
       <div className="flex w-full flex-row items-start justify-center">
         <div className="flex min-h-[600px] w-1/2 bg-[#F5FFD0] bg-[url('/images/main/main_mbti_pc.png')] bg-contain bg-center bg-no-repeat" />
@@ -70,7 +66,6 @@ const MBHome = () => {
       <div className="text-text2 bg-background flex min-h-[800px] w-full flex-col items-center justify-center">
         <p className="text-text2 title1 mb-7">COMMUNITY</p>
         <TabComponent />
-        <CommunityButton />
       </div>
       <div className="flex min-h-[500px] w-full flex-col items-center bg-[#F5FFD0] bg-[url('/images/main/main_mbti_mb.png')] bg-contain bg-center bg-no-repeat pb-6 text-center">
         <p className="title1 text-text2 mt-6 mb-6">식물 MBTI</p>
