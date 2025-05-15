@@ -27,3 +27,27 @@ body {
   margin-inline-end: 8px !important;
   fill: #fefee3 !important;
 }
+
+/* eidtor css 변경 */
+.ql-editor {
+  font-family: var(--font-HappinessR);
+  font-size: 1rem;
+  line-height: 1.375rem;
+  letter-spacing: -0.02rem;
+  padding: 0px !important;
+  color: #333 !important;
+}
+
+.ql-editor.ql-blank::before {
+  left: 0px !important;
+  font-style: normal !important;
+  font-family: var(--font-HappinessR) !important;
+  color: #ccc !important;
+}
+
+@media (max-width: 768px) {
+  .ql-editor {
+    font-size: 0.875rem;
+    letter-spacing: -0.0175rem;
+  }
+}
