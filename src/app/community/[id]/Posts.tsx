@@ -3,7 +3,7 @@
 import { toast } from 'react-toastify';
 
 import { calFormatToKoreanDate } from '@/utils/date';
-import { useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
+import { useQueryClient, useSuspenseQueries } from '@tanstack/react-query';
 
 import PostButton from '@components/features/community/detail/PostButton';
 import PostCommentList from '@components/features/community/detail/PostCommentList';
@@ -16,11 +16,22 @@ import useCommunityMutation from '@apis/mutations/community/useCommunityMutation
 import postKeys from '@apis/queryKeys/postKeys';
 
 export default function Posts({ postNumberId }: { postNumberId: number }) {
-  const { data } = useSuspenseQuery({
+  const fetchPostData = {
     queryKey: postKeys.postDetail(postNumberId),
     queryFn: () => getPostDetail(postNumberId),
     gcTime: 1000 * 60 * 10,
     staleTime: 1000 * 60 * 5,
+  };
+
+  const fetchPostCommentData = {
+    queryKey: postKeys.postComments(postNumberId),
+    queryFn: () => getPostComments(postNumberId),
+    gcTime: 1000 * 60 * 10,
+    staleTime: 1000 * 60 * 5,
+  };
+
+  const [postData, commentData] = useSuspenseQueries({
+    queries: [fetchPostData, fetchPostCommentData],
   });
 
   const {
@@ -34,15 +45,8 @@ export default function Posts({ postNumberId }: { postNumberId: number }) {
     title,
     userId,
     userName,
-  } = data;
+  } = postData.data;
   const korCreateTime = calFormatToKoreanDate(createdAt);
-
-  const { data: commentData } = useSuspenseQuery({
-    queryKey: postKeys.postComments(postNumberId),
-    queryFn: () => getPostComments(postNumberId),
-    gcTime: 1000 * 60 * 10,
-    staleTime: 1000 * 60 * 5,
-  });
 
   const queryClient = useQueryClient();
   const { postLikeMutation, deleteCommentMutation } = useCommunityMutation();
@@ -105,7 +109,7 @@ export default function Posts({ postNumberId }: { postNumberId: number }) {
       />
       {/* commentList */}
       <PostCommentList
-        data={commentData}
+        data={commentData.data}
         handleDeleteComment={handleDeleteComment}
       />
       {/* Input 등록 */}
