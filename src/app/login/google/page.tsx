@@ -2,6 +2,9 @@
 
 import { useEffect } from 'react';
 
+import animationData from '@assets/lottie/login_loading_pc.json';
+import Lottie from 'lottie-react';
+
 import { googleLogin } from '../googlelogin';
 
 export default function GoogleCallbackPage() {
@@ -9,5 +12,11 @@ export default function GoogleCallbackPage() {
     googleLogin();
   }, []);
 
-  return <p>구글 로그인 처리 중입니다...</p>;
+  return (
+    <div className="-mt-16 flex min-h-screen w-full items-center justify-center bg-[#d9d9d9] md:-mt-20">
+      <div className="h-[80px] w-[80px] md:h-[120px] md:w-[120px]">
+        <Lottie animationData={animationData} loop autoplay />
+      </div>
+    </div>
+  );
 }

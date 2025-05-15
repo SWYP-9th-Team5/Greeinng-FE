@@ -6,6 +6,7 @@ import { useSidebarStore } from '@/stores/useSidebarStore';
 import { cn } from '@/utils/cn';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 
 import HeaderTab from './HeaderTab';
 import LoginLink from './LoginLink';
@@ -76,6 +77,12 @@ const MobileHeader = () => {
 };
 
 export default function Header() {
+  const pathname = usePathname();
+
+  const hiddenRoutes = ['/login/google', '/login/kakao'];
+  const isHidden = hiddenRoutes.includes(pathname);
+
+  if (isHidden) return null;
   return (
     <>
       {/* 모바일 */}
