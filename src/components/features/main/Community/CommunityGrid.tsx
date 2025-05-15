@@ -76,8 +76,8 @@ function PCCommunityGrid({ data, label }: CommunityDataProps) {
 function MBCommunityGrid({ data, label }: CommunityDataProps) {
   const router = useRouter();
   return (
-    <>
-      <div className="flex flex-col gap-2">
+    <div className="flex flex-col items-center">
+      <div className="mb-4 flex flex-col gap-2">
         {data.slice(0, 5).map((item) => (
           <div
             key={item.postId}
@@ -112,6 +112,6 @@ function MBCommunityGrid({ data, label }: CommunityDataProps) {
         ))}
       </div>
       <CommunityButton />
-    </>
+    </div>
   );
 }
