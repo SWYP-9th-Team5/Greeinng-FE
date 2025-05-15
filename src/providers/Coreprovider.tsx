@@ -10,8 +10,9 @@ export default function Coreprovider({
 }) {
   return (
     <>
-      <QueryClientProviders />
-      <InteractiveViewProvider>{children}</InteractiveViewProvider>
+      <QueryClientProviders>
+        <InteractiveViewProvider>{children}</InteractiveViewProvider>
+      </QueryClientProviders>
     </>
   );
 }

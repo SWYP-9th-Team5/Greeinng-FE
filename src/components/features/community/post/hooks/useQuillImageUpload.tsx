@@ -1,9 +1,12 @@
 import { RefObject, useRef } from 'react';
 import { toast } from 'react-toastify';
 
+export type UploadFiles = { imageUrl: string; file: File }[];
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default function useQuillImageUpload(quillRef: RefObject<any>) {
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const uploadedFilesRef = useRef<UploadFiles>([]);
 
   const handleImageUpload = async (file: File) => {
     if (!file || !quillRef.current) return;
@@ -14,6 +17,7 @@ export default function useQuillImageUpload(quillRef: RefObject<any>) {
       if (range) {
         quillRef.current.insertEmbed(range.index, 'image', imageUrl);
         quillRef.current.setSelection(range.index + 1, 0);
+        uploadedFilesRef.current.push({ imageUrl, file });
       }
     } catch (error) {
       console.error('이미지 업로드 실패:', error);
@@ -40,6 +44,7 @@ export default function useQuillImageUpload(quillRef: RefObject<any>) {
 
   return {
     fileInputRef,
+    uploadedFilesRef,
     handleFileInputChange,
     handleImageButtonClick,
   };
