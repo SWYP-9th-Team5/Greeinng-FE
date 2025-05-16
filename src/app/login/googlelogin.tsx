@@ -4,7 +4,7 @@ import { usePopupStore } from '@/stores/usePopupStore';
 
 export const googleLoginButton = async () => {
   const GOOGLE_CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
-  const REDIRECT_URI = 'https://greening.vercel.app/login/google';
+  const REDIRECT_URI = `${window.location.origin}/login/google`;
   const SCOPE = 'email profile';
 
   const googleAuthUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${GOOGLE_CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code&scope=${SCOPE}`;
@@ -18,6 +18,7 @@ export const googleLogin = async () => {
   try {
     const url = new URL(window.location.href);
     const code = url.searchParams.get('code');
+    const REDIRECT_URI = `${window.location.origin}/login/google`;
 
     if (!code) {
       alert('구글 인가 코드가 없습니다.');
@@ -26,7 +27,7 @@ export const googleLogin = async () => {
 
     const res = await api.post<{
       data: { accessToken: string; newJoin: boolean };
-    }>('/api/login/google', { code });
+    }>('/api/login/google', { code, redirectURI: REDIRECT_URI });
 
     const { accessToken } = res.data;
 
