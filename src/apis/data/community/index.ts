@@ -24,3 +24,83 @@ export type PostUploadReq = {
 export const postUpload = async (body: PostUploadReq) => {
   await api.post('/api/posts', body);
 };
+
+export type PostContentItem = {
+  type: 'TEXT' | 'IMAGE';
+  value: string;
+};
+
+export type PostDetailResponse = {
+  commentCount: number;
+  content: PostContentItem[];
+  createdAt: string;
+  isAuthor: boolean;
+  isLike: boolean;
+  likeCount: number;
+  postId: number;
+  title: string;
+  userId: number;
+  userName: string;
+};
+
+export const getPostDetail = async (postId: number) => {
+  const res = await api.get<{ data: PostDetailResponse }>(
+    `/api/posts/${postId}`,
+  );
+  return res.data;
+};
+
+export const postLike = async (userId: number, postId: number) => {
+  await api.post(`/api/likes?userId=${userId}`, {
+    postId,
+  });
+};
+
+export type CommentItem = {
+  commentId: number;
+  comment: string;
+  userId: number;
+  userName: string;
+  isWriter: boolean;
+  createdAt: string;
+};
+
+export const getPostComments = async (postId: number) => {
+  const res = await api.get<{ data: CommentItem[] }>(
+    `/api/comments/posts/${postId}`,
+    {
+      params: {
+        pageNumber: 1,
+        pageSize: 100,
+      },
+    },
+  );
+  return res.data;
+};
+
+export type PostCommentReq = {
+  userId: number;
+  postId: number;
+  comment: string;
+};
+export const postComments = async ({
+  userId,
+  postId,
+  comment,
+}: PostCommentReq) => {
+  await api.post(`/api/comments?userId=${userId}`, {
+    postId,
+    comment,
+  });
+};
+
+export type DeleteCommentReq = {
+  userId: number;
+  commentId: number;
+};
+export const deleteComment = async ({
+  userId,
+  commentId,
+}: DeleteCommentReq) => {
+  await api.delete(`/api/comments?userId=${userId}`, { data: { commentId } });
+};

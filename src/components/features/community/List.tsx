@@ -43,7 +43,7 @@ export function CommunityList({
     <div className="flex w-full flex-col">
       {items.map((item) => (
         <Link
-          href={'/community/1'}
+          href={`/community/${item.postId}`}
           key={item.postId}
           className="relative flex h-20 w-full flex-col justify-center border-b-1 border-[#ddd] md:h-20 md:flex-row md:items-center md:justify-start md:px-6"
         >

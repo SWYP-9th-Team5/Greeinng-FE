@@ -14,7 +14,7 @@ const InteractiveViewProvider = ({ children }: TProps) => {
       <ToastContainer
         transition={Flip}
         position="bottom-center"
-        autoClose={3000}
+        autoClose={1000}
         closeOnClick={true}
         hideProgressBar
         toastStyle={{
