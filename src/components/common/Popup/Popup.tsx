@@ -31,7 +31,7 @@ export default function Popup() {
     >
       <FocusTrap
         isActive
-        isAutoFocus={false}
+        isAutoFocus={isOpen}
         isRestoreFocus
         className={cn(
           'aspect-[320/173] w-[320px] max-w-[320px] rounded-[1.25rem] bg-[#FFF] p-4 text-center md:aspect-[400/209] md:w-[400px] md:max-w-[400px] md:p-6',
