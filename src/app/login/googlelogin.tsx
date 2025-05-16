@@ -1,5 +1,6 @@
 import api from '@/apis/api-config';
 import { useAuthStore } from '@/stores/useAuthStore';
+import { usePopupStore } from '@/stores/usePopupStore';
 
 export const googleLoginButton = async () => {
   const GOOGLE_CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
@@ -12,6 +13,8 @@ export const googleLoginButton = async () => {
 };
 
 export const googleLogin = async () => {
+  const { openPopup } = usePopupStore.getState();
+
   try {
     const url = new URL(window.location.href);
     const code = url.searchParams.get('code');
@@ -33,6 +36,12 @@ export const googleLogin = async () => {
     window.location.href = '/'; // 로그인 성공 시 메인으로 이동
   } catch (err) {
     console.error('[googleLogin] 에러 발생:', err);
-    alert('구글 로그인에 실패했습니다.');
+    openPopup({
+      title: '로그인에 실패했습니다.',
+      description: '다시 로그인 해주세요.',
+      confirmText: '확인',
+      mode: 'single',
+      onConfirm: () => (window.location.href = '/login'),
+    });
   }
 };
