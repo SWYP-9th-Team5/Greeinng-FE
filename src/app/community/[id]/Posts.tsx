@@ -62,7 +62,7 @@ export default function Posts({ postNumberId }: { postNumberId: number }) {
         },
         onError: (error) => {
           console.log(error);
-          toast.error(error.message);
+          toast.error(error.response?.data.message);
         },
       },
     );

@@ -62,7 +62,7 @@ export default function PostInput({ userId, postId }: PostInputProps) {
         },
         onError: (error) => {
           console.error(error);
-          toast.error(error.message);
+          toast.error(error.response?.data.message);
         },
       },
     );

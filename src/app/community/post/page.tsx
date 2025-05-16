@@ -1,6 +1,7 @@
 'use client';
 
 import { useRef } from 'react';
+import { toast } from 'react-toastify';
 
 import { cn } from '@/utils/cn';
 import Image from 'next/image';
@@ -120,11 +121,14 @@ export default function Page() {
       const formData = calBuildFormData(imagecontentList);
 
       try {
-        const { data } = await postImageMutation.mutateAsync(formData);
+        const { data } = await postImageMutation.mutateAsync(formData, {
+          onError: (error) => {
+            toast.error(error.response?.data.message);
+          },
+        });
         uploadedImageUrls = data;
       } catch (error) {
         console.error(error);
-        // toast
         return;
       }
     }
@@ -157,7 +161,7 @@ export default function Page() {
       },
       onError: (error) => {
         console.error(error);
-        // toast
+        toast.error(error.response?.data.message);
       },
     });
   };

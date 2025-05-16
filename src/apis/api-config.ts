@@ -21,10 +21,11 @@ interface CustomInstance extends AxiosInstance {
 }
 
 export interface ErrorResponse {
-  error: string;
-  path: string;
-  status: 400 | 401 | 403 | 404 | 500;
-  timestamp: Date;
+  error?: string;
+  path?: string;
+  status?: 400 | 401 | 403 | 404 | 500;
+  timestamp?: Date;
+  message?: string;
 }
 
 const AxiosConfig = (
