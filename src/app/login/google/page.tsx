@@ -3,11 +3,13 @@
 import { useEffect } from 'react';
 
 import animationData from '@assets/lottie/login_loading_pc.json';
-import Lottie from 'lottie-react';
+import dynamic from 'next/dynamic';
 
 import { googleLogin } from '../googlelogin';
 
 export default function GoogleCallbackPage() {
+  const Lottie = dynamic(() => import('lottie-react'), { ssr: false });
+
   useEffect(() => {
     googleLogin();
   }, []);
