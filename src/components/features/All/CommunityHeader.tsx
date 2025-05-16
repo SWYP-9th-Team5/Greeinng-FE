@@ -13,7 +13,7 @@ export const CommunityHeader = () => {
 
   const handleWrite = () => {
     if (isLoggedIn) {
-      router.push('/story');
+      router.push('/community/post');
     } else {
       openPopup({
         title: '로그인이 필요한 서비스입니다',
