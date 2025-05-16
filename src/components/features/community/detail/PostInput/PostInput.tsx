@@ -108,7 +108,7 @@ export default function PostInput({ userId, postId }: PostInputProps) {
           size="sm"
           className="px-4 md:px-7"
           aria-label="댓글 등록하기"
-          disalbed={isDisabledBtn}
+          disabled={isDisabledBtn}
         >
           등록
         </Button>
