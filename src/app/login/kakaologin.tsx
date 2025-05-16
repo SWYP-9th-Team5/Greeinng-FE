@@ -4,7 +4,7 @@ import { usePopupStore } from '@/stores/usePopupStore';
 
 export const kakaoLoginButton = async () => {
   const KAKAO_CLIENT_ID = process.env.NEXT_PUBLIC_KAKAO_CLIENT_ID;
-  const REDIRECT_URI = 'http://localhost:3000/login/kakao';
+  const REDIRECT_URI = 'https://greening.vercel.app/login/kakao';
 
   const kakaoAuthUrl = `https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code`;
   window.location.href = kakaoAuthUrl;
