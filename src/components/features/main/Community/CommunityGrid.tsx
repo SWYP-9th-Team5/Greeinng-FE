@@ -37,7 +37,7 @@ function PCCommunityGrid({ data, label }: CommunityDataProps) {
         {data.map((item) => (
           <div
             key={item.postId}
-            onClick={() => router.push(`/community`)}
+            onClick={() => router.push(`/community/${item.postId}`)}
             className="bg-tertiary relative h-[27vh] w-[28vw] cursor-pointer rounded-[1.25rem] p-4"
           >
             <p className="body2 text-[#eee]">{label}</p>
