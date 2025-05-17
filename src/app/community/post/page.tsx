@@ -9,6 +9,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
 import Button from '@components/common/Button';
+import FocusTrap from '@components/common/FocusTrap';
 import CategorySelectField from '@components/features/community/post/CategorySelectField';
 import ContentField from '@components/features/community/post/ContentField';
 import TitleInputField from '@components/features/community/post/TitleInputField';
@@ -211,28 +212,30 @@ export default function Page() {
   );
 
   return (
-    <form
-      className={cn(
-        'm-auto flex w-full flex-col',
-        // 모바일
-        'px-[1.25rem] py-[2.5rem]',
-        // PC
-        'md:w-full md:px-[7.5rem] md:py-[3.75rem]',
-      )}
-      onSubmit={handleSubmit}
-    >
-      <h1 className="title1 md:text-primary mb-[2rem] text-[#333] md:mb-[2.5rem]">
-        게시글 작성하기
-      </h1>
-      <div className="mb-[1.5rem] grid gap-[1.5rem] md:gap-[1.25rem] lg:grid-cols-[49.5625fr_24.1875fr]">
-        {TitleField}
-        {CategoryField}
-      </div>
-      <ContentField editorRef={editorRef} />
-      <div className="flex justify-between">
-        {ImageUploadBtn}
-        {SubmitBtn}
-      </div>
-    </form>
+    <FocusTrap isAutoFocus={true}>
+      <form
+        className={cn(
+          'm-auto flex w-full flex-col',
+          // 모바일
+          'px-[1.25rem] py-[2.5rem]',
+          // PC
+          'md:w-full md:px-[7.5rem] md:py-[3.75rem]',
+        )}
+        onSubmit={handleSubmit}
+      >
+        <h1 className="title1 md:text-primary mb-[2rem] text-[#333] md:mb-[2.5rem]">
+          게시글 작성하기
+        </h1>
+        <div className="mb-[1.5rem] grid gap-[1.5rem] md:gap-[1.25rem] lg:grid-cols-[49.5625fr_24.1875fr]">
+          {TitleField}
+          {CategoryField}
+        </div>
+        <ContentField editorRef={editorRef} />
+        <div className="flex justify-between">
+          {ImageUploadBtn}
+          {SubmitBtn}
+        </div>
+      </form>
+    </FocusTrap>
   );
 }
