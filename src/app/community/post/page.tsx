@@ -203,7 +203,7 @@ export default function Page() {
       type="submit"
       color="secondary"
       size="sm"
-      className="body1 w-fit px-[1.16rem] py-1 text-[#fff]"
+      className="body1 w-[3.75rem] py-1 text-[#fff] md:w-[6.25rem]"
       isLoading={isLoading}
     >
       등록
@@ -224,7 +224,7 @@ export default function Page() {
       <h1 className="title1 md:text-primary mb-[2rem] text-[#333] md:mb-[2.5rem]">
         게시글 작성하기
       </h1>
-      <div className="mb-[1.5rem] grid gap-[1.5rem] md:grid-cols-[49.5625fr_24.1875fr] md:gap-[1.25rem]">
+      <div className="mb-[1.5rem] grid gap-[1.5rem] md:gap-[1.25rem] lg:grid-cols-[49.5625fr_24.1875fr]">
         {TitleField}
         {CategoryField}
       </div>

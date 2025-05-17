@@ -120,6 +120,7 @@ export default function PostInput({ userId, postId }: PostInputProps) {
       <div className="flex md:h-full md:items-end">
         <Button
           type="submit"
+          color="secondary"
           size="sm"
           className="px-4 md:px-7"
           aria-label="댓글 등록하기"

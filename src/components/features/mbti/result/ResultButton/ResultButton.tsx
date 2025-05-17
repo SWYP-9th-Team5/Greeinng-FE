@@ -82,7 +82,11 @@ const Nav = () => {
 
   return (
     <nav className={cn('flex flex-col', 'mb-8 gap-1', 'gap-3 md:mb-6')}>
-      <Button className={cn('h-[38px]', 'md:h-[54px]')} onClick={handleReTest}>
+      <Button
+        className={cn('h-[38px]', 'md:h-[54px]')}
+        color="secondary"
+        onClick={handleReTest}
+      >
         테스트 다시하기
       </Button>
       <Button

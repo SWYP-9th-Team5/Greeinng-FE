@@ -1,6 +1,9 @@
 import { UrlObject } from 'url';
 
-import { MOBILE_MBTI_QUESTION_LIST } from '@constants/mbtiData';
+import {
+  MOBILE_MBTI_QUESTION_LIST,
+  PC_MBTI_QUESTION_LIST,
+} from '@constants/mbtiData';
 
 export type QueryParams = {
   [key in 'answer1' | 'answer2' | 'answer3']: string;
@@ -36,8 +39,12 @@ export type AnswerList = {
   questionText: string;
 }[];
 
-export function getMbtiStepData(step: number) {
-  const item = MOBILE_MBTI_QUESTION_LIST[step - 1];
+type Mbti = 'mobile' | 'pc';
+
+export const calMbtiData = (step: number, type: Mbti) => {
+  const typeMbtiItem =
+    type === 'pc' ? PC_MBTI_QUESTION_LIST : MOBILE_MBTI_QUESTION_LIST;
+  const item = typeMbtiItem[step - 1];
   const { question } = item;
 
   const answerList: AnswerList = [
@@ -52,6 +59,5 @@ export function getMbtiStepData(step: number) {
       questionText: item.bTypeAnswerText,
     },
   ];
-
   return { question, answerList };
-}
+};

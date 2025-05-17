@@ -22,7 +22,7 @@ export default async function MbtiResultPage({
     // 작은 모바일
     'max-xxs:w-full',
     // 모바일
-    'w-[21.875rem] gap-8 pt-10 pb-14 max-md:px-5',
+    'w-[21.875rem] gap-8 pt-10 pb-14 max-md:px-[1.25rem]',
     // PC
     'md:w-[24.125rem] md:gap-13 md:pt-15 md:pb-25',
   );
