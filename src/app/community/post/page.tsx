@@ -3,6 +3,7 @@
 import { useRef } from 'react';
 import { toast } from 'react-toastify';
 
+import { usePopupStore } from '@/stores/usePopupStore';
 import { cn } from '@/utils/cn';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
@@ -94,12 +95,46 @@ export default function Page() {
   );
 
   // * 등록 버튼
+  const handleOpenPopup = usePopupStore((state) => state.openPopup);
+  const handleClosePopup = usePopupStore((state) => state.closePopup);
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!title || !category || !quillInstanceRef.current) return;
-
     const { ops: content } = quillInstanceRef.current.getContents();
-    if (!content.length) return;
+
+    const showPopup = (title: string, description: string) => {
+      handleOpenPopup({
+        title,
+        description,
+        confirmText: '확인',
+        mode: 'single',
+        onConfirm: () => handleClosePopup(),
+      });
+    };
+
+    if (!title) {
+      showPopup(
+        '제목을 입력해 주세요',
+        '제목이 입력되지 않았습니다.\n제목 입력 후 업로드 가능합니다.',
+      );
+      return;
+    }
+
+    if (!category) {
+      showPopup(
+        '카테고리 미선택',
+        '카테고리가 선택되지 않았습니다.\n카테고리 선택 후 업로드 가능합니다',
+      );
+      return;
+    }
+
+    if (content.length === 1 && content[0].insert.trim() === '') {
+      showPopup(
+        '내용을 입력해 주세요',
+        '내용이 입력되지 않았습니다.\n내용 입력 후 업로드 가능합니다.',
+      );
+      return;
+    }
 
     // 1. 이미지 URL 추출
     const imageUrls: string[] = calImageUrls(content);
