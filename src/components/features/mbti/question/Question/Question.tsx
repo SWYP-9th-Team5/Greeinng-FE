@@ -8,5 +8,9 @@ export default function Question({
   numberStep: number;
 }) {
   const { question } = calMbtiData(numberStep, isMobile ? 'mobile' : 'pc');
-  return <h2 className="title2 hidden text-center md:block">{question}</h2>;
+  return (
+    <h2 className="title2 text-center whitespace-pre-line md:block">
+      {question}
+    </h2>
+  );
 }
