@@ -48,7 +48,9 @@ export default function RootLayout({
           <AuthInit />
           <Header />
           {sidebar}
-          <main className="pt-16 md:pt-20">{children}</main>
+          <main className="min-h-[calc(100vh-4rem)] pt-16 md:min-h-[calc(100vh-5rem)] md:pt-20">
+            {children}
+          </main>
         </Coreprovider>
       </body>
     </html>
