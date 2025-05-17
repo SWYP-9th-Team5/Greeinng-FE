@@ -27,7 +27,6 @@ export default function LoginLink({
       confirmText: '예',
       cancelText: '아니오',
       mode: 'double',
-      className: 'aspect-[320/143] md:aspect-[400/171]',
       onConfirm: () => {
         handleLogout();
       },

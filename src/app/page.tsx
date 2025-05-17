@@ -13,8 +13,8 @@ const PCHome = () => {
       <div className="relative min-h-[600px] w-full">
         <Imageslider />
       </div>
-      <div className="text-text2 bg-background flex min-h-[800px] w-full flex-col items-center justify-center">
-        <p className="text-text2 title1 mb-7">COMMUNITY</p>
+      <div className="text-text2 bg-background relative flex min-h-[800px] w-full flex-col items-center justify-center">
+        <p className="text-text2 title1 absolute top-20 mb-7">COMMUNITY</p>
         <TabComponent />
       </div>
       <div className="flex w-full flex-row items-start justify-center">
@@ -37,13 +37,13 @@ const PCHome = () => {
           width={168.8}
           height={40}
         />
-        <div className="mb-2 flex max-w-[1200px] flex-row justify-between">
+        <div className="mb-2 flex w-full flex-row justify-between">
           <p className="caption text-text">Growing together with you</p>
           <p className="caption text-text">
             식물을 사랑하는 사람들의 커뮤니티 그리닝
           </p>
         </div>
-        <div className="flex max-w-[1200px] flex-row justify-between">
+        <div className="flex w-full flex-row justify-between">
           <p className="caption text-text">
             © 2025 Greening. All rights reserved.
           </p>

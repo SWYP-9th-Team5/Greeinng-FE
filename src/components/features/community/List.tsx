@@ -40,7 +40,7 @@ export function CommunityList({
   };
 
   return (
-    <div className="flex w-full flex-col">
+    <div className="relative flex min-h-[60vh] w-full flex-col">
       {items.map((item) => (
         <Link
           href={`/community/${item.postId}`}
@@ -81,11 +81,13 @@ export function CommunityList({
           </div>
         </Link>
       ))}
-      <Pagination
-        currentPage={currentPage}
-        totalPages={totalPages}
-        onPageClick={onPageClick}
-      />
+      <div className="absolute bottom-3 w-full justify-center">
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageClick={onPageClick}
+        />
+      </div>
     </div>
   );
 }
