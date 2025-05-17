@@ -20,7 +20,6 @@ export default function ContentField({ editorRef }: ContentFieldProps) {
         <div
           ref={editorRef}
           className="h-full overflow-auto p-[0.75rem] break-words whitespace-pre-wrap md:px-[1rem]"
-          contentEditable
         />
       </div>
     </fieldset>

@@ -78,6 +78,12 @@ export default function useQuillEditor({ editorRef }: UseQuillEditorProps) {
       },
     });
 
+    editorRef.current.addEventListener('keydown', (e) => {
+      if (['Escape', 'Tab'].includes(e.key)) {
+        (e.target as HTMLElement).blur(); // 에디터에서 포커스 제거
+      }
+    });
+
     // 클릭 시 포커스
     const container = editorRef.current.parentElement;
     if (container) {
