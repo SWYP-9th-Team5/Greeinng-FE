@@ -104,3 +104,11 @@ export const deleteComment = async ({
 }: DeleteCommentReq) => {
   await api.delete(`/api/comments?userId=${userId}`, { data: { commentId } });
 };
+
+export type DeletePostReq = {
+  userId: number;
+  postId: number;
+};
+export const deletePost = async ({ userId, postId }: DeletePostReq) => {
+  await api.delete(`/api/posts/${postId}?userId=${userId}`);
+};

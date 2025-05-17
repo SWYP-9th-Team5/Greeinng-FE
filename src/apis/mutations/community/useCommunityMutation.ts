@@ -4,10 +4,12 @@ import { AxiosError } from 'axios';
 import { ErrorResponse } from '@apis/api-config';
 import {
   DeleteCommentReq,
+  DeletePostReq,
   PostCommentReq,
   PostUploadImageRes,
   PostUploadReq,
   deleteComment,
+  deletePost,
   postComments,
   postLike,
   postUpload,
@@ -60,11 +62,20 @@ export default function useCommunityMutation() {
     mutationFn: ({ userId, commentId }) => deleteComment({ userId, commentId }),
   });
 
+  const deletePostMutation = useMutation<
+    void,
+    AxiosError<ErrorResponse>,
+    DeletePostReq
+  >({
+    mutationFn: ({ userId, postId }) => deletePost({ userId, postId }),
+  });
+
   return {
     postImageMutation,
     postMutation,
     postLikeMutation,
     postCommentsMutation,
     deleteCommentMutation,
+    deletePostMutation,
   };
 }

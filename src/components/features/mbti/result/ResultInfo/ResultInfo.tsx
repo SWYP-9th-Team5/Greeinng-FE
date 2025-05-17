@@ -7,12 +7,12 @@ const RecommendCard = ({ label, text }: { label: string; text: string }) => {
   return (
     <div
       className={cn(
-        'bg-tertiary flex w-full flex-col gap-1 rounded-[0.625rem] px-[2.1875rem] py-4 text-[#fff]',
+        'bg-tertiary flex w-full flex-col gap-1 rounded-[0.625rem] py-4 text-[#fff]',
       )}
     >
       <strong
         className={cn(
-          'font-HappinessB text-[0.875rem] leading-[1.375rem] tracking-[-0.0175rem]',
+          'font-HappinessB text-[0.875rem] leading-[1.375rem] tracking-[-0.0175rem] text-nowrap',
           'md:text-[1rem]',
         )}
       >
@@ -48,7 +48,12 @@ export default async function ResultInfo({ ...resultInfoData }) {
   return (
     <section className={cn('w-full flex-col justify-items-center text-center')}>
       <h2 className={cn('title2 mb-3 text-[#333]')}>{plantName}</h2>
-      <p className={cn('body1 mb-3 whitespace-pre-line', 'md:mb-10')}>
+      <p
+        className={cn(
+          'body1 mb-3 whitespace-pre-line',
+          'md:mb-10 md:text-nowrap',
+        )}
+      >
         {plantDescription}
       </p>
       <Image
