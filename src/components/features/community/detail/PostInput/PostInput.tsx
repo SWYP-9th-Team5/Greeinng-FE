@@ -1,7 +1,6 @@
 'use client';
 
 import { SetStateAction, useState } from 'react';
-import { toast } from 'react-toastify';
 
 import { usePopupStore } from '@/stores/usePopupStore';
 import { cn } from '@/utils/cn';
@@ -11,6 +10,8 @@ import Button from '@components/common/Button';
 
 import useCommunityMutation from '@apis/mutations/community/useCommunityMutation';
 import postKeys from '@apis/queryKeys/postKeys';
+
+import { useLoginErrorPopup } from '@hooks/useLoginErrorPopup';
 
 interface PostInputProps {
   userId: number;
@@ -38,6 +39,8 @@ export default function PostInput({ userId, postId }: PostInputProps) {
   };
 
   const { postCommentsMutation } = useCommunityMutation();
+  const { handleLoginPopup } = useLoginErrorPopup();
+
   const openPopup = usePopupStore((state) => state.openPopup);
 
   const handleSubmit = (e: { preventDefault: () => void }) => {
@@ -72,7 +75,9 @@ export default function PostInput({ userId, postId }: PostInputProps) {
         },
         onError: (error) => {
           console.error(error);
-          toast.error(error.response?.data.message);
+          if (error.status === 401) {
+            handleLoginPopup();
+          }
         },
       },
     );

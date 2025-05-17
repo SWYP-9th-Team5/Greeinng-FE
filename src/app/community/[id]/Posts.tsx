@@ -1,7 +1,5 @@
 'use client';
 
-import { toast } from 'react-toastify';
-
 import { usePopupStore } from '@/stores/usePopupStore';
 import { calFormatToKoreanDate } from '@/utils/date';
 import { useQueryClient, useSuspenseQueries } from '@tanstack/react-query';
@@ -15,6 +13,8 @@ import PostInput from '@components/features/community/detail/PostInput';
 import { getPostComments, getPostDetail } from '@apis/data/community';
 import useCommunityMutation from '@apis/mutations/community/useCommunityMutation';
 import postKeys from '@apis/queryKeys/postKeys';
+
+import { useLoginErrorPopup } from '@hooks/useLoginErrorPopup';
 
 export default function Posts({ postNumberId }: { postNumberId: number }) {
   const fetchPostData = {
@@ -51,6 +51,7 @@ export default function Posts({ postNumberId }: { postNumberId: number }) {
 
   const queryClient = useQueryClient();
   const { postLikeMutation, deleteCommentMutation } = useCommunityMutation();
+  const { handleLoginPopup } = useLoginErrorPopup();
 
   const handleToggleLike = () => {
     postLikeMutation.mutate(
@@ -62,8 +63,10 @@ export default function Posts({ postNumberId }: { postNumberId: number }) {
           });
         },
         onError: (error) => {
-          console.log(error);
-          toast.error(error.response?.data.message);
+          console.error(error);
+          if (error.status === 401) {
+            handleLoginPopup();
+          }
         },
       },
     );
