@@ -81,7 +81,7 @@ function MBCommunityGrid({ data, label }: CommunityDataProps) {
         {data.slice(0, 5).map((item) => (
           <div
             key={item.postId}
-            onClick={() => router.push(`/community`)}
+            onClick={() => router.push(`/community/${item.postId}`)}
             className="bg-tertiary h-[77px] w-[90vw] rounded-[0.625rem] p-4"
           >
             <p className="body2 text-[#eee]">{label}</p>

@@ -32,6 +32,11 @@ export const CommunityTable = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const { resetTab } = useTabStore();
+
+  useEffect(() => {
+    resetTab(); // 페이지 진입 시 초기화
+  }, []);
 
   useEffect(() => {
     // 탭 변경시 현재 페이지 초기화

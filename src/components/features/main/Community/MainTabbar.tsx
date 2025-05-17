@@ -68,7 +68,7 @@ const TabComponent = () => {
           </button>
         ))}
       </div>
-      <div className="py-4">
+      <div className="h-[60vh] py-4">
         {isLoading ? (
           <p>로딩 중...</p>
         ) : (
