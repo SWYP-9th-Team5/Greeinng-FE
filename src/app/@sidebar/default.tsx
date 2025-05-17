@@ -12,7 +12,10 @@ import SidebarNav from '@components/layout/Sidebar/SidebarNav';
 import useOutsideClick from '@hooks/useOutsideClick';
 
 export default function Default() {
-  const { isSidebarOpen, actionSidebarClose } = useSidebarStore();
+  const isSidebarOpen = useSidebarStore((state) => state.isSidebarOpen);
+  const actionSidebarClose = useSidebarStore(
+    (state) => state.actionSidebarClose,
+  );
   const { ref } = useOutsideClick(actionSidebarClose);
 
   return (

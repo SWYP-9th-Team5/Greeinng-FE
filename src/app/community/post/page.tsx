@@ -22,12 +22,7 @@ import useInputs from '@hooks/useInputs';
 
 import { COMMUNITY_LIST } from '@constants/communityData';
 
-import {
-  QuillDeltaInsert,
-  calBuildFormData,
-  calImageUrls,
-  calIsDisabledSubmitBtn,
-} from './utils';
+import { QuillDeltaInsert, calBuildFormData, calImageUrls } from './utils';
 
 export default function Page() {
   const router = useRouter();
@@ -166,8 +161,6 @@ export default function Page() {
     });
   };
 
-  // 제출 버튼 disabled, loading 유무
-  const isDisabledSubmitBtn = calIsDisabledSubmitBtn(title, category);
   const isLoading = postImageMutation.isPending || postMutation.isPending;
 
   const SubmitBtn = (
@@ -176,7 +169,6 @@ export default function Page() {
       color="secondary"
       size="sm"
       className="body1 w-fit px-[1.16rem] py-1 text-[#fff]"
-      disabled={isDisabledSubmitBtn}
       isLoading={isLoading}
     >
       등록

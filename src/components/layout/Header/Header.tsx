@@ -47,7 +47,7 @@ const MobileHeader = () => {
   const indexLink = '/';
   const router = useRouter();
 
-  const { actionSidebarOpen } = useSidebarStore();
+  const actionSidebarOpen = useSidebarStore((state) => state.actionSidebarOpen);
 
   const handleBack = () => {
     router.back();
