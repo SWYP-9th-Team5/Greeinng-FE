@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { UrlObject } from 'url';
 
-import { QueryParams, calHref, getMbtiStepData } from '../../utils/utils';
+import { QueryParams, calHref, calMbtiData } from '../Question/utils/utils';
 
 interface AnswerCardItemProps {
   isMobile: boolean;
@@ -92,7 +92,7 @@ export default function Answer({
   paramsQuery: QueryParams;
   numberStep: number;
 }) {
-  const { answerList } = getMbtiStepData(numberStep);
+  const { answerList } = calMbtiData(numberStep, isMobile ? 'mobile' : 'pc');
 
   return (
     <AnswerCardList isMobile={isMobile}>

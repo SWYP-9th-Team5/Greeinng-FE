@@ -40,7 +40,7 @@ export default function MbtiPage() {
       </div>
       <Link
         href={href}
-        className="font-HappinessB bg-primary w-full rounded-[50px] py-[8px] text-center text-[0.875rem] whitespace-nowrap text-[#fff] md:w-[386px] md:py-[16px] md:text-[1rem]"
+        className="font-HappinessB bg-secondary w-full rounded-[50px] py-[8px] text-center text-[0.875rem] whitespace-nowrap text-[#fff] md:w-[386px] md:py-[16px] md:text-[1rem]"
       >
         {testBtnText}
       </Link>

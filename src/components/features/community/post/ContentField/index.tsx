@@ -14,12 +14,12 @@ export default function ContentField({ editorRef }: ContentFieldProps) {
         className={cn(
           'editor-container cursor-text',
           'h-[15rem] md:h-[25rem]',
-          'rounded-[0.625rem] border-1 border-[#ddd] bg-[#fff] p-[0.75rem] md:px-[1rem]',
+          'rounded-[0.625rem] border-1 border-[#ddd] bg-[#fff]',
         )}
       >
         <div
           ref={editorRef}
-          className="h-full overflow-auto break-words whitespace-pre-wrap"
+          className="h-full overflow-auto p-[0.75rem] break-words whitespace-pre-wrap md:px-[1rem]"
           contentEditable
         />
       </div>

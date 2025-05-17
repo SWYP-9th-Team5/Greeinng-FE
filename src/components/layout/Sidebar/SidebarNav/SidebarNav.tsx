@@ -42,7 +42,9 @@ const SidebarGroup: React.FC<SidebarGroupProps> = ({
   path,
   submenu,
 }) => {
-  const { actionSidebarClose } = useSidebarStore();
+  const actionSidebarClose = useSidebarStore(
+    (state) => state.actionSidebarClose,
+  );
   return (
     <li role="menuitem" key={title}>
       <Link

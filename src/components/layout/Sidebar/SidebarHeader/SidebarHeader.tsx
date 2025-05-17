@@ -12,7 +12,9 @@ import Image from 'next/image';
 import LoginoutButton from './LoginoutButton';
 
 export default function SidebarHeader() {
-  const { actionSidebarClose } = useSidebarStore();
+  const actionSidebarClose = useSidebarStore(
+    (state) => state.actionSidebarClose,
+  );
   const { isLoggedIn } = useAuthStore();
   const { openPopup } = usePopupStore();
   const handleLogout = useHandleLogout();

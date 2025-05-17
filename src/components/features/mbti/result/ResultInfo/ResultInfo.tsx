@@ -60,7 +60,7 @@ export default async function ResultInfo({ ...resultInfoData }) {
         priority
       />
       <p className={cn('body1 mb-4 whitespace-pre-line')}>{plantPersonality}</p>
-      <em className={cn('dy1 text-secondary mb-8 inline-block')}>
+      <em className={cn('body1 text-secondary mb-8 inline-block')}>
         {recommendedPlant}
       </em>
       <div className={cn('flex w-full gap-4')}>

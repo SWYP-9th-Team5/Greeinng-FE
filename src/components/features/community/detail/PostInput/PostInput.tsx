@@ -1,8 +1,8 @@
 'use client';
 
 import { SetStateAction, useState } from 'react';
-import { toast } from 'react-toastify';
 
+import { usePopupStore } from '@/stores/usePopupStore';
 import { cn } from '@/utils/cn';
 import { useQueryClient } from '@tanstack/react-query';
 
@@ -10,6 +10,8 @@ import Button from '@components/common/Button';
 
 import useCommunityMutation from '@apis/mutations/community/useCommunityMutation';
 import postKeys from '@apis/queryKeys/postKeys';
+
+import { useLoginErrorPopup } from '@hooks/useLoginErrorPopup';
 
 interface PostInputProps {
   userId: number;
@@ -37,10 +39,21 @@ export default function PostInput({ userId, postId }: PostInputProps) {
   };
 
   const { postCommentsMutation } = useCommunityMutation();
+  const { handleLoginPopup } = useLoginErrorPopup();
+
+  const openPopup = usePopupStore((state) => state.openPopup);
+
   const handleSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
     if (isDisabledBtn) {
-      toast.error('댓글을 입력하세요.');
+      openPopup({
+        title: '댓글을 입력해 주세요',
+        description:
+          '댓글이 입력되지 않았습니다.\n댓글 입력 후 업로드 가능합니다.',
+        confirmText: '확인',
+        mode: 'single',
+        onConfirm: () => {},
+      });
       return;
     }
 
@@ -62,7 +75,9 @@ export default function PostInput({ userId, postId }: PostInputProps) {
         },
         onError: (error) => {
           console.error(error);
-          toast.error(error.response?.data.message);
+          if (error.status === 401) {
+            handleLoginPopup();
+          }
         },
       },
     );
@@ -105,10 +120,10 @@ export default function PostInput({ userId, postId }: PostInputProps) {
       <div className="flex md:h-full md:items-end">
         <Button
           type="submit"
+          color="secondary"
           size="sm"
           className="px-4 md:px-7"
           aria-label="댓글 등록하기"
-          disabled={isDisabledBtn}
         >
           등록
         </Button>

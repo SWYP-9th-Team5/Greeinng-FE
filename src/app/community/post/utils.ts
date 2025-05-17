@@ -15,13 +15,6 @@ export const calImageUrls = (content: QuillDelta): string[] => {
   return imageUrls;
 };
 
-// 버튼 비활성화 판별 함수
-export const calIsDisabledSubmitBtn = (title: string, category: string) => {
-  if (!title) return true;
-  if (!category) return true;
-  return false;
-};
-
 export const calBuildFormData = (files: UploadFiles) => {
   const formData = new FormData();
   files.forEach((fileObj) =>

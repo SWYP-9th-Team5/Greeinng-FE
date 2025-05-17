@@ -3,6 +3,7 @@
 import { useRef } from 'react';
 import { toast } from 'react-toastify';
 
+import { usePopupStore } from '@/stores/usePopupStore';
 import { cn } from '@/utils/cn';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
@@ -22,12 +23,7 @@ import useInputs from '@hooks/useInputs';
 
 import { COMMUNITY_LIST } from '@constants/communityData';
 
-import {
-  QuillDeltaInsert,
-  calBuildFormData,
-  calImageUrls,
-  calIsDisabledSubmitBtn,
-} from './utils';
+import { QuillDeltaInsert, calBuildFormData, calImageUrls } from './utils';
 
 export default function Page() {
   const router = useRouter();
@@ -99,12 +95,46 @@ export default function Page() {
   );
 
   // * 등록 버튼
+  const handleOpenPopup = usePopupStore((state) => state.openPopup);
+  const handleClosePopup = usePopupStore((state) => state.closePopup);
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!title || !category || !quillInstanceRef.current) return;
-
     const { ops: content } = quillInstanceRef.current.getContents();
-    if (!content.length) return;
+
+    const showPopup = (title: string, description: string) => {
+      handleOpenPopup({
+        title,
+        description,
+        confirmText: '확인',
+        mode: 'single',
+        onConfirm: () => handleClosePopup(),
+      });
+    };
+
+    if (!title) {
+      showPopup(
+        '제목을 입력해 주세요',
+        '제목이 입력되지 않았습니다.\n제목 입력 후 업로드 가능합니다.',
+      );
+      return;
+    }
+
+    if (!category) {
+      showPopup(
+        '카테고리 미선택',
+        '카테고리가 선택되지 않았습니다.\n카테고리 선택 후 업로드 가능합니다',
+      );
+      return;
+    }
+
+    if (content.length === 1 && content[0].insert.trim() === '') {
+      showPopup(
+        '내용을 입력해 주세요',
+        '내용이 입력되지 않았습니다.\n내용 입력 후 업로드 가능합니다.',
+      );
+      return;
+    }
 
     // 1. 이미지 URL 추출
     const imageUrls: string[] = calImageUrls(content);
@@ -166,8 +196,6 @@ export default function Page() {
     });
   };
 
-  // 제출 버튼 disabled, loading 유무
-  const isDisabledSubmitBtn = calIsDisabledSubmitBtn(title, category);
   const isLoading = postImageMutation.isPending || postMutation.isPending;
 
   const SubmitBtn = (
@@ -175,8 +203,7 @@ export default function Page() {
       type="submit"
       color="secondary"
       size="sm"
-      className="body1 w-fit px-[1.16rem] py-1 text-[#fff]"
-      disabled={isDisabledSubmitBtn}
+      className="body1 w-[3.75rem] py-1 text-[#fff] md:w-[6.25rem]"
       isLoading={isLoading}
     >
       등록
@@ -197,7 +224,7 @@ export default function Page() {
       <h1 className="title1 md:text-primary mb-[2rem] text-[#333] md:mb-[2.5rem]">
         게시글 작성하기
       </h1>
-      <div className="mb-[1.5rem] grid gap-[1.5rem] md:grid-cols-[49.5625fr_24.1875fr] md:gap-[1.25rem]">
+      <div className="mb-[1.5rem] grid gap-[1.5rem] md:gap-[1.25rem] lg:grid-cols-[49.5625fr_24.1875fr]">
         {TitleField}
         {CategoryField}
       </div>

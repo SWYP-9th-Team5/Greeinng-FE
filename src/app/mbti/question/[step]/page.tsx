@@ -6,7 +6,7 @@ import Question from '@components/features/mbti/question/Question';
 import {
   QueryParams,
   calMbtiResult,
-} from '@components/features/mbti/utils/utils';
+} from '@components/features/mbti/question/Question/utils/utils';
 
 import { MOBILE_MBTI_QUESTION_LIST } from '@constants/mbtiData';
 
@@ -62,7 +62,7 @@ export default async function page({ params, searchParams }: PageProps) {
     <>
       {/* 모바일 */}
       <section className={cn('flex w-full flex-col gap-[52px] md:hidden')}>
-        <Question numberStep={numberStep} />
+        <Question isMobile={true} numberStep={numberStep} />
         <Answer
           isMobile={true}
           numberStep={numberStep}
@@ -71,7 +71,7 @@ export default async function page({ params, searchParams }: PageProps) {
       </section>
       {/* PC */}
       <section className="hidden w-full flex-col gap-26 md:flex">
-        <Question numberStep={numberStep} />
+        <Question isMobile={false} numberStep={numberStep} />
         <Answer
           isMobile={false}
           numberStep={numberStep}
