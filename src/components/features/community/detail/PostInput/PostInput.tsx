@@ -86,7 +86,7 @@ export default function PostInput({ userId, postId }: PostInputProps) {
   return (
     <form
       className={cn(
-        'flex h-[2.75rem] w-full items-center gap-2 rounded-[0.625rem] border border-[#ddd] bg-[#fff] px-3 py-[0.6875rem]',
+        'flex h-[2.75rem] w-full items-center justify-between gap-2 rounded-[0.625rem] border border-[#ddd] bg-[#fff] px-3 py-[0.6875rem]',
         'md:h-24 md:items-start md:px-5 md:py-4',
       )}
       onSubmit={handleSubmit}
@@ -96,7 +96,7 @@ export default function PostInput({ userId, postId }: PostInputProps) {
       </label>
       {/* mobile */}
       <input
-        className="font-HappinessR flex-1 text-[0.875rem] leading-[1.375] tracking-[-0.0175rem] text-[#333] placeholder-[#ddd] md:hidden"
+        className="font-HappinessR min-w-0 text-[0.875rem] leading-[1.375] tracking-[-0.0175rem] text-[#333] placeholder-[#ddd] md:hidden"
         type="text"
         id="comment-input-mobile"
         name="comment"
@@ -117,7 +117,7 @@ export default function PostInput({ userId, postId }: PostInputProps) {
         onChange={onChange}
         onKeyDown={onKeydown}
       />
-      <div className="flex md:h-full md:items-end">
+      <div className="flex shrink-0 md:h-full">
         <Button
           type="submit"
           color="secondary"
