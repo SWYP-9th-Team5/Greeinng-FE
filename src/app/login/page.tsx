@@ -46,7 +46,7 @@ const PCLoginPage = () => {
         </button>
         <span className="mb-6 h-0 w-full max-w-[501px] border-t border-[#fff]"></span>
         <p className="text-text body1 text-center text-[1.125rem]">
-          식물 성장 일기와 커뮤니티 댓글 및 글 작성은 로그인 후 이용가능합니다
+          커뮤니티 댓글 및 글 작성은 로그인 후 이용가능합니다
         </p>
       </div>
     </div>

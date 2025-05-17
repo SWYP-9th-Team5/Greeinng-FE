@@ -63,7 +63,7 @@ const MBHome = () => {
       <div className="relative min-h-[500px] w-full">
         <Imageslider />
       </div>
-      <div className="text-text2 bg-background flex min-h-[800px] w-full flex-col items-center justify-center">
+      <div className="text-text2 bg-background flex min-h-[650px] w-full flex-col items-center justify-center">
         <p className="text-text2 title1 mb-7">COMMUNITY</p>
         <TabComponent />
       </div>
