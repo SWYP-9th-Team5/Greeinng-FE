@@ -3,14 +3,12 @@ import React from 'react';
 import Image from 'next/image';
 
 type LikeButton = {
-  id: number;
   isLike: boolean;
   count: number;
-  handleToggleLike: (id: number) => void;
+  handleToggleLike: () => void;
 };
 
 export default function LikeButton({
-  id,
   isLike,
   count,
   handleToggleLike,
@@ -19,7 +17,7 @@ export default function LikeButton({
     <div className="flex items-center">
       <button
         className="mr-1 w-[0.875rem] md:w-[1.125rem]"
-        onClick={() => handleToggleLike(id)}
+        onClick={handleToggleLike}
       >
         <Image
           src={isLike ? '/icons/heart_fill_b.svg' : '/icons/heart_b.svg'}

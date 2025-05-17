@@ -7,16 +7,13 @@ import LikeButton from '../../common/LikeButton';
 
 // ! 포맷 구조 나오면 수정 예정
 interface PostButtonProps {
-  postId: number;
-  userId: number;
   isLike: boolean;
   likeCount: number;
   commentCount: number;
-  handleToggleLike: (id: number) => void;
+  handleToggleLike: () => void;
 }
 
 export default function PostButton({
-  postId,
   isLike,
   likeCount,
   commentCount,
@@ -30,7 +27,6 @@ export default function PostButton({
       )}
     >
       <LikeButton
-        id={postId}
         isLike={isLike}
         count={likeCount}
         handleToggleLike={handleToggleLike}

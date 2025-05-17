@@ -14,7 +14,10 @@ const contentMap: Record<
   (value: string, idx: number) => React.ReactNode
 > = {
   TEXT: (value, idx) => (
-    <p key={idx} className={cn('body1 w-full whitespace-pre-line text-[#666]')}>
+    <p
+      key={idx}
+      className={cn('body1 w-full text-left whitespace-pre-line text-[#666]')}
+    >
       {value}
     </p>
   ),
@@ -30,10 +33,9 @@ const contentMap: Record<
   ),
 };
 
-// ! 포맷 보고 재수정 필요함
 export default function PostContent({ content }: PostContentProps) {
   return (
-    <section className="mb-10 md:mb-16">
+    <section className="mb-10 w-full md:mb-16">
       {content.map((item, idx) => contentMap[item.type](item.value, idx))}
     </section>
   );
