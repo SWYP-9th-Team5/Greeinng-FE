@@ -2,6 +2,7 @@
 
 import { toast } from 'react-toastify';
 
+import { usePopupStore } from '@/stores/usePopupStore';
 import { calFormatToKoreanDate } from '@/utils/date';
 import { useQueryClient, useSuspenseQueries } from '@tanstack/react-query';
 
@@ -68,23 +69,36 @@ export default function Posts({ postNumberId }: { postNumberId: number }) {
     );
   };
 
+  const openPopup = usePopupStore((state) => state.openPopup);
+  const closePopup = usePopupStore((state) => state.closePopup);
+
   const handleDeleteComment = (commentId: number) => {
-    deleteCommentMutation.mutate(
-      {
-        userId,
-        commentId,
+    openPopup({
+      title: '삭제 하시겠습니까?',
+      description: '삭제된 글은 복구할 수 없습니다',
+      confirmText: '확인',
+      cancelText: '아니요',
+      mode: 'double',
+      onConfirm: () => {
+        deleteCommentMutation.mutate(
+          {
+            userId,
+            commentId,
+          },
+          {
+            onSuccess: () => {
+              queryClient.invalidateQueries({
+                queryKey: postKeys.postComments(postId),
+              });
+              queryClient.invalidateQueries({
+                queryKey: postKeys.postDetail(postId),
+              });
+            },
+          },
+        );
       },
-      {
-        onSuccess: () => {
-          queryClient.invalidateQueries({
-            queryKey: postKeys.postComments(postId),
-          });
-          queryClient.invalidateQueries({
-            queryKey: postKeys.postDetail(postId),
-          });
-        },
-      },
-    );
+      onCancel: () => closePopup(),
+    });
   };
 
   return (
