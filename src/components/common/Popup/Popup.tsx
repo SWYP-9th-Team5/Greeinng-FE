@@ -42,7 +42,7 @@ export default function Popup() {
           isActive={isOpen}
           isRestoreFocus
           className={cn(
-            'h-[27vh] w-[320px] rounded-[1.25rem] bg-[#FFF] p-4 text-center md:aspect-[400/209] md:w-[400px] md:max-w-[400px] md:p-6',
+            'h-auto w-[320px] rounded-[1.25rem] bg-[#FFF] p-4 text-center md:w-[400px] md:p-6',
             className,
           )}
         >
