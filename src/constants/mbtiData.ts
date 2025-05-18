@@ -114,7 +114,7 @@ export const MBTI_RESULT_MOBILE_LIST = [
   },
   {
     plantId: 5,
-    plantName: '칼라데아',
+    plantName: '칼레데아',
     plantDescription:
       '눈에 띄는 잎과 색감으로\n공간을 화사하게 채우는 사교성 만렙 플랜트!',
     plantPersonality:
@@ -221,7 +221,7 @@ export const MBTI_RESULT_PC_LIST = [
   },
   {
     plantId: 5,
-    plantName: '칼라데아',
+    plantName: '칼레데아',
     plantDescription:
       '눈에 띄는 잎과 색감으로\n공간을 화사하게 채우는 사교성 만렙 플랜트!',
     plantPersonality:
