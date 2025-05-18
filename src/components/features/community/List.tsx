@@ -7,12 +7,14 @@ import Link from 'next/link';
 
 import { getUpdatedLike } from '@hooks/useLikeToggle';
 
+import { COMMUNITY_LIST } from '@constants/communityData';
+
 import Pagination from '../All/Pagination';
 import type { PostItem } from '../main/Community/MainTabbar';
 
 interface CommunityDataProps {
   data: PostItem[];
-  label: string; //카테고리(qna, 자유, 나눔)
+  type: string;
   currentPage: number;
   totalPages: number;
   onPageClick: (page: number) => void;
@@ -20,7 +22,7 @@ interface CommunityDataProps {
 
 export function CommunityList({
   data,
-  label,
+  type,
   currentPage,
   totalPages,
   onPageClick,
@@ -29,6 +31,8 @@ export function CommunityList({
   useEffect(() => {
     setItems(data);
   }, [data]);
+
+  const label = COMMUNITY_LIST.find(({ path }) => path === type)?.label;
 
   const handleToggleLike = (
     e: React.MouseEvent<HTMLButtonElement>,
@@ -43,7 +47,7 @@ export function CommunityList({
     <div className="relative flex min-h-[60vh] w-full flex-col">
       {items.map((item) => (
         <Link
-          href={`/community/${item.postId}`}
+          href={`/community/${type}/${item.postId}`}
           key={item.postId}
           className="relative flex h-20 w-full flex-col justify-center border-b-1 border-[#ddd] md:h-20 md:flex-row md:items-center md:justify-start md:px-6"
         >

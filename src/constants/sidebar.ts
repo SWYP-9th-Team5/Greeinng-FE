@@ -4,16 +4,16 @@ export const SIDEBAR_LIST = [
     path: '/community',
     children: [
       {
-        id: 'qna',
+        id: '1',
         name: 'QnA',
-        path: '/community',
+        path: '/community/qna',
       },
       {
-        id: 'free',
+        id: '2',
         name: '자유게시판',
-        path: '/community',
+        path: '/community/free',
       },
-      { id: 'share', name: '나눔', path: '/community' },
+      { id: '3', name: '나눔', path: '/community/share' },
     ],
   },
   {

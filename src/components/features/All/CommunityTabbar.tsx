@@ -1,23 +1,22 @@
-import { useTabStore } from '@/stores/useTabStore';
+import Link from 'next/link';
 
-export const TabComponent = () => {
-  const tabs = ['QnA', '자유게시판', '나눔'];
-  const { activeTab, setActiveTab } = useTabStore();
+import { COMMUNITY_LIST } from '@constants/communityData';
 
+export const TabComponent = ({ type }: { type: string }) => {
   return (
     <div className="mb-4 flex items-center gap-4">
-      {tabs.map((tab) => (
-        <button
-          key={tab}
-          onClick={() => setActiveTab(tab)}
+      {COMMUNITY_LIST.map(({ label, path }) => (
+        <Link
+          key={label}
+          href={path}
           className={`title2 inline-flex items-center pb-1 text-center whitespace-nowrap ${
-            activeTab === tab
+            type === path
               ? 'text-secondary border-secondary border-b-2'
               : 'text-[#666]'
           }`}
         >
-          {tab}
-        </button>
+          {label}
+        </Link>
       ))}
     </div>
   );

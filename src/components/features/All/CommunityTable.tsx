@@ -2,8 +2,6 @@
 
 import { useEffect, useState } from 'react';
 
-import { useTabStore } from '@/stores/useTabStore';
-
 import api from '@apis/api-config';
 
 import { CommunityList } from '../community/List';
@@ -21,27 +19,16 @@ interface CommunityResponse {
 }
 
 const categoryMap: Record<string, string> = {
-  QnA: 'QnA',
-  자유게시판: 'FREE_BULLETIN_BOARD',
-  나눔: 'SHARING',
+  qna: 'QnA',
+  free: 'FREE_BULLETIN_BOARD',
+  share: 'SHARING',
 };
 
-export const CommunityTable = () => {
-  const { activeTab } = useTabStore();
+export const CommunityTable = ({ type }: { type: string }) => {
   const [data, setData] = useState<PostItem[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const { resetTab } = useTabStore();
-
-  useEffect(() => {
-    resetTab(); // 페이지 진입 시 초기화
-  }, []);
-
-  useEffect(() => {
-    // 탭 변경시 현재 페이지 초기화
-    setCurrentPage(1);
-  }, [activeTab]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -49,7 +36,7 @@ export const CommunityTable = () => {
         setIsLoading(true);
         const res = await api.get<CommunityResponse>('/api/posts', {
           params: {
-            category: categoryMap[activeTab],
+            category: categoryMap[type],
             pageNumber: currentPage,
             pageSize: 5, // 한 페이지 당 5개로 고정
           },
@@ -63,7 +50,7 @@ export const CommunityTable = () => {
       }
     };
     fetchData();
-  }, [activeTab, currentPage]);
+  }, [currentPage]);
 
   return (
     <>
@@ -74,7 +61,7 @@ export const CommunityTable = () => {
       ) : (
         <CommunityList
           data={data}
-          label={activeTab}
+          type={type}
           currentPage={currentPage}
           totalPages={totalPages}
           onPageClick={(page) => setCurrentPage(page)}

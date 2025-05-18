@@ -2,8 +2,6 @@ import { useEffect, useRef } from 'react';
 
 import useScript from '@hooks/useScript';
 
-// 너가 작성한 useScript 훅
-
 interface UseQuillEditorProps {
   editorRef: React.RefObject<HTMLDivElement | null>;
 }
