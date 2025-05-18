@@ -22,7 +22,7 @@ export default function PostInput({ userId, postId }: PostInputProps) {
   const queryClient = useQueryClient();
 
   const [comment, setComment] = useState('');
-  const isDisabledBtn = !comment;
+  const isDisabledBtn = !comment || comment.trim() === '';
 
   const onChange = (e: { target: { value: SetStateAction<string> } }) => {
     setComment(e.target.value);
