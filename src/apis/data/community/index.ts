@@ -38,6 +38,7 @@ export type PostDetailResponse = {
   isLike: boolean;
   likeCount: number;
   postId: number;
+  categoryId: 1 | 2 | 3;
   title: string;
   userId: number;
   userName: string;

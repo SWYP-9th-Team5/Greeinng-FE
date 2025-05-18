@@ -12,6 +12,8 @@ import PostInput from '@components/features/community/detail/PostInput';
 import { getPostComments, getPostDetail } from '@apis/data/community';
 import postKeys from '@apis/queryKeys/postKeys';
 
+import { CATEGORY_ID_NAME_MAP } from '@constants/communityData';
+
 import usePostActions from './hooks/usePostActions';
 
 export default function Posts({ postNumberId }: { postNumberId: number }) {
@@ -36,6 +38,7 @@ export default function Posts({ postNumberId }: { postNumberId: number }) {
   const {
     commentCount,
     content,
+    categoryId,
     createdAt,
     isAuthor,
     isLike,
@@ -57,7 +60,7 @@ export default function Posts({ postNumberId }: { postNumberId: number }) {
       <PostHeader
         userId={userId}
         postId={postId}
-        category={'QnA'}
+        category={CATEGORY_ID_NAME_MAP[categoryId]}
         title={title}
         userName={userName}
         createdAt={korCreateTime}
