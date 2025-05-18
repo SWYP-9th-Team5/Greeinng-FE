@@ -24,7 +24,11 @@ import useInputs from '@hooks/useInputs';
 
 import { COMMUNITY_LIST } from '@constants/communityData';
 
-import { QuillDeltaInsert, calBuildFormData, calImageUrls } from './utils';
+import {
+  QuillDeltaInsert,
+  calImageUrls,
+  calResizeBuildFormData,
+} from './utils';
 
 export default function Page() {
   const router = useRouter();
@@ -149,8 +153,7 @@ export default function Page() {
     // 3. 이미지 업로드
     let uploadedImageUrls: string[] = [];
     if (imagecontentList.length > 0) {
-      const formData = calBuildFormData(imagecontentList);
-
+      const formData = await calResizeBuildFormData(imagecontentList);
       try {
         const { data } = await postImageMutation.mutateAsync(formData, {
           onError: (error) => {
