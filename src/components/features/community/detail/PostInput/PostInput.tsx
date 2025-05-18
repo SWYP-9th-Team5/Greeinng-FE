@@ -96,7 +96,7 @@ export default function PostInput({ userId, postId }: PostInputProps) {
       </label>
       {/* mobile */}
       <input
-        className="font-HappinessR min-w-0 text-[0.875rem] leading-[1.375] tracking-[-0.0175rem] text-[#333] placeholder-[#ddd] md:hidden"
+        className="font-HappinessR w-full min-w-0 text-[0.875rem] leading-[1.375] tracking-[-0.0175rem] text-[#333] placeholder-[#ddd] md:hidden"
         type="text"
         id="comment-input-mobile"
         name="comment"
