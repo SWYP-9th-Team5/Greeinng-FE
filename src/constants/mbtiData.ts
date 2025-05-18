@@ -67,7 +67,7 @@ export const MBTI_RESULT_MOBILE_LIST = [
       '잘 뻗고 화려한 잎사귀처럼,\n당신도 어디에서든 존재감을 뽐내는 활력 넘치는 식물이에요!',
     plantPersonality:
       '“덩굴처럼 자유롭고, 꽃처럼 사람을 끌어당기는 타입 🌼\n밝은 에너지로 주변을 환하게 밝혀요!”\n분위기 메이커는 역시 당신이죠 ☀️',
-    suitablePlant: '칼레데아',
+    suitablePlant: '칼라데아',
     unsuitablePlant: '다육이',
     recommendedPlant: '🪴추천 식물 : 칼라데아, 알로카시아, 덩쿨페페',
     mbtiId: 'ENF',
@@ -81,7 +81,7 @@ export const MBTI_RESULT_MOBILE_LIST = [
     plantPersonality:
       '“조용하지만 독창적인 사고를 가진 식물형 인간 🌵\n혼자서도 척척, 계획적으로 잘 자라요.”\n책상 위 한켠에 두면 그 누구보다 잘 어울릴 듯!',
     suitablePlant: '다육이',
-    unsuitablePlant: '칼레데아',
+    unsuitablePlant: '칼라데아',
     recommendedPlant: '🪴추천 식물 : 스투키. 틸란드시아. 에어플랜트',
     mbtiId: 'INT',
     plantImageUrl: '/images/mbti/result/INT_Catus@2x.png',
@@ -114,7 +114,7 @@ export const MBTI_RESULT_MOBILE_LIST = [
   },
   {
     plantId: 5,
-    plantName: '칼레데아',
+    plantName: '칼라데아',
     plantDescription:
       '눈에 띄는 잎과 색감으로\n공간을 화사하게 채우는 사교성 만렙 플랜트!',
     plantPersonality:
@@ -174,7 +174,7 @@ export const MBTI_RESULT_PC_LIST = [
       '잘 뻗고 화려한 잎사귀처럼,\n당신도 어디에서든 존재감을 뽐내는 활력 넘치는 식물이에요!',
     plantPersonality:
       '“덩굴처럼 자유롭고, 꽃처럼 사람을 끌어당기는 타입 🌼\n밝은 에너지로 주변을 환하게 밝혀요!”\n분위기 메이커는 역시 당신이죠 ☀️',
-    suitablePlant: '칼레데아',
+    suitablePlant: '칼라데아',
     unsuitablePlant: '다육이',
     recommendedPlant: '🪴추천 식물 : 칼라데아, 알로카시아, 덩쿨페페',
     mbtiId: 'ENF',
@@ -188,7 +188,7 @@ export const MBTI_RESULT_PC_LIST = [
     plantPersonality:
       '“조용하지만 독창적인 사고를 가진 식물형 인간 🌵\n혼자서도 척척, 계획적으로 잘 자라요.”\n책상 위 한켠에 두면 그 누구보다 잘 어울릴 듯!',
     suitablePlant: '다육이',
-    unsuitablePlant: '칼레데아',
+    unsuitablePlant: '칼라데아',
     recommendedPlant: '🪴추천 식물 : 스투키. 틸란드시아. 에어플랜트',
     mbtiId: 'INT',
     plantImageUrl: '/images/mbti/result/INT_Catus@2x.png',
@@ -221,7 +221,7 @@ export const MBTI_RESULT_PC_LIST = [
   },
   {
     plantId: 5,
-    plantName: '칼레데아',
+    plantName: '칼라데아',
     plantDescription:
       '눈에 띄는 잎과 색감으로\n공간을 화사하게 채우는 사교성 만렙 플랜트!',
     plantPersonality:
