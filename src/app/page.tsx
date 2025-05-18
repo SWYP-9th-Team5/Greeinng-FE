@@ -14,7 +14,7 @@ const PCHome = () => {
         <Imageslider />
       </div>
       <div className="text-text2 bg-background relative flex min-h-[800px] w-full flex-col items-center justify-center">
-        <p className="text-text2 title1 absolute top-20 mb-7">COMMUNITY</p>
+        <p className="text-text2 title1 mb-7">COMMUNITY</p>
         <TabComponent />
       </div>
       <div className="flex w-full flex-row items-start justify-center">
