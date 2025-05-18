@@ -190,9 +190,10 @@ export default function Page() {
     };
 
     postMutation.mutate(body, {
-      onSuccess: () => {
+      onSuccess: ({ data }) => {
+        const { postId } = data;
         const findItem = COMMUNITY_LIST.find(({ value }) => category === value);
-        router.replace(`/community/${findItem?.path}`);
+        router.replace(`/community/${findItem?.path}/${postId}`);
       },
       onError: (error) => {
         console.error(error);

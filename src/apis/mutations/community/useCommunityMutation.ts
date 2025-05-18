@@ -8,6 +8,7 @@ import {
   PostCommentReq,
   PostUploadImageRes,
   PostUploadReq,
+  PostUploadRes,
   deleteComment,
   deletePost,
   postComments,
@@ -26,7 +27,7 @@ export default function useCommunityMutation() {
   });
 
   const postMutation = useMutation<
-    void,
+    PostUploadRes,
     AxiosError<ErrorResponse>,
     PostUploadReq
   >({

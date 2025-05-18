@@ -21,8 +21,16 @@ export type PostUploadReq = {
     value: string[];
   };
 };
+
+export type PostUploadRes = {
+  data: {
+    postId: number;
+  };
+};
+
 export const postUpload = async (body: PostUploadReq) => {
-  await api.post('/api/posts', body);
+  const res = await api.post<PostUploadRes>('/api/posts', body);
+  return res;
 };
 
 export type PostContentItem = {
