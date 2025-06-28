@@ -39,7 +39,6 @@ export function CommunityButton() {
 
 export function MbtiButton() {
   const handleClick = useNavigateToTabByName('식물 MBTI');
-
   return (
     <Button
       size="lg"
@@ -48,6 +47,20 @@ export function MbtiButton() {
       onClick={handleClick}
     >
       테스트 시작하기
+    </Button>
+  );
+}
+
+export function DiaryButton() {
+  const handleClick = useNavigateToTabByName('식물 MBTI');
+  return (
+    <Button
+      size="lg"
+      color="secondary"
+      className="w-[21.875rem] xl:w-[24.125rem]"
+      onClick={handleClick}
+    >
+      기록 시작하기
     </Button>
   );
 }

@@ -1,6 +1,6 @@
 import Image from 'next/image';
 
-import { MbtiButton } from '@components/features/main/Buttonlink';
+import { DiaryButton, MbtiButton } from '@components/features/main/Buttonlink';
 import TabComponent from '@components/features/main/Community/MainTabbar';
 import Imageslider from '@components/features/main/Imageslider/Imageslider';
 
@@ -13,10 +13,23 @@ const PCHome = () => {
       <div className="relative min-h-[600px] w-full">
         <Imageslider />
       </div>
-      <div className="text-text2 bg-background relative flex min-h-[800px] w-full flex-col items-center justify-center">
+      <div className="text-text2 bg-background border-b-primary relative flex min-h-[800px] w-full flex-col items-center justify-center border-b-2">
         <p className="text-text2 title1 mb-7">COMMUNITY</p>
         <TabComponent />
       </div>
+      <div className="flex w-full flex-row items-start justify-center">
+        <div className="bg-background flex min-h-[700px] w-1/2 flex-col items-start justify-center pl-[6.5rem]">
+          <p className="title1 text-text2 mb-6 text-left">식물 성장 일기</p>
+          <p className="title2 mb-[3.75rem] text-left text-[#666]">
+            나의 식물을 등록하고 하루하루 일기를 써보세요
+            <br />
+            식집사를 위한 식물 일기 서비스
+          </p>
+          <DiaryButton />
+        </div>
+        <div className="flex min-h-[700px] w-1/2 bg-[url('/images/main/main_diary_pc.png')] bg-center bg-no-repeat" />
+      </div>
+
       <div className="flex w-full flex-row items-start justify-center">
         <div className="flex min-h-[600px] w-1/2 bg-[#F5FFD0] bg-[url('/images/main/main_mbti_pc.png')] bg-contain bg-center bg-no-repeat" />
         <div className="bg-background flex min-h-[700px] w-1/2 flex-col items-start justify-center pl-[6.5rem]">
