@@ -75,8 +75,8 @@ const MBHome = () => {
       <div className="relative min-h-[500px] w-full">
         <Imageslider />
       </div>
-      <div className="text-text2 bg-background flex min-h-[650px] w-full flex-col items-center justify-center">
-        <p className="text-text2 title1 mb-7">COMMUNITY</p>
+      <div className="text-text2 bg-background flex min-h-[660px] w-full flex-col items-center justify-center">
+        <p className="text-text2 title1 mt-13 mb-7">COMMUNITY</p>
         <TabComponent />
       </div>
       <div className="flex min-h-[500px] w-full flex-col items-center bg-[#F5FFD0] pb-6 text-center">
@@ -98,7 +98,6 @@ const MBHome = () => {
         <DiaryButton />
       </div>
       <div className="bg-background flex min-h-[53px] w-full" />
-
       <div className="flex min-h-[500px] w-full flex-col items-center bg-[#F5FFD0] bg-[url('/images/main/main_mbti_mb.png')] bg-contain bg-center bg-no-repeat pb-6 text-center">
         <p className="title1 text-text2 mt-6 mb-6">식물 MBTI</p>
         <p className="title2 mb-auto text-[#666]">
@@ -110,7 +109,7 @@ const MBHome = () => {
         </p>
         <MbtiButton />
       </div>
-      <div className="bg-background flex min-h-[100px] w-full" />
+      <div className="bg-background flex min-h-[52px] w-full" />
       <footer className="bg-primary flex min-h-[164px] w-full flex-col pt-6 pl-6">
         <Image
           className="mb-3"
