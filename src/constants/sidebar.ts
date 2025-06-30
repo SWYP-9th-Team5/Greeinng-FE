@@ -17,6 +17,11 @@ export const SIDEBAR_LIST = [
     ],
   },
   {
+    title: '성장 일기',
+    path: '/diary',
+    children: [],
+  },
+  {
     title: '식물 MBTI',
     path: '/mbti',
     children: [],
