@@ -14,7 +14,9 @@ import LogoLink from './LogoLink';
 
 const tabList = [
   { href: '/community', name: '커뮤니티' },
+  { href: '/diary', name: '성장 일기' },
   { href: '/mbti', name: '식물 MBTI' },
+  { href: '/mypage', name: '마이페이지' },
 ];
 
 const PcHeader = () => {
@@ -88,7 +90,7 @@ export default function Header() {
       {/* 모바일 */}
       <header
         className={cn(
-          'flex md:hidden',
+          'flex lg:hidden',
           'bg-background fixed top-0 z-100 flex h-[64px] w-full items-center justify-between px-[20px] py-[16px]',
         )}
       >
@@ -97,7 +99,7 @@ export default function Header() {
       {/* PC */}
       <header
         className={cn(
-          'hidden md:flex',
+          'hidden lg:flex',
           'bg-background nowrap fixed top-0 h-[80px] w-full items-center justify-between px-[120px] py-[22px]',
         )}
       >
