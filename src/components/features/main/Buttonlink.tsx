@@ -7,6 +7,7 @@ import Button from '@components/common/Button';
 export const tabList = [
   { href: '/community', name: '커뮤니티' },
   { href: '/mbti', name: '식물 MBTI' },
+  { href: '/diary', name: '식물 일기' },
 ];
 
 export function useNavigateToTabByName(name: string) {
@@ -52,7 +53,7 @@ export function MbtiButton() {
 }
 
 export function DiaryButton() {
-  const handleClick = useNavigateToTabByName('식물 MBTI');
+  const handleClick = useNavigateToTabByName('식물 일기');
   return (
     <Button
       size="lg"

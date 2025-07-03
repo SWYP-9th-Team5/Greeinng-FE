@@ -72,11 +72,11 @@ const MBHome = () => {
       className="flex flex-col items-center justify-start"
       style={{ height: 'calc(100vh - 80px)' }}
     >
-      <div className="relative min-h-[500px] w-full">
+      <div className="relative min-h-[540px] w-full">
         <Imageslider />
       </div>
       <div className="text-text2 bg-background flex min-h-[660px] w-full flex-col items-center justify-center">
-        <p className="text-text2 title1 mt-13 mb-7">COMMUNITY</p>
+        <p className="text-text2 title1 mb-7">COMMUNITY</p>
         <TabComponent />
       </div>
       <div className="flex min-h-[500px] w-full flex-col items-center bg-[#F5FFD0] pb-6 text-center">
