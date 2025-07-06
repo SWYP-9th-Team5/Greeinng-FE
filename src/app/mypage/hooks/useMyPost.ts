@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 import type { PostItem } from '@components/features/main/Community/MainTabbar';
 
-import { fetchMyPosts } from '@apis/data/mypage';
+import { fetchMBMyPosts, fetchPCMyPosts } from '@apis/data/mypage';
 
 export const useMyPosts = () => {
   const [postdata, setPostData] = useState<PostItem[]>([]);
@@ -14,7 +14,12 @@ export const useMyPosts = () => {
     const fetchData = async () => {
       try {
         setIsLoading(true);
-        const res = await fetchMyPosts(currentPage);
+
+        const isMobile = window.innerWidth < 768;
+        const res = isMobile
+          ? await fetchMBMyPosts(currentPage)
+          : await fetchPCMyPosts(currentPage);
+
         setPostData(res.data);
         setTotalPages(res.pagination.totalPages);
       } catch (err) {

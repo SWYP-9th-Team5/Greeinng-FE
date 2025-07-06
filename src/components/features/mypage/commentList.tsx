@@ -34,7 +34,7 @@ const CommentList = ({
   }
   return (
     <>
-      <div className="h-[572px]">
+      <div className="h-[455px] md:h-[520px]">
         {isLoading ? (
           <p>로딩 중...</p>
         ) : (
@@ -43,19 +43,22 @@ const CommentList = ({
             return (
               <div
                 key={index}
-                className="relative mt-3 flex h-[102px] w-[542px] flex-col justify-center rounded-[0.94rem] bg-[#F3F3F3] p-4"
+                className="relative mt-2 flex h-[84px] w-[326px] flex-col justify-center rounded-[0.94rem] bg-[#F3F3F3] pl-3 md:mt-3 md:h-[92px] md:w-[542px] md:p-4"
               >
-                <div className="relative mb-3 flex flex-row">
+                <div className="relative flex flex-row md:mb-3">
                   <p className="body2 text-tertiary mr-1">{label}</p>
                   <p className="body2 overflow-hidden break-words text-ellipsis whitespace-nowrap text-[#666]">
                     {comment.postTitle}
                   </p>
-                  <p className="body2 absolute right-0 text-[#999]">
-                    {comment.createdAt.split('T')[0]}{' '}
+                  <p className="body2 absolute right-0 hidden text-[#999] md:block">
+                    {comment.createdAt.split('T')[0].split('-').join('.')}
                   </p>
                 </div>
                 <p className="body1 text-text2 overflow-hidden break-words text-ellipsis whitespace-nowrap">
                   {comment.comment}
+                </p>
+                <p className="body2 block text-[#999] md:hidden">
+                  {comment.createdAt.split('T')[0].split('-').join('.')}
                 </p>
               </div>
             );

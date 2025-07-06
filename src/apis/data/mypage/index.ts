@@ -37,7 +37,17 @@ export const fetchMyName = async (): Promise<NameResponse> => {
   return res;
 };
 
-export const fetchMyPosts = async (page: number, pageSize = 7) => {
+export const fetchPCMyPosts = async (page: number, pageSize = 7) => {
+  const res = await api.get<CommunityResponse>('/api/posts/my', {
+    params: {
+      pageNumber: page,
+      pageSize,
+    },
+  });
+  return res;
+};
+
+export const fetchMBMyPosts = async (page: number, pageSize = 5) => {
   const res = await api.get<CommunityResponse>('/api/posts/my', {
     params: {
       pageNumber: page,
