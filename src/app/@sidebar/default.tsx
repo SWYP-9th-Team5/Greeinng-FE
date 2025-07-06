@@ -22,7 +22,7 @@ export default function Default() {
     <aside
       ref={ref}
       className={cn(
-        'fixed right-0 z-300 h-[100vh] w-[71%] bg-[#FEFEFE] px-[1rem] py-[1.1875rem] transition-transform duration-300 ease-in-out md:hidden',
+        'fixed right-0 z-300 h-[100vh] w-[71%] bg-[#FEFEFE] px-[1rem] py-[1.1875rem] transition-transform duration-300 ease-in-out lg:hidden',
         isSidebarOpen ? 'translate-x-0' : 'translate-x-full',
       )}
       role="aside"
