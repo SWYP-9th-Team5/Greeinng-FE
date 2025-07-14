@@ -23,7 +23,7 @@ export const useMyPosts = () => {
         setPostData(res.data);
         setTotalPages(res.pagination.totalPages);
       } catch (err) {
-        console.error('커뮤니티 데이터 불러오기 실패:', err);
+        console.error('내 글 데이터 불러오기 실패:', err);
       } finally {
         setIsLoading(false);
       }
