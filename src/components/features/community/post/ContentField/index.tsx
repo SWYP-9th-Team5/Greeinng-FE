@@ -4,11 +4,15 @@ import { cn } from '@/utils/cn';
 
 interface ContentFieldProps {
   editorRef: RefObject<HTMLDivElement | null>;
+  className?: string;
 }
 
-export default function ContentField({ editorRef }: ContentFieldProps) {
+export default function ContentField({
+  editorRef,
+  className,
+}: ContentFieldProps) {
   return (
-    <fieldset className="mb-[1rem] md:mb-[1.5rem]">
+    <fieldset className={cn('mb-[1rem] md:mb-[1.5rem]', className)}>
       <legend className="sr-only">내용 작성하기</legend>
       <div
         className={cn(
