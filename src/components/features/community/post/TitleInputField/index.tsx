@@ -7,6 +7,7 @@ interface TitleInputFieldProps {
   name: string;
   value: string;
   placeholder: string;
+  className?: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
@@ -16,9 +17,13 @@ export default function TitleInputField({
   value,
   placeholder,
   onChange,
+  ...props
 }: TitleInputFieldProps) {
   return (
-    <fieldset className="flex flex-col gap-[0.25rem] md:gap-[0.5rem]">
+    <fieldset
+      className="flex flex-col gap-[0.25rem] md:gap-[0.5rem]"
+      {...props}
+    >
       <legend className="sr-only">{label} 작성하기</legend>
       <label className="title2 text-[#333]" htmlFor={'title-input'}>
         {label}
