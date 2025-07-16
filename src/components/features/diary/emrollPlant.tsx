@@ -3,6 +3,7 @@
 import React from 'react';
 import { useState } from 'react';
 
+import { usePopupStore } from '@/stores/usePopupStore';
 import Image from 'next/image';
 
 import Button from '@components/common/Button';
@@ -13,7 +14,7 @@ interface PlantRegisterCardProps {
   defaultDate?: string;
 }
 
-export function PlantCard({ onClose, onSubmit }: PlantRegisterCardProps) {
+export function PlantEnrollCard({ onClose, onSubmit }: PlantRegisterCardProps) {
   const [name, setName] = useState('');
   const [type, setType] = useState('');
   const getToday = () => {
@@ -23,23 +24,54 @@ export function PlantCard({ onClose, onSubmit }: PlantRegisterCardProps) {
     const dd = String(today.getDate()).padStart(2, '0');
     return `${yyyy}.${mm}.${dd}`;
   };
+  const { openPopup } = usePopupStore.getState();
 
   const defaultDate = getToday();
-
   const handleSubmit = async () => {
-    if (!name || !type) return alert('모든 항목을 입력해 주세요.');
-
     try {
-      await onSubmit(name, type); // ✅ 서버로 전송 완료까지 기다림
-      console.log('✅ 식물 등록 성공'); // 여기서도 로그 찍기 가능
+      await onSubmit(name, type);
       setName('');
       setType('');
-      // onClose(); // 등록 후 자동 닫기 원하면 이 줄 활성화
     } catch (err) {
       console.error('❌ 등록 실패:', err);
-      alert('등록 중 오류가 발생했습니다.');
     }
   };
+
+  const validateAndConfirm = () => {
+    if (!name) {
+      openPopup({
+        title: '이름을 입력해 주세요.',
+        description:
+          '이름이 입력되지 않았습니다.\n이름 입력 후 등록 가능합니다.',
+        confirmText: '확인',
+        mode: 'single',
+        onConfirm: () => {},
+      });
+      return;
+    }
+
+    if (!type) {
+      openPopup({
+        title: '종류를 입력해 주세요.',
+        description:
+          '식물의 종류가 입력되지 않았습니다.\n입력 후 등록 가능합니다.',
+        confirmText: '확인',
+        mode: 'single',
+        onConfirm: () => {},
+      });
+      return;
+    }
+    openPopup({
+      title: '등록 하시겠습니까?',
+      description: '등록 후에는 수정이 어렵습니다.',
+      confirmText: '예',
+      cancelText: '아니오',
+      mode: 'double',
+      onConfirm: handleSubmit,
+      onCancel: () => {},
+    });
+  };
+
   return (
     <div className="relative flex h-[102px] w-[318px] items-center justify-start rounded-[10px] bg-[#F5F4F0] pl-4 md:h-[148px] md:w-[500px] md:rounded-[20px] md:pl-6">
       <div className="mr-5 flex items-center justify-center md:mr-10">
@@ -69,7 +101,7 @@ export function PlantCard({ onClose, onSubmit }: PlantRegisterCardProps) {
         <p className="body1 mt-1 text-[#666]">등록일 : {defaultDate}</p>
       </div>
       <Button
-        onClick={handleSubmit}
+        onClick={validateAndConfirm}
         color="secondary"
         size="sm"
         className="absolute right-4 bottom-2 w-[3.75rem] md:w-[6.25rem]"
@@ -78,7 +110,7 @@ export function PlantCard({ onClose, onSubmit }: PlantRegisterCardProps) {
       </Button>
       <button
         onClick={onClose}
-        className="absolute top-3 right-3 h-5 w-5 bg-[url('/icons/xmark.svg')] bg-contain bg-center bg-no-repeat md:h-6 md:w-6"
+        className="absolute top-3 right-3 h-5 w-5 bg-[url('/icons/close.svg')] bg-contain bg-center bg-no-repeat md:h-6 md:w-6"
         aria-label="닫기"
       ></button>
     </div>
