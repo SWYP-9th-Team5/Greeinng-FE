@@ -116,6 +116,8 @@ const MBHome = () => {
   const [selectedPlant, setSelectedPlant] = useState<MyPlantItem | null>(null);
   const [isOpen, setIsOpen] = useState(false);
   const [bottomOffset, setBottomOffset] = useState('25rem');
+  const [bottomOffset2, setBottomOffset2] = useState('2rem');
+
   const cardRef = useRef<HTMLDivElement>(null);
   const topRef = useRef<HTMLDivElement>(null);
 
@@ -147,10 +149,13 @@ const MBHome = () => {
 
     if (height < 750) {
       setBottomOffset('22rem');
+      setBottomOffset2('2rem');
     } else if (height < 850) {
       setBottomOffset('24rem');
+      setBottomOffset2('1.5rem');
     } else {
       setBottomOffset('26.5rem');
+      setBottomOffset2('3rem');
     }
   }, []);
 
@@ -257,7 +262,7 @@ const MBHome = () => {
           <div
             ref={cardRef}
             className="absolute"
-            style={{ bottom: bottomOffset }}
+            style={{ bottom: bottomOffset2 }}
           >
             <MyPlantCard
               onClose={() => {
