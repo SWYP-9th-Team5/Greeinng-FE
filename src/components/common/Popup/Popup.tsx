@@ -61,7 +61,7 @@ export default function Popup() {
                 onConfirm();
                 closePopup();
               }}
-              className={mode === 'single' ? 'w-[120px]' : ''}
+              className={mode === 'single' ? 'w-[120px] md:w-[160px]' : ''}
             >
               {confirmText}
             </Button>

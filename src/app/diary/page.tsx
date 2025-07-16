@@ -1,7 +1,10 @@
+'use client';
+
 import React from 'react';
 
 import { cn } from '@/utils/cn';
 import Image from 'next/image';
+import { redirect } from 'next/navigation';
 
 import Button from '@components/common/Button';
 
@@ -26,7 +29,11 @@ export default function DiaryStartPage() {
         <p className="body1 mb-[1.25rem] whitespace-pre-line md:hidden">
           {mobileContent}
         </p>
-        <Button color="secondary" className="md:h-[3.375rem] md:w-[24.125rem]">
+        <Button
+          color="secondary"
+          className="md:h-[3.375rem] md:w-[24.125rem]"
+          onClick={() => redirect('/diary/enroll')}
+        >
           로그인하고 시작하기
         </Button>
       </div>

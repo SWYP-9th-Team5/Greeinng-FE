@@ -1,0 +1,97 @@
+.react-calendar {
+  border: none;
+  width: 100%;
+  background-color: transparent;
+  font-family: 'Pretendard', sans-serif;
+}
+
+.react-calendar__navigation {
+  display: none;
+}
+
+.react-calendar__month-view__weekdays {
+  display: flex;
+  justify-content: center;
+}
+
+.react-calendar__month-view__weekdays__weekday {
+  width: 60px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-NanumSquareRoundB);
+  font-size: 1.125rem;
+  color: #333;
+}
+
+.react-calendar__month-view__weekdays__weekday abbr {
+  text-decoration: none !important;
+}
+
+.react-calendar__month-view__weekdays__weekday:first-child {
+  color: #e4585a;
+}
+.react-calendar__month-view__weekdays__weekday:last-child {
+  color: #505ac8;
+}
+
+.react-calendar__month-view__days {
+  display: table;
+  table-layout: fixed;
+  border-spacing: 0px;
+  margin: 0 auto;
+}
+
+.react-calendar__tile {
+  width: 60px;
+  height: 68px;
+  background: #fff;
+  border-radius: 5px;
+  font-size: 14px;
+  padding: 8px;
+  box-sizing: border-box;
+  border: 4px solid #f7f6f2 !important;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+@media (max-width: 768px) {
+  .react-calendar__tile {
+    width: 40px;
+    height: 54px;
+    background: #fff;
+    border-radius: 5px;
+    font-size: 12px;
+    padding: 2px;
+    box-sizing: border-box;
+    border: 2px solid #f7f6f2 !important;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+}
+
+.react-calendar__tile:hover,
+.react-calendar__tile:focus,
+.react-calendar__tile:active,
+.react-calendar__tile--active:hover,
+.react-calendar__tile--active:focus,
+.react-calendar__tile--active:active {
+  background-color: #fff !important;
+}
+
+.react-calendar__tile--active,
+.react-calendar__tile--active:focus,
+.react-calendar__tile--active:hover {
+  background-color: #fff !important;
+  border: 2px solid #999 !important;
+  color: #333 !important;
+}
+
+@media (max-width: 768px) {
+  .react-calendar__month-view__weekdays__weekday {
+    font-size: 1rem;
+  }
+}
