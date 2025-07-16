@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 
 import { usePopupStore } from '@/stores/usePopupStore';
 import { useQuery } from '@tanstack/react-query';
@@ -33,14 +33,37 @@ export const calFormatKoreanDate = (dateString: string): string => {
   return `${month}월 ${day}일 ${dayOfWeek}`;
 };
 
-export default function PostModal() {
+export type DiaryModalState = {
+  isOpen: boolean;
+  isWatering: boolean;
+  petPlantId: number;
+  dailyRecordId: number;
+  date: string;
+};
+interface PostModalProps {
+  modalState: DiaryModalState;
+  setModalState: Dispatch<SetStateAction<DiaryModalState>>;
+}
+
+export default function PostModal({
+  modalState,
+  setModalState,
+}: PostModalProps) {
+  const { isWatering, dailyRecordId, date, petPlantId } = modalState;
+
   const [tab, setTab] = useState<TabValue>('stamp');
-  const [isWater, setIsWater] = useState(false);
+  const [isWater, setIsWater] = useState(isWatering);
 
   const { data } = useQuery({
-    queryKey: diaryKeys.getPetPlantsTodayInfo(3, 3),
-    queryFn: () => getPetPlantsTodayInfo(3, 3),
+    queryKey: diaryKeys.getPetPlantsTodayInfo(dailyRecordId),
+    queryFn: () => getPetPlantsTodayInfo(dailyRecordId),
   });
+
+  const handleClose = () =>
+    setModalState((prev) => ({
+      ...prev,
+      isOpen: false,
+    }));
 
   const handlePost = (value: TabValue, title?: string) => {
     console.log(title);
@@ -60,8 +83,7 @@ export default function PostModal() {
       onConfirm: () => {
         postWaterMutation.mutate(
           {
-            userId: 3,
-            petPlantId: 14,
+            petPlantId: 13,
             today: '2025-07-16',
           },
           {
@@ -77,15 +99,18 @@ export default function PostModal() {
   };
 
   return (
-    <section className="absolute inset-0 z-900 mx-auto p-[1rem]">
+    <section className="fixed inset-0 z-900 mx-auto p-[1rem]">
       <PostModalContent
         value={tab}
         isWater={isWater}
-        date={data?.createdAt}
+        date={date}
         content={data?.content}
         title={data?.title}
+        petPlantId={petPlantId}
+        dailyRecordId={dailyRecordId}
         handlePost={handlePost}
         handleWater={handleWater}
+        handleClose={handleClose}
       />
     </section>
   );

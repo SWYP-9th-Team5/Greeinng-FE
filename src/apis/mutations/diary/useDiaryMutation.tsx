@@ -26,8 +26,8 @@ export default function useDiaryMutation() {
     AxiosError<ErrorResponse>,
     ReqPetPlantWatering
   >({
-    mutationFn: ({ userId, petPlantId, today }) =>
-      postPetPlantWatering({ userId, petPlantId, today }),
+    mutationFn: ({ petPlantId, today }) =>
+      postPetPlantWatering({ petPlantId, today }),
   });
 
   const deletePetPlantDiaryMutation = useMutation<
@@ -35,8 +35,7 @@ export default function useDiaryMutation() {
     AxiosError<ErrorResponse>,
     DeletePostReq
   >({
-    mutationFn: ({ userId, dailyRecordId }) =>
-      deleteDailyRecord({ userId, dailyRecordId }),
+    mutationFn: ({ dailyRecordId }) => deleteDailyRecord({ dailyRecordId }),
   });
 
   return {

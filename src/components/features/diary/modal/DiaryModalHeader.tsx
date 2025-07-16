@@ -23,12 +23,18 @@ export const calFormatKoreanDate = (dateString?: string): string => {
   return `${month}월 ${day}일 ${dayOfWeek}`;
 };
 
-export default function DiaryModalHeader({ date }: { date?: string }) {
+export default function DiaryModalHeader({
+  date,
+  handleClose,
+}: {
+  date: string;
+  handleClose: () => void;
+}) {
   const formatDate = calFormatKoreanDate(date);
   return (
     <div className="mb-[1.72rem] flex justify-between md:mb-[2rem]">
       <p className="title2 text-[#666]">{formatDate}</p>
-      <button onClick={() => {}} aria-label="사이드바 닫기">
+      <button onClick={handleClose} aria-label="사이드바 닫기">
         <Image src="/icons/close.svg" alt="" width={24} height={24} />
       </button>
     </div>

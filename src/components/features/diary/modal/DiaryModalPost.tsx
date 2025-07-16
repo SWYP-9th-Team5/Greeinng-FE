@@ -10,6 +10,7 @@ import {
 } from '@/app/community/post/utils';
 import { usePopupStore } from '@/stores/usePopupStore';
 import { cn } from '@/utils/cn';
+import { QueryClient } from '@tanstack/react-query';
 import Image from 'next/image';
 
 import Button from '@components/common/Button';
@@ -21,6 +22,7 @@ import useQuillImageUpload, {
 
 import useCommunityMutation from '@apis/mutations/community/useCommunityMutation';
 import useDiaryMutation from '@apis/mutations/diary/useDiaryMutation';
+import diaryKeys from '@apis/queryKeys/diaryKeys';
 
 import useInputs from '@hooks/useInputs';
 
@@ -28,9 +30,17 @@ import { TabValue } from './PostModal';
 
 interface DiaryModalPostProps {
   value: TabValue;
+  date: string;
+  petPlantId: number;
+  dailyRecordId: number;
 }
 
-export default function DiaryModalPost({ value }: DiaryModalPostProps) {
+export default function DiaryModalPost({
+  value,
+  date,
+  petPlantId,
+  dailyRecordId,
+}: DiaryModalPostProps) {
   // * 에디터 입력 및 script 불러오기
   const editorRef = useRef<HTMLDivElement | null>(null);
   const { quillInstanceRef } = useQuillEditor({ editorRef });
@@ -83,6 +93,7 @@ export default function DiaryModalPost({ value }: DiaryModalPostProps) {
     </Button>
   );
 
+  const queryClient = new QueryClient();
   const { postImageMutation } = useCommunityMutation();
   const { postDiaryPostMutation } = useDiaryMutation();
 
@@ -162,16 +173,17 @@ export default function DiaryModalPost({ value }: DiaryModalPostProps) {
 
     // 5. 게시물 작성
     const body = {
-      userId: 3,
-      petPlantId: 13,
-      today: '2025-07-16',
+      petPlantId,
+      today: date,
       title,
       content: transformContent,
     };
 
     postDiaryPostMutation.mutate(body, {
-      onSuccess: ({ data }) => {
-        console.log(data);
+      onSuccess: () => {
+        queryClient.invalidateQueries({
+          queryKey: diaryKeys.getPetPlantsTodayInfo(dailyRecordId),
+        });
       },
       onError: ({}) => {},
     });

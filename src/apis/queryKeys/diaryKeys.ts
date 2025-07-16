@@ -6,9 +6,8 @@ export default {
     month: number,
     petPlantId: number,
   ) => ['/pet-plants', userId, year, month, petPlantId],
-  getPetPlantsTodayInfo: (userId: number, dailyRecordId: number) => [
+  getPetPlantsTodayInfo: (dailyRecordId: number) => [
     '/pet-plants/daily-record',
-    userId,
     dailyRecordId,
   ],
 };

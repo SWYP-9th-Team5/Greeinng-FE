@@ -6,11 +6,44 @@ import 'react-calendar/dist/Calendar.css';
 
 import '@/assets/css/calendar.css';
 
+import { getPetPlantsMonthInfo } from '@apis/data/diary';
+
+import PostModal, { DiaryModalState } from './modal/PostModal';
+
 type ValuePiece = Date | null;
 type Value = ValuePiece | [ValuePiece, ValuePiece];
 
 export default function CustomCalendar() {
   const [value, setValue] = useState<Value>(new Date());
+
+  const [modalState, setModalState] = useState<DiaryModalState>({
+    isOpen: false,
+    isWatering: false,
+    petPlantId: 13,
+    dailyRecordId: -1,
+    date: '',
+  });
+
+  const handleClickDate = async (value: Date) => {
+    const year = value.getFullYear();
+    const month = value.getMonth() + 1;
+    const day = value.getDate();
+
+    const formattedDate = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+    // petPlantId 넘겨줘야함
+    const { data } = await getPetPlantsMonthInfo(13, year, month);
+    const findResValue = data.find((item) => item.date === formattedDate);
+
+    setModalState((prev) => ({
+      ...prev,
+      // petPlantId 넘겨줘야함
+      petPlantId: 13,
+      isWatering: !!findResValue?.watering,
+      dailyRecordId: findResValue?.dailyRecordId ?? -1,
+      date: formattedDate,
+      isOpen: true,
+    }));
+  };
 
   // 현재 보이는 달을 상태로 관리
   const [activeStartDate, setActiveStartDate] = useState<Date>(new Date());
@@ -64,7 +97,11 @@ export default function CustomCalendar() {
         onActiveStartDateChange={({ activeStartDate }) =>
           setActiveStartDate(activeStartDate ?? new Date())
         }
+        onClickDay={(value) => handleClickDate(value)}
       />
+      {modalState.isOpen && (
+        <PostModal modalState={modalState} setModalState={setModalState} />
+      )}
     </div>
   );
 }

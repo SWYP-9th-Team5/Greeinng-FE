@@ -33,39 +33,28 @@ type PlantsTodayInfo = {
   content: PostContentItem[];
 };
 
-export const getPetPlantsTodayInfo = async (
-  userId: number,
-  dailyRecordId: number,
-) => {
+export const getPetPlantsTodayInfo = async (dailyRecordId: number) => {
   const res = await api.get<{ data: PlantsTodayInfo }>(
     `/api/pet-plants/daily-record/${dailyRecordId}`,
-    {
-      params: {
-        userId,
-      },
-    },
   );
   return res.data;
 };
 
 export type ReqPetPlantWatering = {
-  userId: number;
   petPlantId: number;
   today: string;
 };
 
 export const postPetPlantWatering = async ({
-  userId,
   petPlantId,
   today,
 }: ReqPetPlantWatering) => {
-  await api.post(`/api/pet-plants/${petPlantId}/watering?userId=${userId}`, {
+  await api.post(`/api/pet-plants/${petPlantId}/watering`, {
     today,
   });
 };
 
 export type PetPlantDiaryRecordReq = {
-  userId: number;
   petPlantId: number;
   today: string;
   title: string;
@@ -79,14 +68,13 @@ export type PetPlantDiaryRecordRes = {
 };
 
 export const postPetPlantsDiaryRecord = async ({
-  userId,
   petPlantId,
   today,
   title,
   content,
 }: PetPlantDiaryRecordReq) => {
   const res = await api.post<PetPlantDiaryRecordRes>(
-    `/api/pet-plants/${petPlantId}/daily-record?userId=${userId}`,
+    `/api/pet-plants/${petPlantId}/daily-record`,
     {
       today,
       title,
@@ -97,16 +85,10 @@ export const postPetPlantsDiaryRecord = async ({
 };
 
 export type DeletePostReq = {
-  userId: number;
   dailyRecordId: number;
 };
-export const deleteDailyRecord = async ({
-  userId,
-  dailyRecordId,
-}: DeletePostReq) => {
-  await api.delete(
-    `/api/pet-plants/daily-record/${dailyRecordId}?userId=${userId}`,
-  );
+export const deleteDailyRecord = async ({ dailyRecordId }: DeletePostReq) => {
+  await api.delete(`/api/pet-plants/daily-record/${dailyRecordId}`);
 };
 
 export interface PlantCardItem {
@@ -144,6 +126,30 @@ export const fetchMyPlant = async (): Promise<MyPlantItem[]> => {
 export const deletePlant = async (petPlantId: number): Promise<void> => {
   try {
     await api.delete(`/api/pet-plants/${petPlantId}`);
+  } catch (error) {
+    console.error('식물 삭제 실패:', error);
+    throw error;
+  }
+};
+
+type PlantMonthInfoRes = {
+  data: {
+    date: string;
+    watering: boolean;
+    dailyRecordId: number;
+  }[];
+};
+
+export const getPetPlantsMonthInfo = async (
+  petPlantId: number,
+  year: number,
+  month: number,
+) => {
+  try {
+    const res = await api.get<PlantMonthInfoRes>(
+      `/api/pet-plants/${petPlantId}?year=${year}&month=${month}`,
+    );
+    return res;
   } catch (error) {
     console.error('식물 삭제 실패:', error);
     throw error;

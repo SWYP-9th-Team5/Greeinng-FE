@@ -4,12 +4,14 @@ import React, { useState } from 'react';
 
 import { usePopupStore } from '@/stores/usePopupStore';
 import { cn } from '@/utils/cn';
+import { QueryClient } from '@tanstack/react-query';
 import Image from 'next/image';
 
 import PostContent from '@components/features/community/detail/PostContent';
 
 import { PostContentItem } from '@apis/data/community';
 import useDiaryMutation from '@apis/mutations/diary/useDiaryMutation';
+import diaryKeys from '@apis/queryKeys/diaryKeys';
 
 import useOutsideClick from '@hooks/useOutsideClick';
 
@@ -19,12 +21,14 @@ interface DiaryPostContentProps {
   value: TabValue;
   title?: string;
   content?: PostContentItem[];
+  dailyRecordId: number;
 }
 
 export default function DiaryPostContent({
   value,
   title,
   content,
+  dailyRecordId,
 }: DiaryPostContentProps) {
   const { ref } = useOutsideClick<HTMLDivElement>(() => setOpen(false));
 
@@ -34,6 +38,7 @@ export default function DiaryPostContent({
   const openPopup = usePopupStore((state) => state.openPopup);
   const { deletePetPlantDiaryMutation } = useDiaryMutation();
 
+  const queryClient = new QueryClient();
   const handleDeletePopup = () => {
     handleMenuToggle();
     openPopup({
@@ -45,11 +50,14 @@ export default function DiaryPostContent({
       onConfirm: () => {
         deletePetPlantDiaryMutation.mutate(
           {
-            userId: 3,
-            dailyRecordId: 12,
+            dailyRecordId,
           },
           {
-            onSuccess: () => {},
+            onSuccess: () => {
+              queryClient.invalidateQueries({
+                queryKey: diaryKeys.getPetPlantsTodayInfo(dailyRecordId),
+              });
+            },
             onError: () => {},
           },
         );
