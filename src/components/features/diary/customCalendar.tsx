@@ -10,16 +10,22 @@ import { getPetPlantsMonthInfo } from '@apis/data/diary';
 
 import PostModal, { DiaryModalState } from './modal/PostModal';
 
+interface CustomStyledCalendarProps {
+  plantId: number;
+}
+
 type ValuePiece = Date | null;
 type Value = ValuePiece | [ValuePiece, ValuePiece];
 
-export default function CustomCalendar() {
+export default function CustomStyledCalendar({
+  plantId,
+}: CustomStyledCalendarProps) {
   const [value, setValue] = useState<Value>(new Date());
 
   const [modalState, setModalState] = useState<DiaryModalState>({
     isOpen: false,
     isWatering: false,
-    petPlantId: 13,
+    petPlantId: plantId,
     dailyRecordId: -1,
     date: '',
   });
@@ -31,7 +37,7 @@ export default function CustomCalendar() {
 
     const formattedDate = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
     // petPlantId 넘겨줘야함
-    const { data } = await getPetPlantsMonthInfo(13, year, month);
+    const { data } = await getPetPlantsMonthInfo(plantId, year, month);
     const findResValue = data.find((item) => item.date === formattedDate);
 
     setModalState((prev) => ({

@@ -83,7 +83,7 @@ export function MyPlantCard({
           aria-label="삭제"
         ></button>
       </div>
-      <CustomStyledCalendar />
+      <CustomStyledCalendar plantId={id} />
     </div>
   );
 }
