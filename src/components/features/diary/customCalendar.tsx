@@ -43,7 +43,7 @@ export default function CustomStyledCalendar({
     setModalState((prev) => ({
       ...prev,
       // petPlantId 넘겨줘야함
-      petPlantId: 13,
+      petPlantId: plantId,
       isWatering: !!findResValue?.watering,
       dailyRecordId: findResValue?.dailyRecordId ?? -1,
       date: formattedDate,
