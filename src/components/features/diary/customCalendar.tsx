@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 
@@ -9,6 +9,12 @@ import '@/assets/css/calendar.css';
 import { getPetPlantsMonthInfo } from '@apis/data/diary';
 
 import PostModal, { DiaryModalState } from './modal/PostModal';
+
+interface WateringDate {
+  date: string;
+  watering: boolean;
+  dailyRecordId: number;
+}
 
 interface CustomStyledCalendarProps {
   plantId: number;
@@ -21,7 +27,7 @@ export default function CustomStyledCalendar({
   plantId,
 }: CustomStyledCalendarProps) {
   const [value, setValue] = useState<Value>(new Date());
-
+  const [wateringDates, setWateringDates] = useState<WateringDate[]>([]);
   const [modalState, setModalState] = useState<DiaryModalState>({
     isOpen: false,
     isWatering: false,
@@ -36,13 +42,11 @@ export default function CustomStyledCalendar({
     const day = value.getDate();
 
     const formattedDate = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-    // petPlantId 넘겨줘야함
     const { data } = await getPetPlantsMonthInfo(plantId, year, month);
     const findResValue = data.find((item) => item.date === formattedDate);
 
     setModalState((prev) => ({
       ...prev,
-      // petPlantId 넘겨줘야함
       petPlantId: plantId,
       isWatering: !!findResValue?.watering,
       dailyRecordId: findResValue?.dailyRecordId ?? -1,
@@ -70,12 +74,60 @@ export default function CustomStyledCalendar({
     setActiveStartDate(next);
   };
 
+  useEffect(() => {
+    console.log(
+      '📅 API 호출 시점: plantId =',
+      plantId,
+      '| activeStartDate =',
+      activeStartDate,
+    );
+
+    const fetchData = async () => {
+      const year = activeStartDate.getFullYear();
+      const month = activeStartDate.getMonth() + 1;
+      const { data } = await getPetPlantsMonthInfo(plantId, year, month);
+      console.log('📦 받아온 데이터:', data);
+      setWateringDates(data);
+    };
+
+    fetchData();
+  }, [plantId, activeStartDate]);
+
+  const formatDate = (date: Date) =>
+    `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+
+  const renderTileContent = ({ date, view }: { date: Date; view: string }) => {
+    if (view !== 'month') return null;
+
+    const formatted = formatDate(date);
+
+    const match = wateringDates.find((item) => item.date === formatted);
+
+    if (!match) return null;
+
+    const icons = [];
+
+    if (match.dailyRecordId !== 0) {
+      console.log('✅ 표시 대상 날짜:', formatted);
+      icons.push(
+        <img
+          key="record"
+          src="/icons/record.svg"
+          alt="기록 있음"
+          className="h-1.5 w-1.5 md:h-2 md:w-2"
+        />,
+      );
+    }
+
+    return <div className="flex justify-end pt-1 pl-3 md:pl-7">{icons}</div>;
+  };
+
   // 현재 월 추출
   const getDisplayMonth = (date: Date) => `${date.getMonth() + 1}월`;
 
   return (
-    <div className="box-border h-[353px] w-[316px] rounded-2xl bg-[#f7f6f2] p-2 md:h-[450px] md:w-[500px] md:p-4">
-      <div className="mb-2 flex items-center justify-start gap-3">
+    <div className="box-border h-[375px] w-[316px] rounded-2xl bg-[#f7f6f2] px-2 pt-1 md:h-[480px] md:w-[500px] md:px-4 md:pt-2">
+      <div className="flex items-center justify-start gap-3">
         <button
           onClick={handlePrevMonth}
           className="-mr-2 h-5 w-5 bg-[url('/icons/arrow-left.svg')] bg-contain bg-center bg-no-repeat"
@@ -95,7 +147,7 @@ export default function CustomStyledCalendar({
         value={value}
         onChange={handleChange}
         calendarType="gregory"
-        tileContent={() => null}
+        tileContent={renderTileContent}
         showNeighboringMonth={false}
         showNavigation={false}
         formatDay={(_, date) => `${date.getDate()}`}
