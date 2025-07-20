@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { toast } from 'react-toastify';
 
 import {
@@ -8,6 +8,7 @@ import {
   calImageUrls,
   calResizeBuildFormData,
 } from '@/app/community/post/utils';
+import { useDiaryModalStore } from '@/stores/useDiaryModalStore';
 import { usePopupStore } from '@/stores/usePopupStore';
 import { cn } from '@/utils/cn';
 import { QueryClient } from '@tanstack/react-query';
@@ -20,6 +21,7 @@ import useQuillImageUpload, {
   UploadFiles,
 } from '@components/features/community/post/hooks/useQuillImageUpload';
 
+import { PostContentItem } from '@apis/data/community';
 import useCommunityMutation from '@apis/mutations/community/useCommunityMutation';
 import useDiaryMutation from '@apis/mutations/diary/useDiaryMutation';
 import diaryKeys from '@apis/queryKeys/diaryKeys';
@@ -29,21 +31,27 @@ import useInputs from '@hooks/useInputs';
 import { TabValue } from './PostModal';
 
 interface DiaryModalPostProps {
-  value: TabValue;
+  titleValue?: string;
+  contentValue?: PostContentItem[];
   date: string;
   petPlantId: number;
   dailyRecordId: number;
+  handlePost: (value: TabValue) => void;
+  refetch: () => void;
 }
 
 export default function DiaryModalPost({
-  value,
+  titleValue,
+  contentValue,
   date,
   petPlantId,
   dailyRecordId,
+  handlePost,
+  refetch,
 }: DiaryModalPostProps) {
   // * 에디터 입력 및 script 불러오기
   const editorRef = useRef<HTMLDivElement | null>(null);
-  const { quillInstanceRef } = useQuillEditor({ editorRef });
+  const { quillInstanceRef, loading } = useQuillEditor({ editorRef });
 
   // * 이미지 핸들러 관련 Hook
   const {
@@ -54,12 +62,11 @@ export default function DiaryModalPost({
   } = useQuillImageUpload(quillInstanceRef);
 
   const { inputs, onChangeValue } = useInputs({
-    title: '',
+    title: titleValue ? titleValue : '',
   });
   const { title } = inputs;
   const TitleField = (
     <TitleInputField
-      label=""
       name="title"
       value={title}
       placeholder="제목을 입력하세요"
@@ -95,10 +102,14 @@ export default function DiaryModalPost({
 
   const queryClient = new QueryClient();
   const { postImageMutation } = useCommunityMutation();
-  const { postDiaryPostMutation } = useDiaryMutation();
+  const { postDiaryPostMutation, putPetPlantDiaryMutation } =
+    useDiaryMutation();
 
   const handleOpenPopup = usePopupStore((state) => state.openPopup);
   const handleClosePopup = usePopupStore((state) => state.closePopup);
+  const handleSetDiaryState = useDiaryModalStore(
+    (state) => state.handleSetDiaryState,
+  );
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -172,21 +183,51 @@ export default function DiaryModalPost({
     });
 
     // 5. 게시물 작성
+    if (!titleValue) {
+      const body = {
+        petPlantId,
+        today: date,
+        title,
+        content: transformContent,
+      };
+
+      postDiaryPostMutation.mutate(body, {
+        onSuccess: (res) => {
+          queryClient.invalidateQueries({
+            queryKey: diaryKeys.getPetPlantsTodayInfo(dailyRecordId),
+          });
+          handleSetDiaryState({
+            dailyRecordId: res.data.dailyRecordId,
+          });
+          handlePost('content');
+        },
+        onError: (error) => {
+          console.log(error.response);
+        },
+      });
+      return;
+    }
+
+    // 수정
     const body = {
-      petPlantId,
-      today: date,
       title,
       content: transformContent,
+      dailyRecordId,
     };
 
-    postDiaryPostMutation.mutate(body, {
-      onSuccess: () => {
-        queryClient.invalidateQueries({
-          queryKey: diaryKeys.getPetPlantsTodayInfo(dailyRecordId),
-        });
+    putPetPlantDiaryMutation.mutate(
+      { dailyRecordId, body },
+      {
+        onSuccess: () => {
+          queryClient.invalidateQueries({
+            queryKey: diaryKeys.getPetPlantsTodayInfo(dailyRecordId),
+          });
+
+          refetch();
+          handlePost('content');
+        },
       },
-      onError: ({}) => {},
-    });
+    );
   };
 
   const isLoading =
@@ -204,36 +245,51 @@ export default function DiaryModalPost({
     </Button>
   );
 
+  useEffect(() => {
+    console.log(quillInstanceRef.current);
+    if (contentValue && !loading) {
+      const convertToDelta = (content: PostContentItem[]) => {
+        return content.map((item) => {
+          if (item.type === 'IMAGE') {
+            return { insert: { image: item.value } };
+          }
+          return { insert: item.value };
+        });
+      };
+
+      const delta = convertToDelta(contentValue);
+      quillInstanceRef.current.setContents(delta);
+    }
+  }, [contentValue, loading]);
+
   return (
-    <>
-      {value === 'post' && (
-        <form
-          className="flex h-full min-w-0 flex-col break-all whitespace-normal"
-          onSubmit={handleSubmit}
+    <form
+      className="flex min-w-0 flex-col break-all whitespace-normal"
+      onSubmit={handleSubmit}
+    >
+      <div className="mb-[0.5rem] md:mb-[0.63rem]">{TitleField}</div>
+      <fieldset
+        className={cn(
+          'mb-[0.5rem] flex flex-col overflow-y-auto md:mb-[0.63rem]',
+        )}
+      >
+        <legend className="sr-only">내용 작성하기</legend>
+        <div
+          className={cn(
+            'h-[15rem] cursor-text md:h-[25rem]',
+            'rounded-[0.625rem] border-1 border-[#ddd] bg-[#fff]',
+          )}
         >
-          <div className="mb-[0.5rem] md:mb-[0.63rem]">{TitleField}</div>
-          <fieldset
-            className={cn('mb-[0.5rem] flex flex-1 flex-col md:mb-[0.63rem]')}
-          >
-            <legend className="sr-only">내용 작성하기</legend>
-            <div
-              className={cn(
-                'editor-container w-full flex-1 cursor-text',
-                'rounded-[0.625rem] border-1 border-[#ddd] bg-[#fff]',
-              )}
-            >
-              <div
-                ref={editorRef}
-                className="h-full overflow-y-auto p-[0.75rem] break-words whitespace-pre-wrap md:px-[1rem]"
-              />
-            </div>
-          </fieldset>
-          <div className="flex justify-between">
-            {ImageUploadBtn}
-            {SubmitBtn}
-          </div>
-        </form>
-      )}
-    </>
+          <div
+            ref={editorRef}
+            className="p-[0.75rem] break-words whitespace-pre-wrap md:px-[1rem]"
+          />
+        </div>
+      </fieldset>
+      <div className="flex justify-between">
+        {ImageUploadBtn}
+        {SubmitBtn}
+      </div>
+    </form>
   );
 }

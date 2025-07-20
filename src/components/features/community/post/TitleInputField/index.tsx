@@ -3,7 +3,7 @@ import React from 'react';
 import { cn } from '@/utils/cn';
 
 interface TitleInputFieldProps {
-  label: string;
+  label?: string;
   name: string;
   value: string;
   placeholder: string;
@@ -24,10 +24,14 @@ export default function TitleInputField({
       className="flex flex-col gap-[0.25rem] md:gap-[0.5rem]"
       {...props}
     >
-      <legend className="sr-only">{label} 작성하기</legend>
-      <label className="title2 text-[#333]" htmlFor={'title-input'}>
-        {label}
-      </label>
+      {label && (
+        <>
+          <legend className="sr-only">{label} 작성하기</legend>
+          <label className="title2 text-[#333]" htmlFor={'title-input'}>
+            {label}
+          </label>
+        </>
+      )}
       <input
         type="text"
         className={cn(

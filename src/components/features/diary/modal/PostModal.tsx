@@ -1,7 +1,8 @@
 'use client';
 
-import { Dispatch, SetStateAction, useState } from 'react';
+import { useState } from 'react';
 
+import { useDiaryModalStore } from '@/stores/useDiaryModalStore';
 import { usePopupStore } from '@/stores/usePopupStore';
 import { useQuery } from '@tanstack/react-query';
 
@@ -11,7 +12,7 @@ import diaryKeys from '@apis/queryKeys/diaryKeys';
 
 import PostModalContent from './PostModalContent';
 
-export type TabValue = 'stamp' | 'post';
+export type TabValue = 'stamp' | 'post' | 'modify' | 'content';
 
 export const calFormatKoreanDate = (dateString: string): string => {
   const date = new Date(dateString);
@@ -34,75 +35,69 @@ export const calFormatKoreanDate = (dateString: string): string => {
 };
 
 export type DiaryModalState = {
-  isOpen: boolean;
   isWatering: boolean;
   petPlantId: number;
   dailyRecordId: number;
   date: string;
 };
-interface PostModalProps {
-  modalState: DiaryModalState;
-  setModalState: Dispatch<SetStateAction<DiaryModalState>>;
-}
 
-export default function PostModal({
-  modalState,
-  setModalState,
-}: PostModalProps) {
-  const { isWatering, dailyRecordId, date, petPlantId } = modalState;
-
+export default function PostModal() {
+  const modalState = useDiaryModalStore((state) => state.diaryState);
+  const handleModalState = useDiaryModalStore(
+    (state) => state.handleSetDiaryState,
+  );
+  const { dailyRecordId, date, petPlantId } = modalState;
   const [tab, setTab] = useState<TabValue>('stamp');
-  const [isWater, setIsWater] = useState(isWatering);
 
-  const { data } = useQuery({
+  const { data, refetch } = useQuery({
     queryKey: diaryKeys.getPetPlantsTodayInfo(dailyRecordId),
     queryFn: () => getPetPlantsTodayInfo(dailyRecordId),
+    enabled: dailyRecordId !== -1,
+    gcTime: 1000 * 60 * 10,
+    staleTime: 1000 * 60 * 5,
   });
 
-  const handleClose = () =>
-    setModalState((prev) => ({
-      ...prev,
-      isOpen: false,
-    }));
-
-  const handlePost = (value: TabValue, title?: string) => {
-    console.log(title);
-    setTab(value === 'stamp' ? 'post' : 'stamp');
+  const handlePost = (value: TabValue) => {
+    setTab(value);
   };
 
   const { postWaterMutation } = useDiaryMutation();
   const openPopup = usePopupStore((state) => state.openPopup);
   const handleWater = (isWater: boolean) => {
     if (isWater) return;
-    openPopup({
-      title: '오늘 물을 주셨나요?',
-      description: '',
-      confirmText: '예',
-      cancelText: '아니요',
-      mode: 'double',
-      onConfirm: () => {
-        postWaterMutation.mutate(
-          {
-            petPlantId: 13,
-            today: '2025-07-16',
-          },
-          {
-            onSuccess: () => {
-              setIsWater(true);
+
+    if (date)
+      openPopup({
+        title: '오늘 물을 주셨나요?',
+        description: '',
+        confirmText: '예',
+        cancelText: '아니요',
+        mode: 'double',
+        onConfirm: () => {
+          postWaterMutation.mutate(
+            {
+              petPlantId: petPlantId,
+              today: date,
             },
-            onError: () => {},
-          },
-        );
-      },
-      onCancel: () => {},
-    });
+            {
+              onSuccess: () => {
+                handleModalState({
+                  ...modalState,
+                  isWatering: true,
+                });
+              },
+              onError: () => {},
+            },
+          );
+        },
+        onCancel: () => {},
+      });
   };
 
   return (
-    <section className="fixed inset-0 z-900 mx-auto p-[1rem]">
+    <section className="fixed inset-0 z-[1000] mx-auto p-[1rem]">
       <PostModalContent
         value={tab}
-        isWater={isWater}
         date={date}
         content={data?.content}
         title={data?.title}
@@ -110,7 +105,7 @@ export default function PostModal({
         dailyRecordId={dailyRecordId}
         handlePost={handlePost}
         handleWater={handleWater}
-        handleClose={handleClose}
+        refetch={refetch}
       />
     </section>
   );

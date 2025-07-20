@@ -5,19 +5,17 @@ import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 
 import '@/assets/css/calendar.css';
+import { useDiaryModalStore } from '@/stores/useDiaryModalStore';
 
 import { getPetPlantsMonthInfo } from '@apis/data/diary';
 
-import PostModal, { DiaryModalState } from './modal/PostModal';
-
+interface CustomStyledCalendarProps {
+  plantId: number;
+}
 interface WateringDate {
   date: string;
   watering: boolean;
   dailyRecordId: number;
-}
-
-interface CustomStyledCalendarProps {
-  plantId: number;
 }
 
 type ValuePiece = Date | null;
@@ -28,14 +26,13 @@ export default function CustomStyledCalendar({
 }: CustomStyledCalendarProps) {
   const [value, setValue] = useState<Value>(new Date());
   const [wateringDates, setWateringDates] = useState<WateringDate[]>([]);
-  const [modalState, setModalState] = useState<DiaryModalState>({
-    isOpen: false,
-    isWatering: false,
-    petPlantId: plantId,
-    dailyRecordId: -1,
-    date: '',
-  });
 
+  const handleSetDiaryState = useDiaryModalStore(
+    (state) => state.handleSetDiaryState,
+  );
+  const handleOpenDiaryModal = useDiaryModalStore(
+    (state) => state.handleOpenDiaryModal,
+  );
   const handleClickDate = async (value: Date) => {
     const year = value.getFullYear();
     const month = value.getMonth() + 1;
@@ -43,16 +40,15 @@ export default function CustomStyledCalendar({
 
     const formattedDate = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
     const { data } = await getPetPlantsMonthInfo(plantId, year, month);
-    const findResValue = data.find((item) => item.date === formattedDate);
 
-    setModalState((prev) => ({
-      ...prev,
+    const findResValue = data.find((item) => item.date === formattedDate);
+    handleSetDiaryState({
       petPlantId: plantId,
       isWatering: !!findResValue?.watering,
       dailyRecordId: findResValue?.dailyRecordId ?? -1,
       date: formattedDate,
-      isOpen: true,
-    }));
+    });
+    handleOpenDiaryModal();
   };
 
   // 현재 보이는 달을 상태로 관리
@@ -157,9 +153,6 @@ export default function CustomStyledCalendar({
         }
         onClickDay={(value) => handleClickDate(value)}
       />
-      {modalState.isOpen && (
-        <PostModal modalState={modalState} setModalState={setModalState} />
-      )}
     </div>
   );
 }

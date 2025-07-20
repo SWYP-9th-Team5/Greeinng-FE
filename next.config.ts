@@ -4,7 +4,10 @@ const nextConfig: NextConfig = {
   reactStrictMode: true,
 
   images: {
-    domains: ['kr.object.ncloudstorage.com'],
+    domains: [
+      'kr.object.ncloudstorage.com',
+      'greening-bucket.s3.ap-northeast-2.amazonaws.com',
+    ],
   },
 
   webpack(config) {

@@ -20,12 +20,11 @@ export interface PostModalProps {
   title?: string;
   date: string;
   content?: PostContentItem[];
-  isWater: boolean;
   petPlantId: number;
   dailyRecordId: number;
   handlePost: (value: TabValue) => void;
   handleWater: (isWater: boolean) => void;
-  handleClose: () => void;
+  refetch: () => void;
 }
 
 export default function PostModalContent({
@@ -33,12 +32,11 @@ export default function PostModalContent({
   content,
   value,
   date,
-  isWater,
   petPlantId,
   dailyRecordId,
   handlePost,
   handleWater,
-  handleClose,
+  refetch,
 }: PostModalProps) {
   return (
     <Suspense fallback={<></>}>
@@ -48,24 +46,15 @@ export default function PostModalContent({
           'flex h-full max-w-full flex-col rounded-[1.25rem] bg-[#F5F4F0] p-[0.75rem] shadow-[0_0_30px_10px_rgba(102,102,102,0.25)] md:flex md:p-[2.25rem]',
         )}
       >
-        <DiaryModalHeader date={date} handleClose={handleClose} />
+        <DiaryModalHeader date={date} />
         <div className="flex h-full flex-col overflow-hidden md:grid md:grid-cols-[15fr_auto_47fr]">
           <DiaryModalRecord
             title={title}
             value={value}
-            isWater={isWater}
             handleWater={handleWater}
             handlePost={handlePost}
           />
           <div className="mx-[1.25rem] hidden w-[2px] bg-[#ccc] md:block" />
-          {title && (
-            <DiaryPostContent
-              value={value}
-              title={title}
-              content={content}
-              dailyRecordId={dailyRecordId}
-            />
-          )}
           {!title && value === 'stamp' && (
             <div className="subTitle hidden flex-col items-center justify-center gap-[1.5rem] md:flex">
               <Image
@@ -77,12 +66,24 @@ export default function PostModalContent({
               <span>오늘의 식물을 기록해 보세요</span>
             </div>
           )}
-          {!title && value === 'post' && (
+          {['post', 'modify'].includes(value) && (
             <DiaryModalPost
-              value={value}
+              titleValue={title}
+              contentValue={content}
               petPlantId={petPlantId}
               date={date}
               dailyRecordId={dailyRecordId}
+              handlePost={handlePost}
+              refetch={refetch}
+            />
+          )}
+          {title && (
+            <DiaryPostContent
+              value={value}
+              title={title}
+              content={content}
+              dailyRecordId={dailyRecordId}
+              handlePost={handlePost}
             />
           )}
         </div>
