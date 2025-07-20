@@ -51,7 +51,7 @@ export default function DiaryModalPost({
 }: DiaryModalPostProps) {
   // * 에디터 입력 및 script 불러오기
   const editorRef = useRef<HTMLDivElement | null>(null);
-  const { quillInstanceRef } = useQuillEditor({ editorRef });
+  const { quillInstanceRef, loading } = useQuillEditor({ editorRef });
 
   // * 이미지 핸들러 관련 Hook
   const {
@@ -67,7 +67,6 @@ export default function DiaryModalPost({
   const { title } = inputs;
   const TitleField = (
     <TitleInputField
-      label=""
       name="title"
       value={title}
       placeholder="제목을 입력하세요"
@@ -247,11 +246,8 @@ export default function DiaryModalPost({
   );
 
   useEffect(() => {
-    if (
-      contentValue &&
-      quillInstanceRef.current &&
-      quillInstanceRef.current.setContents
-    ) {
+    console.log(quillInstanceRef.current);
+    if (contentValue && !loading) {
       const convertToDelta = (content: PostContentItem[]) => {
         return content.map((item) => {
           if (item.type === 'IMAGE') {
@@ -264,27 +260,29 @@ export default function DiaryModalPost({
       const delta = convertToDelta(contentValue);
       quillInstanceRef.current.setContents(delta);
     }
-  }, [contentValue, quillInstanceRef]);
+  }, [contentValue, loading]);
 
   return (
     <form
-      className="flex h-full min-w-0 flex-col break-all whitespace-normal"
+      className="flex min-w-0 flex-col break-all whitespace-normal"
       onSubmit={handleSubmit}
     >
       <div className="mb-[0.5rem] md:mb-[0.63rem]">{TitleField}</div>
       <fieldset
-        className={cn('mb-[0.5rem] flex flex-1 flex-col md:mb-[0.63rem]')}
+        className={cn(
+          'mb-[0.5rem] flex flex-col overflow-y-auto md:mb-[0.63rem]',
+        )}
       >
         <legend className="sr-only">내용 작성하기</legend>
         <div
           className={cn(
-            'editor-container w-full flex-1 cursor-text',
-            'relative rounded-[0.625rem] border-1 border-[#ddd] bg-[#fff]',
+            'h-[15rem] cursor-text md:h-[25rem]',
+            'rounded-[0.625rem] border-1 border-[#ddd] bg-[#fff]',
           )}
         >
           <div
             ref={editorRef}
-            className="absolute h-full overflow-y-auto p-[0.75rem] break-words whitespace-pre-wrap md:px-[1rem]"
+            className="p-[0.75rem] break-words whitespace-pre-wrap md:px-[1rem]"
           />
         </div>
       </fieldset>
