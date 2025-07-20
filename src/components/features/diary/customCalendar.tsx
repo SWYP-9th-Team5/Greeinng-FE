@@ -12,6 +12,7 @@ import { getPetPlantsMonthInfo } from '@apis/data/diary';
 interface CustomStyledCalendarProps {
   plantId: number;
 }
+
 interface WateringDate {
   date: string;
   watering: boolean;
@@ -26,6 +27,8 @@ export default function CustomStyledCalendar({
 }: CustomStyledCalendarProps) {
   const [value, setValue] = useState<Value>(new Date());
   const [wateringDates, setWateringDates] = useState<WateringDate[]>([]);
+  const [activeStartDate, setActiveStartDate] = useState<Date>(new Date());
+  const getDisplayMonth = (date: Date) => `${date.getMonth() + 1}월`;
 
   const handleSetDiaryState = useDiaryModalStore(
     (state) => state.handleSetDiaryState,
@@ -51,9 +54,6 @@ export default function CustomStyledCalendar({
     handleOpenDiaryModal();
   };
 
-  // 현재 보이는 달을 상태로 관리
-  const [activeStartDate, setActiveStartDate] = useState<Date>(new Date());
-
   const handleChange = (val: Value) => {
     setValue(val);
   };
@@ -71,18 +71,10 @@ export default function CustomStyledCalendar({
   };
 
   useEffect(() => {
-    console.log(
-      '📅 API 호출 시점: plantId =',
-      plantId,
-      '| activeStartDate =',
-      activeStartDate,
-    );
-
     const fetchData = async () => {
       const year = activeStartDate.getFullYear();
       const month = activeStartDate.getMonth() + 1;
       const { data } = await getPetPlantsMonthInfo(plantId, year, month);
-      console.log('📦 받아온 데이터:', data);
       setWateringDates(data);
     };
 
@@ -101,25 +93,27 @@ export default function CustomStyledCalendar({
 
     if (!match) return null;
 
-    const icons = [];
-
-    if (match.dailyRecordId !== 0) {
-      console.log('✅ 표시 대상 날짜:', formatted);
-      icons.push(
-        <img
-          key="record"
-          src="/icons/record.svg"
-          alt="기록 있음"
-          className="h-1.5 w-1.5 md:h-2 md:w-2"
-        />,
-      );
-    }
-
-    return <div className="flex justify-end pt-1 pl-3 md:pl-7">{icons}</div>;
+    return (
+      <div className="relative h-full w-full">
+        {match.dailyRecordId !== 0 && (
+          <img
+            key="record"
+            src="/icons/record.svg"
+            alt="기록 있음"
+            className="absolute top-[2px] right-[2px] h-1.5 w-1.5 md:h-2 md:w-2"
+          />
+        )}
+        {match.watering === true && (
+          <img
+            key="watering"
+            src="/icons/water.svg"
+            alt="물 준 날"
+            className="absolute top-3 h-7 w-7 md:h-10 md:w-10"
+          />
+        )}
+      </div>
+    );
   };
-
-  // 현재 월 추출
-  const getDisplayMonth = (date: Date) => `${date.getMonth() + 1}월`;
 
   return (
     <div className="box-border h-[375px] w-[316px] rounded-2xl bg-[#f7f6f2] px-2 pt-1 md:h-[480px] md:w-[500px] md:px-4 md:pt-2">
@@ -136,8 +130,6 @@ export default function CustomStyledCalendar({
           className="-ml-2 h-5 w-5 bg-[url('/icons/arrow-right.svg')] bg-contain bg-center bg-no-repeat"
         />
       </div>
-
-      {/* 달력 */}
       <Calendar
         locale="ko-KR"
         value={value}
