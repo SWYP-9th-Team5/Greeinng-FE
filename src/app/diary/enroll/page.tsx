@@ -3,11 +3,13 @@
 import React, { useEffect, useRef } from 'react';
 import { useState } from 'react';
 
+import { useDiaryModalStore } from '@/stores/useDiaryModalStore';
 import Image from 'next/image';
 import { redirect } from 'next/navigation';
 
 import Button from '@components/common/Button';
 import { PlantEnrollCard } from '@components/features/diary/emrollPlant';
+import PostModal from '@components/features/diary/modal/PostModal';
 import { MyPlantCard } from '@components/features/diary/myPlantCard';
 import { PCNoMyPlants } from '@components/features/diary/noMyPlants';
 
@@ -296,6 +298,9 @@ const MBHome = () => {
 };
 
 export default function Home() {
+  const isOpenDiaryModal = useDiaryModalStore(
+    (state) => state.isOpenDiaryModal,
+  );
   return (
     <>
       <div className="block md:hidden">
@@ -304,6 +309,7 @@ export default function Home() {
       <div className="hidden md:block">
         <PCHome />
       </div>
+      {isOpenDiaryModal && <PostModal />}
     </>
   );
 }

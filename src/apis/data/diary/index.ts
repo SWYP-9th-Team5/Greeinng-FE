@@ -91,6 +91,22 @@ export const deleteDailyRecord = async ({ dailyRecordId }: DeletePostReq) => {
   await api.delete(`/api/pet-plants/daily-record/${dailyRecordId}`);
 };
 
+export type PutPostReq = {
+  dailyRecordId: number;
+  body: {
+    title: string;
+    content: PostContentItem[];
+  };
+};
+
+export const putDailyRecord = async ({ dailyRecordId, body }: PutPostReq) => {
+  const res = await api.put<PetPlantDiaryRecordRes>(
+    `/api/pet-plants/daily-record/${dailyRecordId}`,
+    body,
+  );
+  return res;
+};
+
 export interface PlantCardItem {
   name: string;
   type: string;

@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { useDiaryModalStore } from '@/stores/useDiaryModalStore';
 import Image from 'next/image';
 
 export const calFormatKoreanDate = (dateString?: string): string => {
@@ -23,18 +24,15 @@ export const calFormatKoreanDate = (dateString?: string): string => {
   return `${month}월 ${day}일 ${dayOfWeek}`;
 };
 
-export default function DiaryModalHeader({
-  date,
-  handleClose,
-}: {
-  date: string;
-  handleClose: () => void;
-}) {
+export default function DiaryModalHeader({ date }: { date: string }) {
   const formatDate = calFormatKoreanDate(date);
+  const handleCloseModal = useDiaryModalStore(
+    (state) => state.handleCloseDiaryModal,
+  );
   return (
     <div className="mb-[1.72rem] flex justify-between md:mb-[2rem]">
       <p className="title2 text-[#666]">{formatDate}</p>
-      <button onClick={handleClose} aria-label="사이드바 닫기">
+      <button onClick={handleCloseModal} aria-label="사이드바 닫기">
         <Image src="/icons/close.svg" alt="" width={24} height={24} />
       </button>
     </div>

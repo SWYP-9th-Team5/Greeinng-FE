@@ -6,10 +6,12 @@ import {
   DeletePostReq,
   PetPlantDiaryRecordReq,
   PetPlantDiaryRecordRes,
+  PutPostReq,
   ReqPetPlantWatering,
   deleteDailyRecord,
   postPetPlantWatering,
   postPetPlantsDiaryRecord,
+  putDailyRecord,
 } from '@apis/data/diary';
 
 export default function useDiaryMutation() {
@@ -38,9 +40,19 @@ export default function useDiaryMutation() {
     mutationFn: ({ dailyRecordId }) => deleteDailyRecord({ dailyRecordId }),
   });
 
+  const putPetPlantDiaryMutation = useMutation<
+    PetPlantDiaryRecordRes,
+    AxiosError<ErrorResponse>,
+    PutPostReq
+  >({
+    mutationFn: ({ dailyRecordId, body }) =>
+      putDailyRecord({ dailyRecordId, body }),
+  });
+
   return {
     postDiaryPostMutation,
     postWaterMutation,
     deletePetPlantDiaryMutation,
+    putPetPlantDiaryMutation,
   };
 }

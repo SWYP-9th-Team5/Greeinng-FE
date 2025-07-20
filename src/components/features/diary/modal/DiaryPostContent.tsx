@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 
+import { useDiaryModalStore } from '@/stores/useDiaryModalStore';
 import { usePopupStore } from '@/stores/usePopupStore';
 import { cn } from '@/utils/cn';
 import { QueryClient } from '@tanstack/react-query';
@@ -22,6 +23,7 @@ interface DiaryPostContentProps {
   title?: string;
   content?: PostContentItem[];
   dailyRecordId: number;
+  handlePost: (value: TabValue) => void;
 }
 
 export default function DiaryPostContent({
@@ -29,7 +31,12 @@ export default function DiaryPostContent({
   title,
   content,
   dailyRecordId,
+  handlePost,
 }: DiaryPostContentProps) {
+  const handleSetDiaryState = useDiaryModalStore(
+    (state) => state.handleSetDiaryState,
+  );
+
   const { ref } = useOutsideClick<HTMLDivElement>(() => setOpen(false));
 
   const [isOpen, setOpen] = useState(false);
@@ -57,10 +64,30 @@ export default function DiaryPostContent({
               queryClient.invalidateQueries({
                 queryKey: diaryKeys.getPetPlantsTodayInfo(dailyRecordId),
               });
+              handleSetDiaryState({
+                dailyRecordId: -1,
+              });
+              handlePost('stamp');
             },
-            onError: () => {},
+            onError: (error) => {
+              console.log(error.response);
+            },
           },
         );
+      },
+      onCancel: () => {},
+    });
+  };
+
+  const handleModify = () => {
+    handleMenuToggle();
+    openPopup({
+      title: '수정하시겠습니까?',
+      confirmText: '예',
+      cancelText: '아니요',
+      mode: 'double',
+      onConfirm: () => {
+        handlePost('modify');
       },
       onCancel: () => {},
     });
@@ -69,11 +96,12 @@ export default function DiaryPostContent({
   return (
     <div
       className={cn(
-        'h-full flex-col overflow-y-auto pr-[1.25rem] text-wrap break-words md:flex',
-        value === 'post' && title ? 'flex' : 'hidden',
+        'hidden h-full flex-col overflow-y-auto pr-[1.25rem] text-wrap break-words md:flex',
+        value === 'content' && 'block',
+        value === 'modify' && 'md:hidden',
       )}
     >
-      <div className="mb-[1.06rem] flex justify-between">
+      <div className={'mb-[1.06rem] flex justify-between'}>
         <h2 className="subTitle">{title}</h2>
         <div ref={ref} className="relative">
           <button
@@ -94,6 +122,12 @@ export default function DiaryPostContent({
                 onClick={handleDeletePopup}
               >
                 삭제
+              </button>
+              <button
+                className="body1 w-full text-left text-nowrap"
+                onClick={handleModify}
+              >
+                수정
               </button>
             </div>
           )}

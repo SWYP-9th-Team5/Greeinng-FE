@@ -2,6 +2,7 @@
 
 import React from 'react';
 
+import { useAuthStore } from '@/stores/useAuthStore';
 import { cn } from '@/utils/cn';
 import Image from 'next/image';
 import { redirect } from 'next/navigation';
@@ -12,6 +13,13 @@ const mobileContent = `나의 소중한 식물들이 어떻게 자라고 있을�
 const pcContent = `나의 소중한 식물들이 어떻게 자라고 있을지, 어떻게 관리하고 있었는지\n하루하루 기록하고 확인 해보세요`;
 
 export default function DiaryStartPage() {
+  const isLogin = useAuthStore((state) => state.isLoggedIn);
+
+  const handleLogin = () => {
+    if (!isLogin) redirect('/login');
+  };
+
+  if (isLogin) redirect('/diary/enroll');
   return (
     <section
       className={cn(
@@ -32,7 +40,7 @@ export default function DiaryStartPage() {
         <Button
           color="secondary"
           className="md:h-[3.375rem] md:w-[24.125rem]"
-          onClick={() => redirect('/diary/enroll')}
+          onClick={handleLogin}
         >
           로그인하고 시작하기
         </Button>

@@ -1,3 +1,4 @@
+import { useDiaryModalStore } from '@/stores/useDiaryModalStore';
 import { cn } from '@/utils/cn';
 import Image from 'next/image';
 
@@ -6,9 +7,8 @@ import { TabValue } from './PostModal';
 interface DiaryModalRecordsProps {
   title?: string;
   value: TabValue;
-  isWater: boolean;
   handleWater: (isWater: boolean) => void;
-  handlePost: (value: 'stamp' | 'post', title?: string) => void;
+  handlePost: (value: TabValue) => void;
 }
 
 const DiaryRecordLayout = ({
@@ -29,23 +29,23 @@ const DiaryRecordLayout = ({
 export default function DiaryModalRecord({
   title,
   value,
-  isWater,
   handleWater,
   handlePost,
 }: DiaryModalRecordsProps) {
+  const isWatering = useDiaryModalStore((state) => state.diaryState.isWatering);
   return (
     <div
       className={cn(
         'flex flex-col gap-[1.25rem] md:gap-[2.25rem]',
-        value === 'post' && 'hidden md:flex',
+        ['content', 'post', 'modify'].includes(value) && 'hidden md:flex',
       )}
     >
       <DiaryRecordLayout label="물 주기 스탬프">
         <button
-          onClick={() => handleWater(isWater)}
+          onClick={() => handleWater(isWatering)}
           className="flex h-[4.75rem] items-center justify-center rounded-[0.625rem] bg-[#e9e9e9] text-[#999]"
         >
-          {isWater ? (
+          {isWatering ? (
             <Image
               src="/icons/water.svg"
               alt="물 주기 완료 아이콘"
@@ -60,7 +60,7 @@ export default function DiaryModalRecord({
       <DiaryRecordLayout label="오늘의 기록">
         {title && (
           <button
-            onClick={() => handlePost(value, title)}
+            onClick={() => handlePost('content')}
             className="flex overflow-hidden rounded-[0.625rem] bg-[#e9e9e9]"
           >
             <div className="bg-tertiary h-full w-[0.75rem]" />
@@ -71,7 +71,7 @@ export default function DiaryModalRecord({
         )}
         {!title && (
           <button
-            onClick={() => handlePost(value, title)}
+            onClick={() => handlePost('post')}
             className="rounded-[0.625rem] bg-[#e9e9e9] py-[0.75rem] text-center text-[#999]"
           >
             + 기록하기
