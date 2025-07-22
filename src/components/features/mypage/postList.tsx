@@ -40,7 +40,7 @@ const PostList = ({
           return (
             <div
               key={index}
-              className="relative mt-2 flex h-[64px] w-[326px] flex-col justify-center rounded-[0.625rem] bg-[#F3F3F3] pl-4 md:mt-3 md:h-[61px] md:w-[542px] md:flex-row md:items-center md:justify-start"
+              className="relative mt-2 flex h-[64px] w-[326px] cursor-pointer flex-col justify-center rounded-[0.625rem] bg-[#F3F3F3] pl-4 md:mt-3 md:h-[61px] md:w-[542px] md:flex-row md:items-center md:justify-start"
               onClick={() =>
                 router.push(
                   `/community/${findCategoryItem?.path}/${post.postId}`,

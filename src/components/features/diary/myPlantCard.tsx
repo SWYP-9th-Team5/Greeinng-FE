@@ -45,7 +45,7 @@ export function MyPlantCard({
 
   return (
     <div className="flex flex-col">
-      <div className="relative mb-0.5 flex h-[102px] w-[318px] items-center justify-start rounded-[10px] bg-[#F5F4F0] pl-4 md:mb-2 md:h-[148px] md:w-[500px] md:rounded-[20px] md:pl-6">
+      <div className="relative mb-3 flex h-[102px] w-[318px] items-center justify-start rounded-[10px] bg-[#F5F4F0] pl-4 md:mb-2 md:h-[148px] md:w-[500px] md:rounded-[20px] md:pl-6">
         <div className="mr-5 flex items-center justify-center md:mr-10">
           <Image
             src="/images/diary/enroll_plant.svg"

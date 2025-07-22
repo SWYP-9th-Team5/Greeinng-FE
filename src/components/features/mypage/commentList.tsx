@@ -43,7 +43,7 @@ const CommentList = ({
             return (
               <div
                 key={index}
-                className="relative mt-2 flex h-[84px] w-[326px] flex-col justify-center rounded-[0.94rem] bg-[#F3F3F3] pl-3 md:mt-3 md:h-[92px] md:w-[542px] md:p-4"
+                className="relative mt-2 flex h-[84px] w-[326px] cursor-pointer flex-col justify-center rounded-[0.94rem] bg-[#F3F3F3] pl-3 md:mt-3 md:h-[92px] md:w-[542px] md:p-4"
               >
                 <div className="relative flex flex-row md:mb-3">
                   <p className="body2 text-tertiary mr-1">{label}</p>

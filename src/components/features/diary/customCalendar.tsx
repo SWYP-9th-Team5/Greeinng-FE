@@ -104,12 +104,13 @@ export default function CustomStyledCalendar({
           />
         )}
         {match.watering === true && (
-          <img
-            key="watering"
-            src="/icons/water.svg"
-            alt="물 준 날"
-            className="absolute top-3 h-7 w-7 md:h-10 md:w-10"
-          />
+          <div className="absolute -top-[14px] -left-[9px] z-20 h-7 w-7 md:-top-[10px] md:-left-[8px] md:h-10 md:w-10">
+            <img
+              src="/icons/water.svg"
+              alt="물 준 날"
+              className="h-[80px] w-[80px]"
+            />
+          </div>
         )}
       </div>
     );
@@ -131,6 +132,13 @@ export default function CustomStyledCalendar({
         />
       </div>
       <Calendar
+        tileClassName={({ date, view }) => {
+          if (view === 'month') {
+            if (date.getDay() === 6) return 'calendar-saturday'; // 토요일
+            if (date.getDay() === 0) return 'calendar-sunday'; // 일요일
+          }
+          return '';
+        }}
         locale="ko-KR"
         value={value}
         onChange={handleChange}

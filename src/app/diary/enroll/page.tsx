@@ -151,13 +151,13 @@ const MBHome = () => {
 
     if (height < 750) {
       setBottomOffset('22rem');
-      setBottomOffset2('2rem');
+      setBottomOffset2('1.5rem');
     } else if (height < 850) {
       setBottomOffset('24rem');
-      setBottomOffset2('1.5rem');
+      setBottomOffset2('3rem');
     } else {
       setBottomOffset('26.5rem');
-      setBottomOffset2('3rem');
+      setBottomOffset2('6rem');
     }
   }, []);
 
@@ -197,7 +197,7 @@ const MBHome = () => {
       >
         식집사님의 기록
       </div>
-      <div className="relative flex aspect-[390/1056] w-screen flex-col items-center justify-center bg-[url('/images/diary/enroll_note_mo.svg')] bg-contain bg-center bg-no-repeat pb-[550px]">
+      <div className="relative flex aspect-[390/1116] w-screen flex-col items-center justify-center bg-[url('/images/diary/enroll_note_mo.png')] bg-contain bg-center bg-no-repeat pb-[550px]">
         {isLoading ? (
           <div className="flex items-center justify-center">
             <p className="subTitle text-text2">불러오는 중...</p>
