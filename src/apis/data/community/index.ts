@@ -33,6 +33,26 @@ export const postUpload = async (body: PostUploadReq) => {
   return res;
 };
 
+export type PutCommunityPostReq = {
+  postId: number;
+  title: string;
+  content: {
+    type: string[];
+    value: string[];
+  };
+};
+
+export const putCommunityPost = async ({
+  postId,
+  title,
+  content,
+}: PutCommunityPostReq) => {
+  await api.put(`/api/posts/${postId}`, {
+    title,
+    content,
+  });
+};
+
 export type PostContentItem = {
   type: 'TEXT' | 'IMAGE';
   value: string;

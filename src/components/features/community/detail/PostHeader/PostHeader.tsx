@@ -72,6 +72,20 @@ const PostHeader = ({
     });
   };
 
+  const handleModify = () => {
+    handleMenuToggle();
+    openPopup({
+      title: '수정하시겠습니까?',
+      confirmText: '예',
+      cancelText: '아니요',
+      mode: 'double',
+      onConfirm: () => {
+        router.push(`/community/post?modifyId=${postId}`);
+      },
+      onCancel: () => {},
+    });
+  };
+
   return (
     <header
       className={cn(
@@ -109,13 +123,19 @@ const PostHeader = ({
           {isOpen && (
             <div
               role="menu"
-              className="absolute right-0 w-[4.0625rem] rounded-[0.3125rem] bg-[#fff] py-[0.5rem] pl-[0.75rem] shadow-sm md:w-[6.25rem] md:px-[1.13rem] md:py-[0.75rem]"
+              className="absolute right-0 flex w-[4.0625rem] flex-col gap-[0.75rem] rounded-[0.3125rem] bg-[#fff] py-[0.5rem] pl-[0.75rem] shadow-sm md:w-[6.25rem] md:px-[1.13rem] md:py-[0.75rem]"
             >
               <button
                 className="body1 w-full text-left text-nowrap"
                 onClick={handleDeletePopup}
               >
                 삭제
+              </button>
+              <button
+                className="body1 w-full text-left text-nowrap"
+                onClick={handleModify}
+              >
+                수정
               </button>
             </div>
           )}

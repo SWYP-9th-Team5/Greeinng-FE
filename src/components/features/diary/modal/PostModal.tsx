@@ -50,7 +50,7 @@ export default function PostModal() {
   const { dailyRecordId, date, petPlantId } = modalState;
   const [tab, setTab] = useState<TabValue>('stamp');
 
-  const { data, refetch } = useQuery({
+  const { data } = useQuery({
     queryKey: diaryKeys.getPetPlantsTodayInfo(dailyRecordId),
     queryFn: () => getPetPlantsTodayInfo(dailyRecordId),
     enabled: dailyRecordId !== -1,
@@ -108,7 +108,6 @@ export default function PostModal() {
         dailyRecordId={dailyRecordId}
         handlePost={handlePost}
         handleWater={handleWater}
-        refetch={refetch}
       />
     </section>
   );

@@ -24,7 +24,6 @@ export interface PostModalProps {
   dailyRecordId: number;
   handlePost: (value: TabValue) => void;
   handleWater: (isWater: boolean) => void;
-  refetch: () => void;
 }
 
 export default function PostModalContent({
@@ -36,7 +35,6 @@ export default function PostModalContent({
   dailyRecordId,
   handlePost,
   handleWater,
-  refetch,
 }: PostModalProps) {
   return (
     <Suspense fallback={<></>}>
@@ -74,7 +72,6 @@ export default function PostModalContent({
               date={date}
               dailyRecordId={dailyRecordId}
               handlePost={handlePost}
-              refetch={refetch}
             />
           )}
           {title && (

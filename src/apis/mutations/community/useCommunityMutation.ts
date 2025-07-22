@@ -9,12 +9,14 @@ import {
   PostUploadImageRes,
   PostUploadReq,
   PostUploadRes,
+  PutCommunityPostReq,
   deleteComment,
   deletePost,
   postComments,
   postLike,
   postUpload,
   postUploadImage,
+  putCommunityPost,
 } from '@apis/data/community';
 
 export default function useCommunityMutation() {
@@ -32,6 +34,15 @@ export default function useCommunityMutation() {
     PostUploadReq
   >({
     mutationFn: (body: PostUploadReq) => postUpload(body),
+  });
+
+  const putPostMutation = useMutation<
+    void,
+    AxiosError<ErrorResponse>,
+    PutCommunityPostReq
+  >({
+    mutationFn: ({ postId, title, content }: PutCommunityPostReq) =>
+      putCommunityPost({ postId, title, content }),
   });
 
   const postLikeMutation = useMutation<
@@ -74,6 +85,7 @@ export default function useCommunityMutation() {
   return {
     postImageMutation,
     postMutation,
+    putPostMutation,
     postLikeMutation,
     postCommentsMutation,
     deleteCommentMutation,

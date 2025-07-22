@@ -1,12 +1,13 @@
 'use client';
 
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { toast } from 'react-toastify';
 
 import { usePopupStore } from '@/stores/usePopupStore';
 import { cn } from '@/utils/cn';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 import Button from '@components/common/Button';
 import FocusTrap from '@components/common/FocusTrap';
@@ -18,7 +19,9 @@ import useQuillImageUpload, {
   UploadFiles,
 } from '@components/features/community/post/hooks/useQuillImageUpload';
 
+import { PostContentItem, getPostDetail } from '@apis/data/community';
 import useCommunityMutation from '@apis/mutations/community/useCommunityMutation';
+import postKeys from '@apis/queryKeys/postKeys';
 
 import useInputs from '@hooks/useInputs';
 
@@ -31,14 +34,26 @@ import {
 } from './utils';
 
 export default function Page() {
+  const queryClient = useQueryClient();
   const router = useRouter();
+  const searchParams = useSearchParams();
+
+  const modifyId = searchParams.get('modifyId');
+  const postId = modifyId ? Number(modifyId) : undefined;
+
+  const { data: modifyData } = useQuery({
+    queryKey: postId ? postKeys.postDetail(postId) : [],
+    queryFn: () => getPostDetail(postId!),
+    enabled: postId !== undefined,
+  });
 
   // * 제목, 카테고리
   const { inputs, onChangeValue } = useInputs({
-    title: '',
-    category: '',
+    title: postId ? (modifyData?.title ?? '') : '',
+    category: postId ? `${modifyData?.categoryId}` : '',
   });
   const { title, category } = inputs;
+
   const TitleField = (
     <TitleInputField
       label="제목"
@@ -61,7 +76,7 @@ export default function Page() {
 
   // * 에디터 입력 및 script 불러오기
   const editorRef = useRef<HTMLDivElement | null>(null);
-  const { quillInstanceRef } = useQuillEditor({ editorRef });
+  const { quillInstanceRef, loading } = useQuillEditor({ editorRef });
 
   // * 이미지 핸들러 관련 Hook
   const {
@@ -72,7 +87,8 @@ export default function Page() {
   } = useQuillImageUpload(quillInstanceRef);
 
   // * 이미지 업로드, 게시물 작성 API Mutation
-  const { postImageMutation, postMutation } = useCommunityMutation();
+  const { postImageMutation, postMutation, putPostMutation } =
+    useCommunityMutation();
 
   const ImageUploadBtn = (
     <Button
@@ -183,23 +199,48 @@ export default function Page() {
     });
 
     // 5. 게시물 작성
-    const body = {
-      title,
-      categoryId: Number(category) as 1 | 2 | 3,
-      content: transformContent,
-    };
+    if (!modifyId) {
+      const body = {
+        title,
+        categoryId: Number(category) as 1 | 2 | 3,
+        content: transformContent,
+      };
 
-    postMutation.mutate(body, {
-      onSuccess: ({ data }) => {
-        const { postId } = data;
-        const findItem = COMMUNITY_LIST.find(({ value }) => category === value);
-        router.replace(`/community/${findItem?.path}/${postId}`);
-      },
-      onError: (error) => {
-        console.error(error);
-        toast.error(error.response?.data.message);
-      },
-    });
+      postMutation.mutate(body, {
+        onSuccess: ({ data }) => {
+          const { postId } = data;
+          const findItem = COMMUNITY_LIST.find(
+            ({ value }) => category === value,
+          );
+          router.replace(`/community/${findItem?.path}/${postId}`);
+        },
+        onError: (error) => {
+          console.error(error);
+          toast.error(error.response?.data.message);
+        },
+      });
+      return;
+    }
+
+    // 게시물 수정
+    if (postId) {
+      const body = {
+        postId,
+        title,
+        content: transformContent,
+      };
+      putPostMutation.mutate(body, {
+        onSuccess: () => {
+          const findItem = COMMUNITY_LIST.find(
+            ({ value }) => category === value,
+          );
+          queryClient.invalidateQueries({
+            queryKey: postKeys.postDetail(postId),
+          });
+          router.replace(`/community/${findItem?.path}/${postId}`);
+        },
+      });
+    }
   };
 
   const isLoading = postImageMutation.isPending || postMutation.isPending;
@@ -215,6 +256,22 @@ export default function Page() {
       등록
     </Button>
   );
+
+  useEffect(() => {
+    if (!loading && modifyData) {
+      const convertToDelta = (content: PostContentItem[]) => {
+        return content.map((item) => {
+          if (item.type === 'IMAGE') {
+            return { insert: { image: item.value } };
+          }
+          return { insert: item.value };
+        });
+      };
+
+      const delta = convertToDelta(modifyData.content);
+      quillInstanceRef.current.setContents(delta);
+    }
+  }, [loading]);
 
   return (
     <FocusTrap isAutoFocus={true}>
