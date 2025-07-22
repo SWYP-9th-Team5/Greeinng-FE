@@ -44,12 +44,13 @@
 }
 
 .react-calendar__tile {
+  position: relative;
   width: 60px;
   height: 68px;
   background: #fff;
   border-radius: 5px;
   font-size: 14px;
-  padding: 8px;
+  padding: 4px;
   box-sizing: border-box;
   border: 4px solid #f7f6f2 !important;
   display: flex;
@@ -59,8 +60,9 @@
 
 @media (max-width: 768px) {
   .react-calendar__tile {
+    position: relative;
     width: 40px;
-    height: 54px;
+    height: 52px;
     background: #fff;
     border-radius: 5px;
     font-size: 12px;
