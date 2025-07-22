@@ -257,7 +257,7 @@ export default function DiaryModalPost({
       const delta = convertToDelta(contentValue);
       quillInstanceRef.current.setContents(delta);
     }
-  }, [contentValue, loading]);
+  }, [quillInstanceRef, contentValue, loading]);
 
   return (
     <form

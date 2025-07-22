@@ -271,7 +271,7 @@ export default function Page() {
       const delta = convertToDelta(modifyData.content);
       quillInstanceRef.current.setContents(delta);
     }
-  }, [loading]);
+  }, [modifyData, loading]);
 
   return (
     <FocusTrap isAutoFocus={true}>
