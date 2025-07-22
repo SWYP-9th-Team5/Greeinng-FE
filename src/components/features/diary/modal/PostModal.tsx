@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { toast } from 'react-toastify';
 
 import { useDiaryModalStore } from '@/stores/useDiaryModalStore';
 import { usePopupStore } from '@/stores/usePopupStore';
@@ -86,7 +87,9 @@ export default function PostModal() {
                   isWatering: true,
                 });
               },
-              onError: () => {},
+              onError: (res) => {
+                toast.error(res?.response?.data.message);
+              },
             },
           );
         },

@@ -203,6 +203,7 @@ export default function DiaryModalPost({
         },
         onError: (error) => {
           console.log(error.response);
+          toast.error(error.response?.data.message);
         },
       });
       return;
