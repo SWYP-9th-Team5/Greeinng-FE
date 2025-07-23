@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { toast } from 'react-toastify';
 
 import { useDiaryModalStore } from '@/stores/useDiaryModalStore';
 import { usePopupStore } from '@/stores/usePopupStore';
@@ -49,7 +50,7 @@ export default function PostModal() {
   const { dailyRecordId, date, petPlantId } = modalState;
   const [tab, setTab] = useState<TabValue>('stamp');
 
-  const { data, refetch } = useQuery({
+  const { data } = useQuery({
     queryKey: diaryKeys.getPetPlantsTodayInfo(dailyRecordId),
     queryFn: () => getPetPlantsTodayInfo(dailyRecordId),
     enabled: dailyRecordId !== -1,
@@ -86,7 +87,9 @@ export default function PostModal() {
                   isWatering: true,
                 });
               },
-              onError: () => {},
+              onError: (res) => {
+                toast.error(res?.response?.data.message);
+              },
             },
           );
         },
@@ -105,7 +108,6 @@ export default function PostModal() {
         dailyRecordId={dailyRecordId}
         handlePost={handlePost}
         handleWater={handleWater}
-        refetch={refetch}
       />
     </section>
   );

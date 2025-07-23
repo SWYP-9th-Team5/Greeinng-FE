@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import { useDiaryModalStore } from '@/stores/useDiaryModalStore';
 import { usePopupStore } from '@/stores/usePopupStore';
 import { cn } from '@/utils/cn';
-import { QueryClient } from '@tanstack/react-query';
+import { useQueryClient } from '@tanstack/react-query';
 import Image from 'next/image';
 
 import PostContent from '@components/features/community/detail/PostContent';
@@ -45,7 +45,7 @@ export default function DiaryPostContent({
   const openPopup = usePopupStore((state) => state.openPopup);
   const { deletePetPlantDiaryMutation } = useDiaryMutation();
 
-  const queryClient = new QueryClient();
+  const queryClient = useQueryClient();
   const handleDeletePopup = () => {
     handleMenuToggle();
     openPopup({

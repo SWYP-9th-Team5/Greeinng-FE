@@ -11,7 +11,7 @@ import {
 import { useDiaryModalStore } from '@/stores/useDiaryModalStore';
 import { usePopupStore } from '@/stores/usePopupStore';
 import { cn } from '@/utils/cn';
-import { QueryClient } from '@tanstack/react-query';
+import { useQueryClient } from '@tanstack/react-query';
 import Image from 'next/image';
 
 import Button from '@components/common/Button';
@@ -37,7 +37,6 @@ interface DiaryModalPostProps {
   petPlantId: number;
   dailyRecordId: number;
   handlePost: (value: TabValue) => void;
-  refetch: () => void;
 }
 
 export default function DiaryModalPost({
@@ -47,7 +46,6 @@ export default function DiaryModalPost({
   petPlantId,
   dailyRecordId,
   handlePost,
-  refetch,
 }: DiaryModalPostProps) {
   // * 에디터 입력 및 script 불러오기
   const editorRef = useRef<HTMLDivElement | null>(null);
@@ -100,7 +98,7 @@ export default function DiaryModalPost({
     </Button>
   );
 
-  const queryClient = new QueryClient();
+  const queryClient = useQueryClient();
   const { postImageMutation } = useCommunityMutation();
   const { postDiaryPostMutation, putPetPlantDiaryMutation } =
     useDiaryMutation();
@@ -203,6 +201,7 @@ export default function DiaryModalPost({
         },
         onError: (error) => {
           console.log(error.response);
+          toast.error(error.response?.data.message);
         },
       });
       return;
@@ -222,8 +221,6 @@ export default function DiaryModalPost({
           queryClient.invalidateQueries({
             queryKey: diaryKeys.getPetPlantsTodayInfo(dailyRecordId),
           });
-
-          refetch();
           handlePost('content');
         },
       },
@@ -260,7 +257,7 @@ export default function DiaryModalPost({
       const delta = convertToDelta(contentValue);
       quillInstanceRef.current.setContents(delta);
     }
-  }, [contentValue, loading]);
+  }, [quillInstanceRef, contentValue, loading]);
 
   return (
     <form
