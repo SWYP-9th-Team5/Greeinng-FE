@@ -95,7 +95,7 @@ export default function CustomStyledCalendar({
 
     return (
       <div className="relative h-full w-full">
-        {match.dailyRecordId !== 0 && (
+        {match.dailyRecordId !== -1 && (
           <img
             key="record"
             src="/icons/record.svg"
