@@ -150,18 +150,19 @@ const MBHome = () => {
     const height = window.innerHeight;
 
     if (height < 750) {
-      setBottomOffset('22rem');
+      setBottomOffset('26rem');
       setBottomOffset2('1.5rem');
     } else if (height < 850) {
-      setBottomOffset('24rem');
+      setBottomOffset('27rem');
       setBottomOffset2('3rem');
     } else {
-      setBottomOffset('26.5rem');
+      setBottomOffset('30rem');
       setBottomOffset2('6rem');
     }
   }, []);
 
   const handleOpen = () => {
+    setSelectedPlant(null);
     setIsOpen(true);
     setTimeout(() => {
       cardRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -226,7 +227,10 @@ const MBHome = () => {
             {plantList.map((plant) => (
               <button
                 key={plant.id}
-                onClick={() => setSelectedPlant(plant)}
+                onClick={() => {
+                  setIsOpen(false); // 등록창 닫기
+                  setSelectedPlant(plant);
+                }}
                 className={`flex h-[7.7rem] w-[5.5rem] flex-col items-center justify-center rounded-[10px] ${
                   selectedPlant?.id === plant.id ? 'bg-[#eee]' : ''
                 }`}
