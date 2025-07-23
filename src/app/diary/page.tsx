@@ -47,7 +47,7 @@ export default function DiaryStartPage() {
       </div>
       <div className="relative w-full flex-grow overflow-hidden md:hidden">
         <Image
-          src="/images/diary/play-diary-start-mb.svg"
+          src="/images/diary/play-diary-start-mb.png"
           alt="나만의 식물 성장 일기"
           fill
           className="object-cover object-top"
@@ -55,7 +55,7 @@ export default function DiaryStartPage() {
       </div>
       <div className="relative hidden aspect-[815/716] w-[815px] md:block">
         <Image
-          src="/images/diary/play-diary-start-pc.svg"
+          src="/images/diary/play-diary-start-pc.png"
           alt="나만의 식물 성장 일기"
           fill
           className="object-cover object-left"
