@@ -71,6 +71,7 @@ export default function Page() {
       data={COMMUNITY_LIST}
       value={category}
       onChange={onChangeValue}
+      disabled={!!postId}
     />
   );
 

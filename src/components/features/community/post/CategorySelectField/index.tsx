@@ -8,6 +8,7 @@ interface CategorySelectFieldProps {
   value: string;
   placeholder: string;
   data: Array<{ label: string; value: string }>;
+  disabled?: boolean;
   onChange: (e: { target: { name: string; value: string } }) => void;
 }
 
@@ -17,6 +18,7 @@ export default function CategorySelectField({
   value,
   placeholder,
   data,
+  disabled = false,
   onChange,
 }: CategorySelectFieldProps) {
   return (
@@ -32,6 +34,7 @@ export default function CategorySelectField({
         data={data}
         value={value}
         onChange={onChange}
+        disabled={disabled}
       />
     </fieldset>
   );
