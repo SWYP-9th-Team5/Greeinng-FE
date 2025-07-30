@@ -3,6 +3,7 @@
 import React from 'react';
 
 import { useAuthStore } from '@/stores/useAuthStore';
+import { usePopupStore } from '@/stores/usePopupStore';
 import { cn } from '@/utils/cn';
 import Image from 'next/image';
 import { redirect } from 'next/navigation';
@@ -15,11 +16,26 @@ const pcContent = `나의 소중한 식물들이 어떻게 자라고 있을지, 
 export default function DiaryStartPage() {
   const isLogin = useAuthStore((state) => state.isLoggedIn);
 
+  const openPopup = usePopupStore((state) => state.openPopup);
+  const closePopup = usePopupStore((state) => state.closePopup);
+
   const handleLogin = () => {
-    if (!isLogin) redirect('/login');
+    if (!isLogin) {
+      openPopup({
+        title: '로그인이 필요한 서비스입니다',
+        description: '로그인 후 그리닝의 서비스를 이용해 보세요',
+        confirmText: '로그인하기',
+        cancelText: '닫기',
+        onConfirm: () => {
+          closePopup();
+          redirect('/login');
+        },
+        onCancel: () => {},
+      });
+    }
   };
 
-  if (isLogin) redirect('/diary/enroll');
+  if (isLogin) return redirect('/diary/enroll');
   return (
     <section
       className={cn(
