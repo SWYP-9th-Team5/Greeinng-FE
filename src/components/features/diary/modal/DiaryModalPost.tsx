@@ -214,17 +214,27 @@ export default function DiaryModalPost({
       dailyRecordId,
     };
 
-    putPetPlantDiaryMutation.mutate(
-      { dailyRecordId, body },
-      {
-        onSuccess: () => {
-          queryClient.invalidateQueries({
-            queryKey: diaryKeys.getPetPlantsTodayInfo(dailyRecordId),
-          });
-          handlePost('content');
-        },
+    handleOpenPopup({
+      title: '수정하시겠습니까?',
+      confirmText: '예',
+      cancelText: '아니오',
+      mode: 'double',
+      onConfirm: () => {
+        handleClosePopup();
+        putPetPlantDiaryMutation.mutate(
+          { dailyRecordId, body },
+          {
+            onSuccess: () => {
+              queryClient.invalidateQueries({
+                queryKey: diaryKeys.getPetPlantsTodayInfo(dailyRecordId),
+              });
+              handlePost('content');
+            },
+          },
+        );
       },
-    );
+      onCancel: () => handleClosePopup(),
+    });
   };
 
   const isLoading =

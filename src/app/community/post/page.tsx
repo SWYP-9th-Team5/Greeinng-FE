@@ -230,16 +230,27 @@ export default function Page() {
         title,
         content: transformContent,
       };
-      putPostMutation.mutate(body, {
-        onSuccess: () => {
-          const findItem = COMMUNITY_LIST.find(
-            ({ value }) => category === value,
-          );
-          queryClient.invalidateQueries({
-            queryKey: postKeys.postDetail(postId),
+
+      handleOpenPopup({
+        title: '수정하시겠습니까?',
+        confirmText: '예',
+        cancelText: '아니오',
+        mode: 'double',
+        onConfirm: () => {
+          handleClosePopup();
+          putPostMutation.mutate(body, {
+            onSuccess: () => {
+              const findItem = COMMUNITY_LIST.find(
+                ({ value }) => category === value,
+              );
+              queryClient.invalidateQueries({
+                queryKey: postKeys.postDetail(postId),
+              });
+              router.replace(`/community/${findItem?.path}/${postId}`);
+            },
           });
-          router.replace(`/community/${findItem?.path}/${postId}`);
         },
+        onCancel: () => handleClosePopup(),
       });
     }
   };

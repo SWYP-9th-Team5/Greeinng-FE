@@ -74,16 +74,7 @@ const PostHeader = ({
 
   const handleModify = () => {
     handleMenuToggle();
-    openPopup({
-      title: '수정하시겠습니까?',
-      confirmText: '예',
-      cancelText: '아니요',
-      mode: 'double',
-      onConfirm: () => {
-        router.push(`/community/post?modifyId=${postId}`);
-      },
-      onCancel: () => {},
-    });
+    router.push(`/community/post?modifyId=${postId}`);
   };
 
   return (
